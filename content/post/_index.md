@@ -1,5 +1,6 @@
 ---
 title: Posts
+layout: posts  # Do not modify.
 
 # View.
 #   1 = List

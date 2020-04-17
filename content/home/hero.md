@@ -50,7 +50,7 @@ hero_media = "gemmi.jpg"
 # [cta_note]
 #   label = '<a class="js-github-release" href="https://sourcethemes.com/academic/updates" data-repo="gcushen/hugo-academic">Latest releaseV</a>'
 +++
-using:
+with:
 
 **Code**
 

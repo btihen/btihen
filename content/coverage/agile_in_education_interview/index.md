@@ -1,30 +1,30 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Patient Explanations Lead to Good Things"
-authors: ["Paul Magnuson", "Bill Tihen"]
-date: 2019-10-16
+title: "Agile in Education: Bill Tihen and Paul Magnuson of Leysin American School"
+authors: ["Bill Tihen", Paul Magnuson"]
+date: 2017-01-17
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: 2020-04-16T19:11:22+02:00
+publishDate: 2020-04-16T18:52:54+02:00
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["2"]
+publication_types: ["0"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Spotlight: Pulling Agile into Education, Fall 2019 (Pages 6-13)"
-publication_short: "Spotlight (Pages 6-13)"
+publication: "Scrum Alliance Video Interview"
+publication_short: "Scrum Alliance"
 
-abstract: "Educational improvements through student choice, self-regulation & challenge."
+abstract: "Incremental implementation of Agile practices to increase collaboration and excitement within the students around their education. They have experienced inspiring breakthroughs with both the students and the teachers."
 
 # Summary. An optional shortened abstract.
-summary: ""
+summary: "Principles to cultivate engaged, collaborative and self-regulated students. A video Interview by Scrum Alliance."
 
-tags: ["Agie", Education", "Coice", "Self-Regulation", "Challenge"]
+tags: ["Agility", "Education"]
 categories: []
 featured: true
 
@@ -36,14 +36,14 @@ featured: true
 #   icon_pack: fab
 #   icon: twitter
 
-url_pdf: https://resources.finalsite.net/images/v1571421333/lasch/x6zkzvqfmlcpc7rxnljy/Spotlight_Magazine_2019_DIGITAL.pdf
+url_pdf:
 url_code:
 url_dataset:
 url_poster:
 url_project:
 url_slides:
 url_source:
-url_video:
+url_video: https://www.youtube.com/watch?v=cV8UQvNcN9s
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 

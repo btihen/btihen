@@ -1,6 +1,6 @@
 ---
-title: Publications
-
+title: News Coverage
+layout: publication  # Do not modify.
 # View.
 #   1 = List
 #   2 = Compact

@@ -1,13 +1,13 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Agile in Education at LAS"
-authors: ["Bill Tihen", "Paul Magnuson", "Howard Sublett"]
-date: 2016-12-01
+title: "Roots of Agile for Education"
+authors: ["Paul Magnuson", "Bill Tihen"]
+date: 2019-12-16
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: 2020-04-16T19:01:41+02:00
+publishDate: 2020-04-17T17:27:48+02:00
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
@@ -16,19 +16,17 @@ publishDate: 2020-04-16T19:01:41+02:00
 publication_types: ["0"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Agile Amped: A SolutionsIQ Podcast"
-publication_short: "Agile Amped"
+publication: ""
+publication_short: ""
 
-abstract: "How would our education system be different using Agile principles and values? That’s what two men who work at the Leysin American School in Switzerland seek to learn. Director of Curriculum Paul Magnuson and Director of IT and Teacher Bill Tihen strive to empower students, make learning visible and to create lifelong learners of students at the Leysin American School. In this In-Depth conversation, Paul and Bill share their thoughts on their experiments with Agile in education over the past three years.
-
-Hosted by Howard Sublett."
+abstract: ""
 
 # Summary. An optional shortened abstract.
-summary: "Principles to empower students, make learning visible and to create lifelong learners"
+summary: ""
 
-tags: ["Agile", "Education"]
+tags: []
 categories: []
-featured: true
+featured: false
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.
@@ -44,7 +42,7 @@ url_dataset:
 url_poster:
 url_project:
 url_slides:
-url_source: https://www.solutionsiq.com/resource/agile-amped-podcast/agile-in-education-at-leysin-american-school-in-switzerland/
+url_source: https://blog.tieonline.com/roots-of-agile-for-education/
 url_video:
 
 # Featured image

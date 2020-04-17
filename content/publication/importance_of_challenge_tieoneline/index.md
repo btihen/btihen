@@ -1,32 +1,32 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Patient Explanations Lead to Good Things"
+title: "Importance of Challenge: Engaged, Deep Learning"
 authors: ["Paul Magnuson", "Bill Tihen"]
-date: 2019-10-16
+date: 2019-12-31
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: 2020-04-16T19:11:22+02:00
+publishDate: 2020-04-17T17:36:54+02:00
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
-publication_types: ["2"]
+publication_types: ["0"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Spotlight: Pulling Agile into Education, Fall 2019 (Pages 6-13)"
-publication_short: "Spotlight (Pages 6-13)"
+publication: ""
+publication_short: ""
 
-abstract: "Educational improvements through student choice, self-regulation & challenge."
+abstract: ""
 
 # Summary. An optional shortened abstract.
 summary: ""
 
-tags: ["Agie", Education", "Coice", "Self-Regulation", "Challenge"]
+tags: []
 categories: []
-featured: true
+featured: false
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.
@@ -36,13 +36,13 @@ featured: true
 #   icon_pack: fab
 #   icon: twitter
 
-url_pdf: https://resources.finalsite.net/images/v1571421333/lasch/x6zkzvqfmlcpc7rxnljy/Spotlight_Magazine_2019_DIGITAL.pdf
+url_pdf:
 url_code:
 url_dataset:
 url_poster:
 url_project:
 url_slides:
-url_source:
+url_source: https://blog.tieonline.com/the-importance-of-context-challenge-and-exploration-so-students-find-and-build-on-their-own-strengths/
 url_video:
 
 # Featured image

@@ -16,15 +16,21 @@ publishDate: 2020-04-17T17:33:36+02:00
 publication_types: ["0"]
 
 # Publication name and optional abbreviated publication name.
-publication: ""
-publication_short: ""
+publication: "The Marketplace for International Education"
+publication_short: "TIE Online"
 
-abstract: ""
+abstract: "On a recent Sunday morning I was playing badminton with my nine-year old daughter. Our rallies were extraordinarily long, we had really gotten the hang of it.
+
+During the long rallies we experienced a feeling of 'uplift', the sense of each one of us doing well on account of the other, the sense that we were able to help each other have the next good shot. Individually we were a good team and being a good team made us good individually. We were in a state of 'flow'.
+
+Uplift, focuses on the creation of an atmosphere in which students build on existing strengths and grow their self-confidence. Students are more likely to find joy in learning when they start from a position of strength, and that redirecting them from distracting activities toward helpful activities is easier. An uplifted atmosphere is full of exploration and meaningful context, one in which stress is reduced by focusing on what students do well.
+
+Dangerous to an atmosphere of uplift are traditional assessment practices."
 
 # Summary. An optional shortened abstract.
-summary: ""
+summary: "Uplift, focuses on the creation of an atmosphere in which students build on existing strengths and grow their self-confidence. Dangerous to an atmosphere of uplift are traditional assessment practices."
 
-tags: []
+tags: ["Agile", "Education", "Uplift", "Challenge", "Engagement", "Confidence", "Non-Judgemental", "Natural Assessment"]
 categories: []
 featured: false
 

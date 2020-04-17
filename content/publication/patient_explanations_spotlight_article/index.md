@@ -17,14 +17,14 @@ publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
 publication: "Spotlight: Pulling Agile into Education, Fall 2019 (Pages 6-13)"
-publication_short: "Spotlight (Pages 6-13)"
+publication_short: "LAS Spotlight (Pages 6-13)"
 
-abstract: "Educational improvements through student choice, self-regulation & challenge."
+abstract: "Reflections on Educational improvements through student choice, self-regulation & challenge. Unfortunately, there are many challenges and obstacles to overcome to cultivate life-long learners ready to take on our ever-changing world."
 
 # Summary. An optional shortened abstract.
-summary: ""
+summary: "Reflections on Educational improvements through student choice, self-regulation & challenge."
 
-tags: ["Agie", Education", "Coice", "Self-Regulation", "Challenge"]
+tags: ["Agie", Education", "Student Coice", "Self-Regulation", "Challenge"]
 categories: []
 featured: true
 
@@ -46,7 +46,7 @@ url_source:
 url_video:
 
 # Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder. 
+# To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
   caption: ""

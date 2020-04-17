@@ -16,15 +16,17 @@ publishDate: 2020-04-17T17:36:54+02:00
 publication_types: ["0"]
 
 # Publication name and optional abbreviated publication name.
-publication: ""
-publication_short: ""
+publication: "The Marketplace for International Education"
+publication_short: "TIE Online"
 
-abstract: ""
+abstract: "Students learn in short iterations, just beyond their current knowledge or comfort level. When they make that small step forward, they are ready for the next iteration, which is again just beyond their current level. Taken all together, they can move well beyond where they started.  This allows students all at levels to thrive.
+
+To do this create teams of students, who choose their own goals and context for these goals (within the guidelines of the class).  Students then explore small aspects of their bigger objective, increasingly building their knowledge as they work and reflect, and then work and reflect some more. Encourage students learn from each other (and come with their research and trials) before asking the teacher for help and guidance."
 
 # Summary. An optional shortened abstract.
-summary: ""
+summary: "Importance of encouraging exploration, context, and challenge."
 
-tags: []
+tags: ["Agile", "Education", "Challenge", "Deep Learning", "Egagement", "Multiple Levels", "Meaningful Context"]
 categories: []
 featured: false
 
@@ -46,7 +48,7 @@ url_source: https://blog.tieonline.com/the-importance-of-context-challenge-and-e
 url_video:
 
 # Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder. 
+# To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
   caption: ""

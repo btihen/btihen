@@ -17,7 +17,7 @@ publication_types: ["6"]
 
 # Publication name and optional abbreviated publication name.
 publication: "Agile and Lean Concepts for Teaching and Learning: Bringing Methodologies from Industry to the Classroom, by Springer Verlag (Pages 115-132)"
-publication_short: "Agile and Lean Concepts for Teaching and Learning (Pages 115-132)"
+publication_short: "Agile and Lean Concepts for Teaching and Learning; Springer Verlag (Pages 115-132)"
 
 abstract: "
     Provides a single point of reference on how agile and lean ideas can be applied in teaching and learning at all levels of education
@@ -28,7 +28,7 @@ abstract: "
 # Summary. An optional shortened abstract.
 summary: "Approaches to encourage learner ownership and self-regulation using Agile Principles"
 
-tags: ["Agile", "Education", "Project Based"]
+tags: ["Agile", "Education", "Project Based", "Self-Regulation"]
 categories: []
 featured: true
 

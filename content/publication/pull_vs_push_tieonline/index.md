@@ -16,15 +16,19 @@ publishDate: 2020-04-17T17:24:45+02:00
 publication_types: ["0"]
 
 # Publication name and optional abbreviated publication name.
-publication: ""
-publication_short: ""
+publication: "The Marketplace for International Education"
+publication_short: "TIE Online"
 
-abstract: ""
+abstract: "Learning needs to change, as much as possible, from an externally driven system pushed at students by the curriculum into an internally driven system in which work is pulled by students, based on their own needs and interests.
+
+A curriculum is first pushed to us (perhaps by the State, or an adopted off-the-shelf curriculum, or the school’s administration, or all three), then we push the subjects and the content of those subjects to our students. We also push course requirements, assignments, grading systems, and due dates. For that matter, we push our viewpoints, directly or indirectly.  And all of us, teachers and students, get rated in one form or another on how well we helped push the prescribed curriculum.
+
+This system is so ubiquitous we tend not to see it. It is the water we swim in, it’s just how things are. So let’s point out three major practices that would have to change to decrease how hard we are pushing and increase the chance for students to do more pulling. "
 
 # Summary. An optional shortened abstract.
-summary: ""
+summary: "Learning needs to change, ideally schools could adopt a student-pulled curriculum (instead of push), based on their own needs and interests."
 
-tags: []
+tags: ["Agile", "Education", "Effectiveness", "Student Choice"]
 categories: []
 featured: false
 

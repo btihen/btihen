@@ -16,15 +16,22 @@ publishDate: 2020-04-17T17:27:48+02:00
 publication_types: ["0"]
 
 # Publication name and optional abbreviated publication name.
-publication: ""
-publication_short: ""
+publication: "The Marketplace for International Education"
+publication_short: "TIE Online"
 
-abstract: ""
+abstract: "So what’s agility? You’ll get different answers from different people, but you’ll likely pick up on a strong leitmotif of collaborative work, completed in short iterations, with lots of feedback informing the team and the work along the way.
+
+There’s a document describing the basic elements, written in software terms, called the Agile Manifesto. The document stresses (and the bullets are a direct quote):
+
+- Individuals and interactions over processes and tools
+- Working software over comprehensive documentation
+- Customer collaboration over contract negotiation
+- Responding to change over following a plan"
 
 # Summary. An optional shortened abstract.
-summary: ""
+summary: "So what’s agility? You’ll get different answers from different people, but you’ll likely pick up on a strong leitmotif of collaborative work."
 
-tags: []
+tags: ["Agile", "Education", "Collaboration", "Manifesto", "People Focus"]
 categories: []
 featured: false
 

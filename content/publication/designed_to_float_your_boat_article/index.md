@@ -17,14 +17,14 @@ publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
 publication: "Global Insights: The Language & Design of Learning (Pages 9-12)"
-publication_short: "Global Insights (Pages 9-12)"
+publication_short: "ECIS Global Insights (Pages 9-12)"
 
-abstract: "Student engagement and excellence through stundent choice, buy-in and challenge."
+abstract: "Student engagement and excellence through stundent choice, buy-in and challenge.  This can be accomplished with well designed STEAM Projects.  Boat design includes: Analytical Geometry, 3-D Printing, Set Theory, Programming Basics, Iterative Deisgn, Physics of Fluid Dynamics and Bouancy, Workflow, Project Management, Design Feedback, Marketing (Images, Copy & Selling Ideas) and finally Public Speaking."
 
 # Summary. An optional shortened abstract.
-summary: "Student engagement and excellence through stundent choice, buy-in and challenge."
+summary: "STEAM Projects provide an excellent avenue for student engagement and excellence through stundent choice, buy-in and challenge."
 
-tags: ["Agile", Education", "Engagement", "Choice", "Challenge"]
+tags: ["Agile", Education", "Engagement", "Student Choice", "Challenge"]
 categories: []
 featured: true
 

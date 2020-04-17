@@ -16,15 +16,15 @@ publishDate: 2020-04-17T17:31:32+02:00
 publication_types: ["0"]
 
 # Publication name and optional abbreviated publication name.
-publication: ""
-publication_short: ""
+publication: "The Marketplace for International Education"
+publication_short: "TIE Online"
 
-abstract: ""
+abstract: "Students must learn to give, hear, and accept feedback. There four steps for students to give/get safe and effective feedback."
 
 # Summary. An optional shortened abstract.
-summary: ""
+summary: "Four steps for students to give/get safe and effective feedback."
 
-tags: []
+tags: ["Agile", "Education", "Feedback", "Emotional Safety", "Student Choice"]
 categories: []
 featured: false
 

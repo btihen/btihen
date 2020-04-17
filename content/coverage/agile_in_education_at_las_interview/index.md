@@ -16,8 +16,8 @@ publishDate: 2020-04-16T19:01:41+02:00
 publication_types: ["0"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Agile Amped: A SolutionsIQ Podcast"
-publication_short: "Agile Amped"
+publication: "AgileAmped: A SolutionsIQ Podcast"
+publication_short: "AgileAmped by SolutionsIQ"
 
 abstract: "How would our education system be different using Agile principles and values? That’s what two men who work at the Leysin American School in Switzerland seek to learn. Director of Curriculum Paul Magnuson and Director of IT and Teacher Bill Tihen strive to empower students, make learning visible and to create lifelong learners of students at the Leysin American School. In this In-Depth conversation, Paul and Bill share their thoughts on their experiments with Agile in education over the past three years.
 

@@ -17,14 +17,16 @@ publication_types: ["0"]
 
 # Publication name and optional abbreviated publication name.
 publication: ""
-publication_short: ""
+publication_short: "Agile Classrooms"
 
-abstract: ""
+abstract: "LAS began planning in 2014-2015 for the opening of a middle school (grades 7 and 8) in Fall 2016. Using the core principles of Scrum and the latest research on effective learning, participants designed their own highly visible learning radiators, used the Learning Rhythm as an iterative learning cycle, and created their own vision of 21st Century learning.
+
+In 2015-2016 a small committee will use the concept of the Visible Classroom to visually manage their work for increased transparency and collaboration. Even as LAS designs instruction to support greater student self-regulation through Agile principles, they’ll be gaining greater experience with Agile … by using it!"
 
 # Summary. An optional shortened abstract.
-summary: ""
+summary: "LAS began planning in 2014-2015 for the opening of a middle school (grades 7 and 8) in Fall 2016. Twenty-five educators attended John’s Agile Classroom Workshop."
 
-tags: []
+tags: ["Agile", "Agile Classrooms", "Middle School", "John Miller", "Scrum Workshop"]
 categories: []
 featured: false
 

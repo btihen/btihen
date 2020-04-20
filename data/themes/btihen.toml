@@ -1,0 +1,29 @@
+# Theme metadata
+name = "btihen"
+
+# Is theme light or dark?
+light = true
+
+# Primary
+primary = "#00008b"
+# primary = "#3f51b5"
+
+# https://www.sessions.edu/color-calculator-results/?colors=8b0000,008b00,00008b,8b4600
+# HEX: #8b0000	R: 139	G: 0	  B: 0	  C: 0	  M: 100	Y: 100	K: 45
+# HEX: #008b00	R: 0	  G: 139	B: 0	  C: 100	M: 0	  Y: 100	K: 45
+# HEX: #00008b 	R: 0	  G: 0	  B: 139	C: 100	M: 100	Y: 0	  K: 45
+# HEX: #8b4600	R: 139	G: 70	  B: 0	  C: 0	  M: 50	  Y: 100	K: 45
+
+# Menu
+menu_primary = "#00008b" # 500
+menu_text = "#fff"
+menu_text_active = "#8c9eff" # A100
+menu_title = "#fff"
+# menu_primary = "#3f51b5" # 500
+# menu_text = "#fff"
+# menu_text_active = "#8c9eff" # A100
+# menu_title = "#fff"
+
+# Home sections
+home_section_odd = "rgb(255, 255, 255)"
+home_section_even = "rgb(247, 247, 247)"

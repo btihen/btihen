@@ -8,7 +8,7 @@ active = true     # Activate this widget? true/false
 weight = 100       # Order that this section will appear.
 
 title = "Coverage"
-subtitle = ""
+subtitle = "In the News"
 
 [content]
   # Page type to display. E.g. post, talk, or publication.

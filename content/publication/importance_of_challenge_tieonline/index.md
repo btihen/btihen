@@ -1,30 +1,32 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Demos and Feedback in the Classroom"
+title: "Importance of Challenge: Engaged, Deep Learning"
 authors: ["Paul Magnuson", "Bill Tihen"]
-date: 2020-02-18
+date: 2019-12-31
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: 2020-04-17T17:31:32+02:00
+publishDate: 2020-04-17T17:36:54+02:00
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
-# 7 = Thesis; 8 = Patent
-publication_types: ["0"]
+# 7 = Thesis; 8 = Patent; 9 = Website; 10 = Podcast; 11 = Video; 12 = Blog
+publication_types: ["12"]
 
 # Publication name and optional abbreviated publication name.
 publication: "The Marketplace for International Education"
 publication_short: "TIE Online"
 
-abstract: "Students must learn to give, hear, and accept feedback. There four steps for students to give/get safe and effective feedback."
+abstract: "Students learn in short iterations, just beyond their current knowledge or comfort level. When they make that small step forward, they are ready for the next iteration, which is again just beyond their current level. Taken all together, they can move well beyond where they started.  This allows students all at levels to thrive.
+
+To do this create teams of students, who choose their own goals and context for these goals (within the guidelines of the class).  Students then explore small aspects of their bigger objective, increasingly building their knowledge as they work and reflect, and then work and reflect some more. Encourage students learn from each other (and come with their research and trials) before asking the teacher for help and guidance."
 
 # Summary. An optional shortened abstract.
-summary: "Four steps for students to give/get safe and effective feedback."
+summary: "Importance of encouraging exploration, context, and challenge."
 
-tags: ["Agile", "Education", "Feedback", "Emotional Safety", "Student Choice"]
+tags: ["Agile", "Education", "Challenge", "Deep Learning", "Egagement", "Multiple Levels", "Meaningful Context"]
 categories: []
 featured: false
 
@@ -42,7 +44,7 @@ url_dataset:
 url_poster:
 url_project:
 url_slides:
-url_source: https://blog.tieonline.com/demos-and-feedback-students-learning-from-each-other/
+url_source: https://blog.tieonline.com/the-importance-of-context-challenge-and-exploration-so-students-find-and-build-on-their-own-strengths/
 url_video:
 
 # Featured image

@@ -12,5 +12,9 @@ types = [ "pub_uncat",        # 0
           "pub_webpage",      # 9
           "pub_podcast",      # 10
           "pub_video",        # 11
-          "pub_blog"          # 12
+          "pub_blog",         # 12
+          "pub_trad_media",   # 13
+          "pub_soc_media",    # 14
+          "pub_conf_webinar", # 15
+          "pub_conf_talk"     # 16
         ]

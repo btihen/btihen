@@ -193,7 +193,19 @@
   translation: Video
 
 - id: pub_blog
-  translation: Blog
+  translation: Blog Post
+
+- id: pub_trad_media
+  translation: Traditional Media
+
+- id: pub_soc_media
+  translation: Social Media
+
+- id: pub_conf_webinar
+  translation: Conference Webinar
+
+- id: pub_conf_talk
+  translation: Conference Presentation
 
 # Project details
 

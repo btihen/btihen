@@ -52,8 +52,8 @@ url_video: https://www.youtube.com/watch?v=N_3ZU3BINug
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
   caption: "Student Retrospective Guide"
-  focal_point: "Right"
-  preview_only: false
+  focal_point: "Top"
+  preview_only: true
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.

@@ -49,8 +49,8 @@ url_video:
 # To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  caption: ""
-  focal_point: ""
+  caption: "Tie Oneline Header"
+  focal_point: "Top"
   preview_only: false
 
 # Associated Projects (optional).

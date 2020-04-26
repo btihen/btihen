@@ -51,8 +51,8 @@ url_video:
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  caption: ""
-  focal_point: ""
+  caption: "Agile Classroom Header"
+  focal_point: "Right"
   preview_only: false
 
 # Associated Projects (optional).
@@ -69,3 +69,6 @@ projects: []
 #   Otherwise, set `slides: ""`.
 slides: ""
 ---
+To help incorporate Agile into their school, they [Paul Magnuson and Bill Tihen] brought in John Miller, a Certified Scrum Coach and Chief Empowerment Officer of Agile Classrooms, for two days of training. The Scrum Alliance has been a big supporter of John’s commitment to using Scrum to transform the world of education ever since he unveiled the first classroom to use Scrum at the Atlanta Scrum Gathering in 2010. When the Scrum Alliance, the largest Agile organization in the world, heard of Paul and Bill’s desire to implement Scrum for their students, they stepped up to sponsor the event. The Swiss Group of International Schools also co-sponsored the workshop.
+
+The Agile Classrooms Workshop

@@ -49,9 +49,9 @@ url_video:
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  caption: ""
-  focal_point: ""
-  preview_only: false
+  caption: "Global Insights Web Header"
+  focal_point: "Top"
+  preview_only: true
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.
@@ -67,3 +67,15 @@ projects: []
 #   Otherwise, set `slides: ""`.
 slides: ""
 ---
+
+Student boat (before 3-D printing)
+![Student Katamaran Boat](student_katamaran_boat.png)
+
+Student boat (with code)
+![Student Katamaran Boat](student_boat_with_code.png)
+
+Student boat (with code)
+![Blank Burndown Chart](blank_burndown_chart.png)
+
+Student Retrospective Guide
+![Student Retrospective Guide](boat_retrospectives.png)

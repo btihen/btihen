@@ -49,9 +49,9 @@ url_video:
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  caption: ""
-  focal_point: ""
-  preview_only: false
+  caption: "Profile View of Climate Case"
+  focal_point: "Center"
+  preview_only: true
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.
@@ -67,3 +67,7 @@ projects: []
 #   Otherwise, set `slides: ""`.
 slides: ""
 ---
+
+![Climate Case Profile](climate_case_profile.jpeg)
+![Climate Case Electronics](climate_case_electronics.jpeg)
+![Climate Case Grow Space](climate_case_internal.jpeg)

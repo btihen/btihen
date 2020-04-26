@@ -5,7 +5,7 @@ headless = true  # This file represents a page section.
 active = true    # Activate this widget? true/false
 weight = 10      # Order that this section will appear.
 
-title = "Implement Ideas"
+title = "Implement"
 
 # Hero image (optional). Enter filename of an image in the `static/img/` folder.
 hero_media = "gemmi.jpg"
@@ -51,8 +51,6 @@ hero_media = "gemmi.jpg"
 #   label = '<a class="js-github-release" href="https://sourcethemes.com/academic/updates" data-repo="gcushen/hugo-academic">Latest releaseV</a>'
 +++
 with:
-
-**Code**
 
 **Curiosity**
 

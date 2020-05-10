@@ -4,8 +4,8 @@
 title: "Kanban Usage"
 subtitle: ""
 summary: ""
-authors: []
-tags: []
+authors: ["Bill Tihen", "Elliott Hebert"]
+tags: ["kanban"]
 categories: []
 date: 2020-05-03T19:25:09+02:00
 lastmod: 2020-05-03T19:25:09+02:00
@@ -51,7 +51,7 @@ Some teacher often require a draft `Review` before final submissions, engineers 
 
 Ideally when using this technique you keep the number of simultaneous tasks **(WIP)** to a minimum
 
-> The number of simultaneous tasks is called `work-in-progress` or abbreviated as `WIP`  
+> The number of simultaneous tasks is called `work-in-progress` or abbreviated as `WIP`
 
 Education, unfortunately, expects a lot of simultaneous tasks within a variety of classes.  To address this we can use `swim-lanes` to track our priorities with a jumble of independent projects (classes).  For example: we might have swim-lanes for: English, Mathematics, Science, ...
 

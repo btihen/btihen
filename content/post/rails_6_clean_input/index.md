@@ -5,12 +5,12 @@ title: "Rails_6_clean_input"
 subtitle: ""
 summary: "Rails 6 makes it easy to format inputs"
 authors: ["Bill Tihen"]
-tags: ["rails", "input"]
+tags: ["Rails 5", "Rails 6", "Types", "Virtual Attributes", "Clean Input"]
 categories: []
 date: 2020-04-14T18:57:00+02:00
 lastmod: 2020-04-14T18:57:00+02:00
 featured: false
-draft: false
+draft: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.

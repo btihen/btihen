@@ -5,12 +5,12 @@ title: "Smallify_effective_learning"
 subtitle: ""
 summary: ""
 authors: []
-tags: []
+tags: ["smallify", "littlebets"]
 categories: []
 date: 2020-05-03T19:26:25+02:00
 lastmod: 2020-05-03T19:26:25+02:00
 featured: false
-draft: false
+draft: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.

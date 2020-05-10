@@ -5,12 +5,12 @@ title: "Plan, Do, Reflect"
 subtitle: ""
 summary: ""
 authors: []
-tags: []
+tags: ["smallify", "littlebets"]
 categories: []
 date: 2020-05-03T19:25:32+02:00
 lastmod: 2020-05-03T19:25:32+02:00
 featured: false
-draft: false
+draft: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.

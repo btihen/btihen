@@ -5,8 +5,8 @@ title: "Kanban Usage"
 subtitle: ""
 summary: ""
 authors: ["Bill Tihen", "Elliott Hebert"]
-tags: ["kanban"]
-categories: []
+tags: ["Kanban"]
+categories: ["Agile"]
 date: 2020-05-03T19:25:09+02:00
 lastmod: 2020-05-03T19:25:09+02:00
 featured: false

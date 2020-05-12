@@ -5,8 +5,8 @@ title: "Phoenix 1.5 LiveView & PubSub Basics"
 subtitle: "Create a Dynamic Web GUI without JavaScript!"
 summary: "Create a simple web counter app to learn how Phoenix 1.5 LiveView works.  Phoenix LiveView allows dynamic webpages with fast update times -- without JavaScript."
 authors: ["Bill Tihen"]
-tags: []
-categories: []
+tags: ["Elixir", "Phoenix", "LiveView", "PubSub", "Interactive"]
+categories: ["Code"]
 date: 2020-05-10T17:01:53+02:00
 lastmod: 2020-05-10T17:01:53+02:00
 featured: false

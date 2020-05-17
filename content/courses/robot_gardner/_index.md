@@ -1,14 +1,14 @@
 ---
 # Course title, summary, and position.
-linktitle: An Example Course
-summary: Learn how to use Academic's docs layout for publishing online courses, software documentation, and tutorials.
-weight: 1
+linktitle: Robot Gardner
+summary: Sensors, electronics, and coding
+weight: 300
 
 # Page metadata.
-title: Overview
+title: Robot Gardner
 date: "2018-09-09T00:00:00Z"
 lastmod: "2018-09-09T00:00:00Z"
-draft: true  # Is this a draft? true/false
+draft: false  # Is this a draft? true/false
 toc: true  # Show table of contents? true/false
 type: docs  # Do not modify.
 
@@ -16,9 +16,9 @@ type: docs  # Do not modify.
 # - name: Declare this menu item as a parent with ID `name`.
 # - weight: Position of link in menu.
 menu:
-  example:
-    name: Overview
-    weight: 1
+  robot_gardner:
+    name: Robot Gardner
+    weight: 300
 ---
 
 ## Flexibility

@@ -4,14 +4,14 @@ linktitle: Tips 1-2
 toc: true
 type: docs
 date: "2019-05-05T00:00:00+01:00"
-draft: true
+draft: false
 menu:
-  example:
-    parent: Objectives
-    weight: 1
+  boat_design:
+    parent: Example Topic
+    weight: 201
 
 # Prev/next pager order (if `docs_section_pager` enabled in `params.toml`)
-weight: 1
+weight: 201
 ---
 
 In this tutorial, I'll share my top 10 tips for getting started with Academic:

@@ -75,7 +75,7 @@ touch lib/counter_web/live/counter_live/index.ex
 ```
 
 Add the following contents:
-```
+{{< highlight elixir "linenos=table,linenostart=1" >}}
 # lib/counter_web/live/counter_live/index.ex
 defmodule CounterWeb.CounterLive.Index do
   use CounterWeb, :live_view
@@ -125,17 +125,17 @@ defmodule CounterWeb.CounterLive.Index do
   end
 
 end
-```
+{{< / highlight >}}
 
 Now update the routers (so we can get to the new webpage -- now our app should work:
-```
+{{< highlight elixir "linenos=table,linenostart=1" >}}
   scope "/", CounterWeb do
     pipe_through :browser
 
     # live "/", PageLive, :index        # remove this line
     live "/", CounterLive.Index, :index # add this line
   end
-```
+{{< / highlight >}}
 
 Start pheonix:
 
@@ -170,7 +170,7 @@ touch test/counter_web/live/counter_live_text.exs
 ```
 
 Here is the code for our new test: it basically just checks to be sure our Title is on the page:
-```
+{{< highlight elixir "linenos=table,linenostart=1" >}}
 # test/counter_web/live/counter_live_text.exs
 defmodule CounterWeb.CounterLiveTest do
   use CounterWeb.ConnCase
@@ -184,7 +184,8 @@ defmodule CounterWeb.CounterLiveTest do
   end
 
 end
-```
+{{< / highlight >}}
+
 Now we can test again: `mix test`
 
 Now that works, lets take another git snapshot:
@@ -201,7 +202,7 @@ Create a template file (helpful for complex html pages, but simple to create):
 
 Now just copy the html (from the render method into this file):
 
-```
+{{< highlight "linenos=table,linenostart=1" >}}
 # lib/counter_web/live/counter_live/index.html.leex
 <h1>Live Counter</h1>
 <p>
@@ -220,11 +221,11 @@ Now just copy the html (from the render method into this file):
 <p>
   <i>even more awesome content</i>
 </p>
-```
+{{< / highlight >}}
 
 Now point `lib/counter_web/live/counter_live/index.ex` to this file by replacing render with an apply command:
 
-```
+{{< highlight elixir "linenos=table,linenostart=1" >}}
   # add this new function
   defp apply_action(socket, :index, _params) do
     socket
@@ -235,7 +236,7 @@ Now point `lib/counter_web/live/counter_live/index.ex` to this file by replacing
   #   ...
   #   """
   # end
-```
+{{< / highlight >}}
 
 **NOTE:** `apply_action` understands the **rest** verbs such as `:new`, `:show` etc.
 
@@ -264,7 +265,7 @@ Move the dynamic html and it's associated functions into this file, it's importa
 In order to encapsulate the events into the component we will also move the event handlers into the component file.
 
 So this file will now look like:
-```
+{{< highlight elixir "linenos=table,linenostart=1" >}}
 # lib/counter_web/live/counter_live/counter_component.ex
 defmodule CounterWeb.CounterLive.CounterComponent do
   use CounterWeb, :live_component
@@ -296,7 +297,7 @@ defmodule CounterWeb.CounterLive.CounterComponent do
   end
 
 end
-```
+{{< / highlight >}}
 
 Notice the button tags are slightly more complex
 
@@ -316,7 +317,7 @@ its a little wierd, but we need to pass an **id** even if there is no ecto backe
 
 Now the template file looks like a normal template file again (focused on formating):
 
-```
+{{< highlight elixir "linenos=table,linenostart=1" >}}
 # lib/counter_web/live/counter_live/index.ex
 defmodule CounterWeb.CounterLive.Index do
   use CounterWeb, :live_view
@@ -343,7 +344,8 @@ defmodule CounterWeb.CounterLive.Index do
   end
 
 end
-```
+{{< / highlight >}}
+
 Lets check that this still works.
 
 Assuming it still works, I'll make one last git snapshot:

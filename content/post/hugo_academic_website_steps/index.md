@@ -1,9 +1,9 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Publish Hugo Website using Github"
+title: "Hugo Website using Github"
 subtitle: "Using the Academic Theme"
-summary: "githug and submodules to publish a hugo site"
+summary: "hugo web (with the Academic Theme) and using git submodules and github to publish a free website"
 authors: ["Bill Tihen"]
 tags: ["Hugo", "Static Site", "git", "submodules"]
 categories: ["code"]
@@ -28,17 +28,17 @@ image:
 projects: []
 ---
 
-## install hugo
+### step 0: install hugo
 
 ```
 brew install hugo
 ```
 
-## create an `username_website` repo on your github
+### step 1: create a **public** `username_website` repo
 
-I'll assume your github account is `username`
+I'll assume your github account is `username` I think this repo needs to be publicly readable (not 100% sure)
 
-## clone the academic repo locally
+### step 2: clone the academic hugo locally
 
 ```
 git clone https://github.com/sourcethemes/academic-kickstart.git username_website
@@ -48,7 +48,16 @@ git submodule update --init --recursive  # without this the site won't start cor
 
 be sure you have many files within: **`themes/academic`**
 
-## point this repo to your `username_website` repo
+### step 3: Update .gitignore & public folder
+
+1. update `.gitignore` remove the line with `public`
+2. be sure there is no `public` folder (yet), if there is remove it and all its contents.
+
+### step 4: point this repo to your `username_website` repo
+
+I have found the easiest way to overwrite the source `origin` repo is to do this by hand.
+
+Currently your `.git/config` file will currently look like (notice the url referencing: `git://github.com/sourcethemes/academic-kickstart.git` - this is what we need to update):
 
 ```
 [core]
@@ -66,12 +75,12 @@ be sure you have many files within: **`themes/academic`**
 	merge = refs/heads/master
 ```
 
-change the origin url usuing:
+change the origin url by hand or by using sed:
 ```
 sed -i.bak -e 's/https:\/\/github.com\/sourcethemes\/academic-kickstart.git/git@github.com:username\/username_website.git/' .git/config
 ```
 
-Now this file should look like:
+when your `.git/config` file is correct it will look like:
 ```
 [core]
 	repositoryformatversion = 0
@@ -98,15 +107,15 @@ git push -u origin --all
 # git push -u origin master
 ```
 
-## configure website basics
+### step 5: configure website basics
 
-### Set your site name:
+#### 5A: Set your site name:
 
 in `config/_default/config.toml`
 
 find the `title` attribute and set it to `username` (or whatever is appropriate)
 
-### Pick a themes
+#### 5B: Pick a themes
 
 from https://sourcethemes.com/academic/themes/
 
@@ -114,7 +123,7 @@ in `config/_default/config.toml`
 
 find the `theme` attribute and set it to your favorite theme color (or leave it as is)
 
-### site logo & favicon
+#### 5C: site logo & favicon
 
 Put your image files into assets/images:
 * `logo.png` (the logo on your webpage) file and
@@ -122,7 +131,7 @@ Put your image files into assets/images:
 
 You can go to `https://www.namecheap.com/logo-maker` and make a logo
 
-### menu items
+#### 5D: menu items
 
 in `config/_default/menus.toml`
 
@@ -149,7 +158,7 @@ These will also be the sections on the home page that will be enabled and config
 
 The larger the weight the further to the **right** the item will be shown.
 
-## configure site parameters
+### step 6: configure site parameters
 
 You may want to read through all the params - but the ones listed here are enough to get started.
 
@@ -160,7 +169,7 @@ You may want to read through all the params - but the ones listed here are enoug
 * **configure social details** -- optional
 * **Regional Settings** -- NOTE: The date display settings seems to have a bug -- so I don't recommend adjusting that.
 
-## configure your homepage
+### step 7: configure your homepage
 
 At this point I suggest starting `hugo server` so you can watch your edits.
 
@@ -172,15 +181,17 @@ Now go into the folder `content/home` and we will adjust or disable the files in
 * **`contact.md`** - review and see if changes are desired.
 * **`accomplishments.md`** - (and all other home page sections you decide not to display) change `active=true` to **`active=false`**
 
-### `about` page
+#### 7A: `about` page
 
-* **`about.md`** - I have changed the title to `about` -- NOTE: the material displayed here comes from the page: `content/authours/admin` (or whatever name you change the folder to -- be sure to use the same name in `content/home/about.md` in the variable `author = "admin"`)
+I prefer to use the `about` page when it is a person's site and the `people` page when the site is about a group effort.
+
+* **`about.md`** - I change the title to `about` -- NOTE: the material displayed here comes from the page: `content/authours/admin` (or whatever name you change the folder to -- be sure to use the same name in `content/home/about.md` in the variable `author = "admin"`)
 
 Now adjust the file: `content/authors/admin/_index.md` -- below the `---` toward the end of the file you can add your own free text to the about page.
 
 now add a nice image (of the person or org to this folder and call it: **`avatar.jpeg`**)
 
-### `people` (or Team) page
+#### 7B: `people` (or Team) page
 
 To create a list of peolple and their bios for a site.
 
@@ -197,66 +208,134 @@ edit **`people.md`**
 Now create additional folders in: `content/authors/`
 for example I might make a page for me with:
 ```
-mkdir content/authors/btihen
-cp content/authors/admin/_index.md content/authors/btihen/_index.md
+mkdir content/authors/person_name
+cp content/authors/admin/* content/authors/person_name/*
 ```
 
-now edit: `content/authors/btihen/_index.md`
+* edit: `content/authors/person_name/_index.md` to match the person
+* add to: `content/authors/person_name/_index.md` the variable: `user_groups = ["Educators"]` _(one or more of the groups listed in the [content] tag)_
+* replace `content/authors/person_name/avatar.png` with a photo of the person (or delete the file if no photo is desired)
 
-it is important to add the variable: `user_groups = ["Educators"]` (one or more of the groups)
 
-of course edit the settings to match the person's profile.
+### step 8: Test publish to `username.github.io`
 
-### when the site is good enough in your localbrowser its time to take a git snapshot and publish.
+When you site is good enough to publish then its time to follow the following steps (these MUST be done in order to prevent problems!)
 
-edit your `.gitignore` file to track `public` (just delete this line)
+#### 8A: public folder (non-existent)
 
-now create your git snapshot:
+The first time you do setup for publishing it is important this folder doesn't exist yet and that `public` isn't listed in the .gitignore` file
+
+#### 8B: git snapshot
+
+**(DO NOT YET GENERATE your website)**
+
+Create your git snapshot (very important at this point since the next steps are tricky)
 ```
 git add .
 git commit -m "First draft of homepage"
 git push
 ```
 
-now we will generate the `static` site for our webpage
-```
-hugo -d public
-git add .
-git commit -m "added static pages to publish"
-```
+#### 8C: make second github repo **`username.github.io`**
 
-## setup your site to to publish a github webpage!
+Now make a second **public** repo (CLICK THE BOX TO INCLUDE A **README** and/or a **LISENCE** file!) on github called **`username.github.io`**, this MUST be exactly: `username.github.io` for this to work!
 
-This is a little tricky, but quite workable.
+Double check your repo is not empty, but has a **README** and/or a **LISENCE** file.
 
-First we need to make a second repo on github called: `username.github.io` it MUST be exactly your username.github.io for this to work.
+NOW go to github repo **settings** and click on **manage access** and be sure you have permission to at administer (or at least write to this repo) -- probably not so click the **`invite teams or people`** button and add yourself as an admin (an other as needed).
 
-CREATE with A README (or add one) before now -- before this next step!
 
-now go back into your website code and type:
+#### 8D: clone **`username.github.io`** to public (within your Hugo project)
+
+now go back into your website code (root folder) and type:
 ```
 git clone https://github.com/username/username.github.io.git public
 ```
-if you see: `warning: You appear to have cloned an empty repository.` -- you will have problems!
+if you see: `warning: You appear to have cloned an empty repository.` -- go back to the repo and create a README file!
 
-Now add the username.github.io repo as a submodule to your website code repo using:
+#### 8E: check your permissions
+
+enter you public folder and create an `index.html` file and put in very simple html code: `<h1>Hello username.github.io</h1>`
+
 ```
+cd public
+touch index.html
+echo '<h1>Hello username.github.io</h1>' >> index.html
+```
+
+now check this in and push it to github.
+```
+git add .
+git commit -m "test webpage"
+git push
+```
+
+At this point you should see a bunch of message and toward the end you should see a line with:
+```
+To github.com:username/username.github.io.git
+```
+
+If instead you get the error:
+```
+remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
+fatal: unable to access 'https://github.com/peakchallenges/peakchallenges.github.io.git/': The requested URL returned error: 403
+```
+
+go back and check your site permissions.
+
+If site permissions aren't a problem do the following:
+
+re-create your website repo `username.github.io.git` outside the webcode project.
+```
+git clone git@github.com:username/username.github.io.git
+cd username.github.io
+echo '<h1>Hello username.github.io - v1</h1>' >> index.html
+git add index.html
+git commit -m "update readme and test permissions"
+git push
+```
+
+assuming this works then move this repo into the hugo repo:
+```
+rm -rf username_website/public
+mv username.github.io username_website/public
+cd username_website/public
+echo '<h1>Hello username.github.io - v2</h1>' >> index.html
+git commit -am "update readme and test permissions within hugo project"
+git push
+```
+
+
+#### 8F: check the website
+
+Wait a few minutes and go to the website `https://username.github.io` and be sure you see your newly published html page.
+
+
+### step 9: configure `public` as a **submodule**
+
+Now add the username.github.io repo as a submodule to your website code repo using.  This allows nested projects without confusing git.
+
+First be sure you are in the hugo root and not the public folder and type:
+```
+cd public
 git submodule add -b master https://github.com/username/username.github.io.git public`
 ```
-
-now in `.git/config` you might see:
+now in `.git/modules` you might see a folder called `public` (with a bunch of stuff in it) if not simply edit your `.git/config` so that after:
 ```
 [submodule "themes/academic"]
   path = themes/academic
   url = https://github.com/gcushen/hugo-academic.git
+```
 
+you see:
+```
 [submodule "public"]
   path = public
   url = https://github.com/username/username.github.io.git
   branch = master
 ```
 
-if not add it with:
+You can add it by hand or with:
 ```
 cat <<"EOF" >> git/config
 [submodule "public"]
@@ -266,12 +345,9 @@ cat <<"EOF" >> git/config
 EOF
 ```
 
-NOW go to github repo **settings** and click on **manage access** and be sure you have permission to at administer (or at least write to this repo) -- probably not so click the **`invite teams or people`** button and add yourself as an admin (an other as needed).
+### step 10: publish your new Hugo webpage:
 
-
-## publish your new github webpage:
-
-do the following:
+Now to publish the Hugo site you prepared do the following:
 ```
 hugo -d public
 cd public
@@ -281,44 +357,10 @@ git push
 # toward the end you should see: `To github.com:username/username.github.io.git`
 cd ..
 ```
+Follow this proceedure every time you update your site.
 
-if you get the error:
-```
-remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
-fatal: unable to access 'https://github.com/peakchallenges/peakchallenges.github.io.git/': The requested URL returned error: 403
-```
+NOTE: BE SURE NOT TO delete the folder `public/.git/` or you will need to reconfigure your public submodule.
 
-then go back and fix the permissions in the last step.
+now go back to `https://username.github.io` and you should see your hugo site!
 
-If that still is a problem, then re-create your local repo `username.github.io.git` outside the webcode project.
-```
-git clone git@github.com:username/username.github.io.git
-cd username.github.io
-# update the readme
-git commit -am "update readme and test permissions"
-git push
-```
-assuming this works:
-```
-rm -rf username_website/public
-mv username.github.io username_website/public
-cd username_website/public
-# update the readme again
-git commit -am "update readme and test permissions within webcode"
-git push
-```
-
-assuming this now works do:
-```
-cd ..
-hugo -d public
-cd public
-git add .
-git commit -m "publish new content on: xx-xx-xxxx"
-git push
-cd ..
-git status
-# commit if needed
-```
-
-now to go https://username.github.io/ (it might take a few minutes to publish)
+(This might take a few minutes -- up to a half-hour -- to publish)

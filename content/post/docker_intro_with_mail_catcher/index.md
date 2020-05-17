@@ -63,21 +63,21 @@ CMD ["--ip", "0.0.0.0"]
 Now you can download the docker image and install the gems into it with:
 ```
 # -t adds repository:tag info -- the '.' at the end is important:
-docker build -t btihen/mailcatcher:ruby_2.6 .
+docker build -t btihen.azurecr.io/ruby/mailcatcher:ruby_2.6 .
 # ...
 # should end with something like
 # Successfully built 21e0de2bdd68
 
-# now tag it as the lasted image:
-docker build -t garaio.azurecr.io/garaio/mailcatcher:latest .
+# now tag it as the **lasted** image with:
+docker build -t btihen.azurecr.io/ruby/mailcatcher:latest .
 ```
 
 now you can see your list of docker images (you should see the starting image/container we just created):
 ```
 docker images
 REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
-garaio.azurecr.io/gario/mailcatcher   latest              21e0de2bdd68        8 minutes ago       870MB
-garaio.azurecr.io/gario/mailcatcher   ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
+btihen.azurecr.io/ruby/mailcatcher    latest              21e0de2bdd68        8 minutes ago       870MB
+btihen.azurecr.io/ruby/mailcatcher    ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
 ruby                                  2.6                 a98425292e84        2 weeks ago         843MB
 ```
 
@@ -87,7 +87,7 @@ Now start the docker image using the build image id (`-d` allows it to run in th
 
 ```
 # build a container so we can test our image
-docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher garaio.azurecr.io/garaio/mailcatcher:latest
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen.azurecr.io/ruby/mailcatcher:latest
 
 # or if you like ids better
 docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher 21e0de2bdd68
@@ -159,26 +159,26 @@ To restart mailcatcher at a later date simply type:
 
 ```
 # login to the Azure Container Repository
-docker login garaio.azurecr.io -u garaio -p see_keypass_vault
+docker login btihen.azurecr.io -u username -p xxxxxxxxxxx
 
 # upload the new image
-docker push garaio.azurecr.io/garaio/mailcatcher
+docker push btihen.azurecr.io/ruby/mailcatcher
 ```
 
 ### **RETRIEVING SHARED IMAGE**
 
 ```
-az acr login --name garaio
-az acr repository list --name garaio --output table
+az acr login --name username
+az acr repository list --name username --output table
 
 # getting the image
-docker pull garaio.azurecr.io/garaio/image_name
+docker pull btihen.azurecr.io/ruby/image_name
 ```
 
 **containerize the image**
 ```
 # these are the default local ports - adjust to your needs
-docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher garaio.azurecr.io/garaio/mailcatcher:latest
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen.azurecr.io/ruby/mailcatcher:latest
 ```
 
 **start the container**
@@ -187,7 +187,7 @@ docker start mailcatcher
 ```
 
 
-### **LISTING GARAIO IMAGES**
+### **LISTING Repo IMAGES**
 
 **One-time install**
 ```
@@ -202,10 +202,10 @@ brew link --overwrite python3
 **Retrieve the image list**
 ```
 # login with the azure-cli
-az acr login --name garaio
+az acr login --name username
 
 # list the images
-az acr repository list --name garaio --output table
+az acr repository list --name username --output table
 ```
 
 ### **REMOVING CONTAINERS**

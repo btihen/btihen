@@ -2,13 +2,13 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Docker Intro using MailCatcher"
-subtitle: "Safely Test email sending in a dev enviornment"
+subtitle: "Safely Test email sending in a dev environment"
 summary: "Learn to set-up mail catcher for safe email testing with an introduction to Docker"
 authors: ["Bill Tihen"]
 tags: ["Docker", "email", "Testing"]
 categories: ["Code"]
 date: 2020-05-12T21:19:09+02:00
-lastmod: 2020-05-12T21:19:09+02:00
+lastmod: 2020-05-23T21:19:09+02:00
 featured: true
 draft: false
 
@@ -27,6 +27,11 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 ---
+### **Intro**
+
+It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).
+
+To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.
 
 ### **SETUP**
 
@@ -63,22 +68,22 @@ CMD ["--ip", "0.0.0.0"]
 Now you can download the docker image and install the gems into it with:
 ```
 # -t adds repository:tag info -- the '.' at the end is important:
-docker build -t btihen.azurecr.io/ruby/mailcatcher:ruby_2.6 .
+docker build -t btihen/ruby/mailcatcher:ruby_2.6 .
 # ...
 # should end with something like
 # Successfully built 21e0de2bdd68
 
 # now tag it as the **lasted** image with:
-docker build -t btihen.azurecr.io/ruby/mailcatcher:latest .
+docker build -t btihen/ruby/mailcatcher:latest .
 ```
 
 now you can see your list of docker images (you should see the starting image/container we just created):
 ```
 docker images
-REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
-btihen.azurecr.io/ruby/mailcatcher    latest              21e0de2bdd68        8 minutes ago       870MB
-btihen.azurecr.io/ruby/mailcatcher    ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
-ruby                                  2.6                 a98425292e84        2 weeks ago         843MB
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+btihen/ruby/mailcatcher    latest              21e0de2bdd68        8 minutes ago       870MB
+btihen/ruby/mailcatcher    ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
+ruby                       2.6                 a98425292e84        2 weeks ago         843MB
 ```
 
 ### **BUILD CONTAINER**
@@ -87,7 +92,7 @@ Now start the docker image using the build image id (`-d` allows it to run in th
 
 ```
 # build a container so we can test our image
-docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen.azurecr.io/ruby/mailcatcher:latest
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen/ruby/mailcatcher:latest
 
 # or if you like ids better
 docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher 21e0de2bdd68
@@ -159,10 +164,10 @@ To restart mailcatcher at a later date simply type:
 
 ```
 # login to the Azure Container Repository
-docker login btihen.azurecr.io -u username -p xxxxxxxxxxx
+docker login btihen -u username -p xxxxxxxxxxx
 
 # upload the new image
-docker push btihen.azurecr.io/ruby/mailcatcher
+docker push btihen/ruby/mailcatcher
 ```
 
 ### **RETRIEVING SHARED IMAGE**
@@ -172,13 +177,13 @@ az acr login --name username
 az acr repository list --name username --output table
 
 # getting the image
-docker pull btihen.azurecr.io/ruby/image_name
+docker pull btihen/ruby/image_name
 ```
 
 **containerize the image**
 ```
 # these are the default local ports - adjust to your needs
-docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen.azurecr.io/ruby/mailcatcher:latest
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen/ruby/mailcatcher:latest
 ```
 
 **start the container**
@@ -219,9 +224,9 @@ docker rm mailcatcher
 To fully clean up and remove (images -- after the containers are removed):
 ```
 $ docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-btihen/mailcatcher  ruby_2.5            21e0de2bdd68        25 minutes ago      870MB
-ruby                2.5                 a98425292e84        2 weeks ago         843MB
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+btihen/ruby/mailcatcher  ruby_2.5            21e0de2bdd68        25 minutes ago      870MB
+ruby                     2.5                 a98425292e84        2 weeks ago         843MB
 
 $ docker image rm 21e0de2bdd68
 

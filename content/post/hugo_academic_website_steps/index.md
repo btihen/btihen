@@ -8,7 +8,7 @@ authors: ["Bill Tihen"]
 tags: ["Hugo", "Static Site", "git", "submodules"]
 categories: ["code"]
 date: 2020-05-16T10:39:21+02:00
-lastmod: 2020-05-16T10:39:21+02:00
+lastmod: 2020-05-23T10:39:21+02:00
 featured: true
 draft: false
 
@@ -163,7 +163,7 @@ The larger the weight the further to the **right** the item will be shown.
 You may want to read through all the params - but the ones listed here are enough to get started.
 
 * **site_type** -- in the file: `config/_default/params.toml`: be sure to configure the `site_type` variable
-* **configure 'contact details'** 
+* **configure 'contact details'**
   - if you choose not to add an email, then be sure to set the variable `email_form=0` on the `content/home/contact.md` file!
   - if you choose not to enter an address and coordinates the in the `[map]` section set the `engine=0` to avoid problems.
 * **configure social details** -- optional
@@ -183,38 +183,70 @@ Now go into the folder `content/home` and we will adjust or disable the files in
 
 #### 7A: `about` page
 
-I prefer to use the `about` page when it is a person's site and the `people` page when the site is about a group effort.
+I prefer to use the `about` page when it is a person's site and the `people` page when the site is about a group effort.  So in this case:
 
-* **`about.md`** - I change the title to `about` -- NOTE: the material displayed here comes from the page: `content/authours/admin` (or whatever name you change the folder to -- be sure to use the same name in `content/home/about.md` in the variable `author = "admin"`)
+```
+hugo new --kind authors authors/author_name
+```
 
-Now adjust the file: `content/authors/admin/_index.md` -- below the `---` toward the end of the file you can add your own free text to the about page.
+**`content/home/about.md`**
 
-now add a nice image (of the person or org to this folder and call it: **`avatar.jpeg`**)
+- change the title to whatever you like: biography, about, etc...
+- change the variable `author` to match the name you used to generate you profile above, ie:
+```
+author = "author_name"
+```
+
+**`content/authors/author_name/_index.md`**
+
+- Adjust the file so the information is accurate
+- below the `---` toward the end of the file, add your own free text to the about page.
+
+**`content/authors/author_name/avatar.jpeg`** (png, jpg, etc also work)
+
+- add an attractive image to the folder `content/authors/author_name/` and name it: **`avatar.jpg`**
 
 #### 7B: `people` (or Team) page
 
-To create a list of peolple and their bios for a site.
+**disable `content/home/about.md`**
+- Mark the `active` variable as `false`:
+```
+active=false
+```
 
-edit **`people.md`**
+**enable `content/home/people.md`**
 - set `active=true`
-- create reasonable group name(s) in the section (for example):
+- create sub-group names:
 ```
 [content]
-  # Choose which groups/teams of users to display.
-  #   Edit `user_groups` in each user's profile to add them to one or more of these groups.
-  user_groups = ["Educators", "Agilists"]
+  user_groups = ["Educators", "Researchers"]
+```
+or alternatively, use an empty string to create a team without sub-teams:
+```
+[content]
+  user_groups = [""]
+```
+**Create the people (authors)**
+```
+hugo new --kind authors authors/person_name
 ```
 
-Now create additional folders in: `content/authors/`
-for example I might make a page for me with:
-```
-mkdir content/authors/person_name
-cp content/authors/admin/* content/authors/person_name/*
-```
+**`content/authors/person_name/_index.md`**
 
-* edit: `content/authors/person_name/_index.md` to match the person
-* add to: `content/authors/person_name/_index.md` the variable: `user_groups = ["Educators"]` _(one or more of the groups listed in the [content] tag)_
-* replace `content/authors/person_name/avatar.png` with a photo of the person (or delete the file if no photo is desired)
+- add one (or more) `user_group` to the person's profile using the `user_groups` variable:
+```
+user_groups = ["Educators"]
+```
+if you used an empty string in `people.md` add:
+```
+user_groups = [""]
+```
+- Edit this file so that the information is accurate
+- below the `---` toward the end of the file, add your own free text to the about page.
+
+**`content/authors/person_name/avatar.jpeg`** (png, jpg, etc also work)
+
+- add an attractive image to the folder `content/authors/person_name/` and name it: **`avatar.jpg`**
 
 
 ### step 8: Test publish to `username.github.io`

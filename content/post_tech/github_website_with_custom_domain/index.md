@@ -110,4 +110,4 @@ following the advice from: https://dev.to/rightfrombasics/adding-ssl-to-your-sit
 13. Choose **Always Use HTTPS**
 14. Save and click the **Re-check now** button.
 
-Unfortunately, now you need to wait up to two days :( for the dns service to transfer from Namecheap to Cloudflare.
+Unfortunately, now you need to wait for a 1/2 hour or morefor the dns service to transfer from Namecheap to Cloudflare.  Theoretically up to 48 hours (but a 1/2 hour is much more typical).

@@ -19,10 +19,10 @@ publication_types: ["2"]
 publication: "Global Insights: The Language & Design of Learning (Pages 9-12)"
 publication_short: "ECIS Global Insights (Pages 9-12)"
 
-abstract: "Student engagement and excellence through stundent choice, buy-in and challenge.  This can be accomplished with well designed STEAM Projects.  Boat design includes: Analytical Geometry, 3-D Printing, Set Theory, Programming Basics, Iterative Deisgn, Physics of Fluid Dynamics and Bouancy, Workflow, Project Management, Design Feedback, Marketing (Images, Copy & Selling Ideas) and finally Public Speaking."
+abstract: "Student engagement and excellence through student choice, buy-in and challenge.  This can be accomplished with well designed STEAM Projects.  Boat design includes: Analytical Geometry, 3-D Printing, Set Theory, Programming Basics, Iterative Design, Physics of Fluid Dynamics and Buoyancy, Workflow, Project Management, Design Feedback, Marketing (Images, Copy & Selling Ideas) and finally Public Speaking."
 
 # Summary. An optional shortened abstract.
-summary: "STEAM Projects provide an excellent avenue for student engagement and excellence through stundent choice, buy-in and challenge."
+summary: "STEAM Projects provide an excellent avenue for student engagement and excellence through student choice, buy-in and challenge."
 
 tags: ["Agile", Education", "Engagement", "Student Choice", "Challenge"]
 categories: []
@@ -36,7 +36,7 @@ featured: true
 #   icon_pack: fab
 #   icon: twitter
 
-url_pdf:
+url_pdf: https://issuu.com/ecischools/docs/globalinsights6
 url_code:
 url_dataset:
 url_poster:
@@ -46,7 +46,7 @@ url_source: https://www.ecis.org/research-media-publications/global-insights/
 url_video:
 
 # Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder. 
+# To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
   caption: "Global Insights Web Header"
@@ -67,6 +67,7 @@ projects: []
 #   Otherwise, set `slides: ""`.
 slides: ""
 ---
+<iframe allowfullscreen allow="fullscreen" style="border:none;width:100%;height:326px;" src="https://issuu.com/ecischools/docs/globalinsights6"></iframe>
 
 Student boat (before 3-D printing)
 ![Student Katamaran Boat](student_katamaran_boat.png)

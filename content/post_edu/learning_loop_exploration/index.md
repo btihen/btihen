@@ -3,12 +3,12 @@
 
 title: "Exploration in the Classroom"
 subtitle: "Learning Loop: Exploration"
-summary: "When students are encourage to explore and have the trust that mistakes are ok -- even expected.  Then learning become fun and engaging. In fact, it builds on student interests and frequently students learn the basics naturally and even specialize on one aspect of particular interest."
+summary: "When students are trusted to explore and know that mistakes are ok, learning becomes fun and engaging. Exploration builds on student interests so they learn the basics naturally - and even specialize on aspects of particular interest to them."
 authors: ["Bill Tihen"]
 tags: ["exploration", "trust", "adventure", "joy", "engagement", "student choice"]
-categories: ["Education"]
+categories: ["Education", "Agile", "Self-Regulation", "Student Agency"]
 date: 2020-05-30T16:57:16+02:00
-lastmod: 2020-05-30T16:57:16+02:00
+lastmod: 2020-06-03T16:57:16+02:00
 featured: true
 draft: false
 
@@ -51,6 +51,7 @@ On a practical note, it is important to create projects that are complex and hav
 * Without trade-offs, a problem isn’t realistic and can be too easily googled.  The problem must be challenging enough or it isn’t engaging (but it needs to be workable).
 * Having to resolve a conflict or resolve tradeoffs and still arrive at one's goals requires students to really go into depth and learn that aspect extra well.
 
-> **NOTE:** In the world of engineering, it is important to have a solid generalist understanding of the field (like the basic required information tested at school), but that is rarely enough for most teams.  It is important to be a specialist in at least one area of interest -- these are called ‘T’ shaped engineers.  Engineers that have gone deep into two areas are even more valuable and called ‘π’ shaped engineers.  This type of educational learning project cultivates the same generalist / specialist mindset that is often expected in graduate school and professional lives.
+> **NOTE:** In the world of engineering, it is important to have a solid generalist understanding of the field (like the basic required information tested at school), but that is rarely enough for most teams. It is important to be a specialist in at least one area of interest -- these are called ‘T’ shaped engineers - engineers that have gone deep into two areas are even more valuable and are called ‘π’ shaped engineers. I’m advocating for creating projects (and classroom environments) in school that cultivate the same generalist / specialist mindset that is often expected in graduate school and professional lives. Art curriculums have long taught the core skills and ideas and then expected students to explore and expand upon their interests. Imagine how engaging education could be when all aspects of schools encouraged choice and exploration.
 
 Teaching this way can be uncomfortable for teachers who may traditionally have felt that they need to operate as the expert who knows everything. To model the idea, however, that you don’t have to know everything, it is actually helpful not to know everything. In fact, you cannot give students a quick answer, which cuts off their chance to think through the problem, and instead you explore with the students and model how to learn and resolve difficult problems. The teacher must simply understand the basics and vocabulary of the field to help students interpret what they find.  Of course the teacher must also be comfortable modeling exploring the unknown with the kids.
+ploring the unknown with the kids.

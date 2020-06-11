@@ -6,7 +6,7 @@ subtitle: "Deliberate Practice: Student-Based Self-Assessment and Self-Correctio
 summary: "Complex projects provide the opportunity to explore and learn what does and doesn’t work. Understanding what doesn’t work and adjusting (redoing) work can often lead to tremendous learning. The caveat is that teachers must create a safe environment, without judgement, which creates space for 'mistakes' and 'rework.'"
 authors: ["Bill Tihen"]
 tags: ["Deliberate Practice", "Self-Reflection", "Self-Correction"]
-categories: ["Education"]
+categories: ["Education", "Classroom"]
 date: 2020-06-11T15:01:22+02:00
 lastmod: 2020-06-11T15:01:22+02:00
 featured: true
@@ -40,4 +40,4 @@ On the other hand, when students can engage in **deliberate practice** (where th
 
 To ensure that students learn the process of **deliberate practice**, it is important to create a classroom environment where it is straightforward for students to be able to self-assess. I have found the best way to do this is to use **'natural' assessments**. At least in the world of code, engineering, and physics, this is pretty straightforward. Make rubrics in which the students can test themselves, e.g. in a class making boats, the rubric will ask if it floats with a payload, say a large coin. For areas where natural assessment isn’t as easy, I teach the kids how to get (and give) each other helpful feedback (described in a later article). In this way, students are helping each other, learning from each other, and in the end self-assessing what to do with the feedback. They are no longer as reliant on the teacher.
 
-The beauty of letting students learn this way, when there is safety to explore <i>**(& make mistakes)**</i>, is that the students often enjoy the learning, gain self-confidence, and possibly learn the JOY of learning. If this joy of learning becomes commonplace in education, we are very likely to have many more joyful, lifelong learners and innovators.
+The beauty of letting students learn this way, when there is safety to explore <i><b>(& make mistakes)</b></i>, is that the students often enjoy the learning, gain self-confidence, and possibly learn the JOY of learning. If this joy of learning becomes commonplace in education, we are very likely to have many more joyful, lifelong learners and innovators.

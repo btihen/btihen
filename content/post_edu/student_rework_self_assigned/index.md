@@ -1,11 +1,11 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Student Rework: Self-assigned"
-subtitle: "Deliberate Practice: Student-Based Self-Assessment and Self-Correction"
+title: "Rework through Deliberate Practice"
+subtitle: "Cultivating Self-aware Students Who Self-correct"
 summary: "Complex projects provide the opportunity to explore and learn what does and doesn’t work. Understanding what doesn’t work and adjusting (redoing) work can often lead to tremendous learning. The caveat is that teachers must create a safe environment, without judgement, which creates space for 'mistakes' and 'rework.'"
 authors: ["Bill Tihen"]
-tags: ["Deliberate Practice", "Self-Reflection", "Self-Correction"]
+tags: ["Deliberate Practice", "Self-Aware", "Self-Reflection", "Self-Correction", "Joy", "Exploration"]
 categories: ["Education", "Classroom"]
 date: 2020-06-11T15:01:22+02:00
 lastmod: 2020-06-11T15:01:22+02:00

@@ -49,20 +49,18 @@ education:
 #   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
 #   form "mailto:your-email@example.com" or "#contact" for contact widget.
 social:
-- icon: envelope
-  icon_pack: fas
-  link: '/#contact'
-  # link: 'mailto:btihen@gmail.com'  # For a direct email link, use "mailto:test@example.org".
+# - icon: envelope
+#   icon_pack: fas
+#   link: '/#contact'  # link: 'mailto:btihen@gmail.com'  # For a direct email link, use "mailto:test@example.org".
 - icon: github
   icon_pack: fab
   link: https://github.com/btihen
+- icon: twitter
+  icon_pack: fab
+  link: https://twitter.com/btihen
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/bill-tihen
-
-# - icon: twitter
-#   icon_pack: fab
-#   link: https://twitter.com/btihen
 # - icon: google-scholar
 #   icon_pack: ai
 #   link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
@@ -91,4 +89,3 @@ I hold a Masters in Electrical Engineering (with a focus on Materials Science). 
 I have worked as a robotics designer, teacher, systems administrator and software engineer. My technical work has strongly influenced how I teach: Research and Agile practices have helped me develop a keen interest in the joy of exploring or 'playful experiments.' Agile presents the Plan, Do, Reflect, Adjust loop and I have found that  'smallifying' large tasks is an effective way to make progress with a large overwhelming project. In fact, taking little exploratory 'bets' / experiments to move forward, helps many people feel safe. When I realized these are also excellent learning methodologies, I realized in addition to content, I need to teach these skills too.
 
 Over time I have also realized that one of the most important aspects of a classroom (or work environment) is that it is exciting, engaging and generally an uplifting environment.  Or possibly an energy gifting experience. I have found the when students can choose their learning outcomes & goals (within the expectations of the class curriculum) the classroom can offer students these experiences too.
-

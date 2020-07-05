@@ -3,10 +3,10 @@
 
 title: "Phoenix 1.5 Blog"
 subtitle: "Learn Basic Relationships in Phoneix"
-summary: ""
-authors: []
-tags: []
-categories: []
+summary: "This article covers how to create a new app with contexts, relationships, preloading, etc.  The basics for most dynamic websites (excluding authentication). Comming later."
+authors: ["Bill Tihen"]
+tags: ["Phoenix", "Elixir", "Relationships", "Templates", "Preloading"]
+categories: ["Code"]
 date: 2020-07-04T13:06:29+02:00
 lastmod: 2020-07-04T13:06:29+02:00
 featured: false

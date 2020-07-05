@@ -1,16 +1,16 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Phoenix_1_5_blog_w_comments"
-subtitle: ""
-summary: ""
-authors: []
-tags: []
-categories: []
+title: "Phoenix 1.5 with Comments"
+subtitle: "nested pre-loads and nested resources"
+summary: "Exploring more nested Reources with Phoenix"
+authors: ["Bill Tihen"]
+tags: ["Relationships", "Templates", "Preloading"]
+categories: ["Code", "Elixir", "Phoenix"]
 date: 2020-07-10T09:43:51+02:00
 lastmod: 2020-07-10T09:43:51+02:00
 featured: false
-draft: true
+draft: false
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -29,334 +29,39 @@ projects: []
 ---
 ## Purpose
 
-This article creates a basic web application backed by a database and creates a few relationships.  I'll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.
-
-find the most recent phoenix version:
-https://github.com/phoenixframework/phoenix/releases
-
-## Getting Started - create an app
-
-```
-mix archive.install hex phx_new 1.5.3
-mix phx.new feenix_intro
-cd feenix_intro
-mix ecto.create
-```
-
-test with: `mix phx.server` and go to `http://localhost:4000`
-
-Ideally you see a the Phoenix Start Page.
-
-Let's create a git snapshot
-```
-git init && git add -A && git commit -m "init"
-```
-
-## Lets create two contexts for our Blogs and Accounts
-
-Blogs will have the posts and comments and Accounts will have the user and login credentials and user relationships (why not)?  To see the full documentation on Contexts see: https://hexdocs.pm/phoenix/contexts.html
-
-We will generate two resources and Contexts (and add more later) - lets start with users who will post their blogs (users will be within the Accounts context and posts will be within the Blogs context):
-```
-mix phx.gen.html Accounts User users name:string email:string username:string:unique
-mix phx.gen.html Blogs Post posts title:string body:text user_id:references:users
-```
-
-Notice we can generate unique fields with `:unique`
-
-And we can generate relationships (foriegn keys) with `references`
-
-
-Now that we have generated our code - we need to make a few updates:
-
-First: we need to update our routes in the scope area (`lib/ideas_web/router.ex`) to look like:
-```
-  scope "/", FeenixIntroWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-    resources "/users", UserController
-    resources "/posts", PostController
-  end
-```
-
-Second before we migrate we need to define the relationships:
-
-so we update the users with a has_many relationship to posts
-```
-# lib/feenix_intro/accounts/user.ex
-defmodule FeenixIntro.Accounts.User do
-  use Ecto.Schema
-  import Ecto.Changeset
-  alias FeenixIntro.Blogs.Post
-
-  @required_fields [:name, :email, :username]
-
-  schema "users" do
-    has_many(:posts, Post)
-
-    field :name, :string
-    field :email, :string
-    field :username, :string
-
-    timestamps()
-  end
-
-  @doc false
-  def changeset(user, attrs) do
-    user
-    |> cast(attrs, @required_fields)
-    |> validate_required(@required_fields)
-    |> unique_constraint(:username)
-  end
-end
-```
-If you skip the alias, then `has_many` needs to be written as: `has_many(:posts, FeenixIntro.Blogs.Post)`
-
-Also update post -- REPLACE the `field :user_id, :id` with `belongs_to(:user, User)` -- you CAN'T have both!
-```
-# lib/feenix_intro/blogs/post.ex
-defmodule FeenixIntro.Blogs.Post do
-  use Ecto.Schema
-  import Ecto.Changeset
-  alias FeenixIntro.Blogs.Post
-  alias FeenixIntro.Accounts.User
-
-  @required_fields [:user_id, :title, :body]
-
-  schema "posts" do
-    belongs_to(:user, User)
-
-    # field :user_id, :id
-    field :body, :string
-    field :title, :string
-
-    timestamps()
-  end
-
-  @doc false
-  def changeset(post, attrs) do
-    post
-    |> cast(attrs, @required_fields)
-    |> validate_required(@required_fields)
-  end
-end
-```
-NOTE: `@required_fields [:user_id, :title, :body]` isn't required, but as things change defining a constant that can be reused can be convient.
-
-Finally, to be sure we don't have unreferenced blogs if a user gets deleted we need to change our Blog migration to:
-```
-# priv/repo/migrations/20200704152318_create_posts.exs
-defmodule FeenixIntro.Repo.Migrations.CreatePosts do
-  use Ecto.Migration
-
-  def change do
-    create table(:posts) do
-      add :title, :string
-      add :body, :text
-      # add :user_id, references(:users, on_delete: :nothing)
-      add :user_id, references(:users, on_delete: :delete_all), null: false
-
-      timestamps()
-    end
-
-    create index(:posts, [:user_id])
-  end
-end
-```
-
-Now it should be safe to migrate using:
-```
-mix ecto.migrate
-```
-
-NOTE: the API's for our Contexts `Accounts` and `Blogs` is in `lib/feenix_intro/accounts.ex` and `lib/feenix_intro/blogs/post.ex` respectively - as we add more info into these contexts these files will get long!  **Ideally you will always interact with the Context API and not the Repo directly this will help create much more managable code.**
-
-Go to: `http://localhost:4000/users`
-
-Now go to: `http://localhost:4000/posts`
-
-notice we can't create a post since we required the user_id and there is not field for that (oops) - we will fix this later for now just create blogs using the seed file:
-```
-# priv/repo/seeds.exs
-
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
-
-alias FeenixIntro.Repo
-alias FeenixIntro.Blogs.Post
-alias FeenixIntro.Accounts.User
-
-# reset the datastore
-Repo.delete_all(User) # this should also delete all Posts
-
-# insert people
-me = Repo.insert!(%User{ name: "Bill", email: "bill@example.com", username: "bill" })
-dog = Repo.insert!(%User{ name: "Nyima", email: "nyima@example.com", username: "nyima" })
-Repo.insert!(%Post{ user_id: me.id, title: "Elixir", body: "Very cool ideas" })
-Repo.insert!(%Post{ user_id: me.id, title: "Phoenix", body: "live is fascinating" })
-Repo.insert!(%Post{ user_id: dog.id, title: "Walk", body: "oh cool" })
-Repo.insert!(%Post{ user_id: dog.id, title: "Dinner", body: "YES!" })
-```
-
-now as the comments state run: `mix run priv/repo/seeds.exs`
-
-when we list users and create users - all is well
-
-when we do the same withe posts - we get an error creating new posts and we don't see the author in index and show
-
-**Fix Author display**
-
-TODO
-
-**To create or edit a post we need to make the following updates**
-
-In the controller we must load users and add the user_id to the post form:
-whe we look in the Accounts API we see: `list_users()`
-```
-# lib/feenix_intro_web/controllers/post_controller.ex
-  # ...
-  # add the accounts context alias
-  alias FeenixIntro.Accounts
-  # ...
-  def new(conn, _params) do
-    # get users from the Accounts context
-    users = Accounts.list_users()
-    changeset = Blogs.change_post(%Post{})
-    render(conn, "new.html", changeset: changeset, users: users)
-    # users: users - sends the users to the form as @users
-  end
-  # ...
-  def edit(conn, %{"id" => id}) do
-    post = Blogs.get_post!(id)
-    users = Accounts.list_users()
-    changeset = Blogs.change_post(post)
-    render(conn, "edit.html", post: post, changeset: changeset, users: users)
-  end
-# ...
-```
-
-Now we need to adapt the form to give us a choice of users:
-```
-# lib/feenix_intro_web/templates/post/form.html.eex
-<%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
-
-  <%= label f, "Author" %>
-  <%= select f, :user_id, Enum.map(@users, &{&1.name, &1.id}) %>
-  <%= error_tag f, :user %>
-  # ...
-```
-
-Assuming you can create posts now, lets display the Blog author - that's often interesting to others.
-We can do this with preloading in our Blog context:
-```
-# lib/feenix_intro/blogs.ex
-  # change this line:
-  # def list_posts, do: Repo.all(Post)
-  def list_posts do
-    Post
-    |> Repo.all()
-    |> Repo.preload(:user)
-  end
-  ```
-and also our get_post
-```
-# lib/feenix_intro/blogs.ex
-  # change:
-  # def get_post!(id), do: Repo.get!(Post, id)
-  # into:
-  def get_post!(id) do
-    Post
-    |> Repo.get!(id)
-    |> Repo.preload(:user)
-  end
-```
-now we can update our index and show page to display the author's name at the top of the page:
-```
-# lib/feenix_intro_web/templates/post/show.html.eex
-<h1>Show Post</h1>
-
-<ul>
-
-  <li>
-    <strong>Author:</strong>
-    <%= @post.user.name %>
-  </li>
-```
-and in the index too:
-```
-# lib/feenix_intro_web/templates/post/index.html.eex
-# ...
-<%= for post <- @posts do %>
-    <tr>
-      <td><%= post.user.name %></td>
-      <td><%= post.title %></td>
-      <td><%= post.body %></td>
-# ...
-```
-
-
-Now that we can see the Post author, lets make another git snapshot:
-```
-git add .
-git commit -m "users and posts resources are created and working independenatly"
-```
-
+This article builds on the existing article: https://btihen.me/post_tech/phoenix_1_5_blog_n_relations/ and adds nested relationships and has_many_through.
 
 ## now lets create comments (a has many through for users)
 
-we will use `mix phx.gen.context` this time since we will use the posts page to add comments
+we will use `mix phx.gen.context` this time since we will use the posts page to add comments.  We will use the context generator since we don't need any views or templates generated.  Answer `Y` to the question about the context already existing.  We could create to API files within the Context before the one file gets too large, but we will skip that.
 
 ```
 mix phx.gen.context Blogs Comment comments message:text post_id:references:posts  user_id:references:users
 ```
 
-Again we need to create the relationships and update the migration to delete comments when post is deleted:
+## Update Relationships
 
-Lets start with the migration (dependent delete):
-```
-# priv/repo/migrations/20200704161651_create_comments.exs
-      # ...
-
-      # replce
-      # add :post_id, references(:posts, on_delete: :nothing)
-      # add :user_id, references(:users, on_delete: :nothing)
-
-      # with
-      add :post_id, references(:posts, on_delete: :delete_all), null: false
-      add :user_id, references(:users, on_delete: :delete_all), null: false
-
-      # ...
-```
+We need to create the relationships and update the migration to delete comments when post is deleted:
 
 Now lets create the relationship between posts and comments:
 ```
 # lib/feenix_intro/blogs/comment.ex
-defmodule FeenixIntro.Blogs.Comment do
+efmodule FeenixIntro.Blogs.Comment do
   use Ecto.Schema
   import Ecto.Changeset
-  # for simplicity add the aliases
   alias FeenixIntro.Blogs.Post
   alias FeenixIntro.Accounts.User
 
   @required_fields [:user_id, :post_id, :message]
 
   schema "comments" do
-    # REMOVE THESE!
+    # remove these
     # field :post_id, :id
     # field :user_id, :id
-
+    # add these:
     belongs_to(:user, User)
     belongs_to(:post, Post)
+
     field :message, :string
 
     timestamps()
@@ -368,161 +73,394 @@ defmodule FeenixIntro.Blogs.Comment do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
   end
-end
 ```
 
 Now lets update posts relationship to comments:
 ```
 # lib/feenix_intro/blogs/post.ex
   # ...
-  # add comment alias
+  alias FeenixIntro.Blogs.Comment
+  # ...
+  schema "posts" do
+    # ...
+    # add this
+    has_many(:comments, Comment)
+  # ...
+```
+
+We could do the same `has_many` relationship with users - but its not needed.  It is unlikely we would want to look-up all a user's comments outside the context of a Blog.
+
+## Update Migration to delete sub-resource when top-resource is deleted
+
+To create the rails equivalent of dependent_delete we change the migration to the following:
+```
+# priv/repo/migrations/20200704161651_create_comments.exs
+      # ...
+      # replce
+      # add :post_id, references(:posts, on_delete: :nothing)
+      # add :user_id, references(:users, on_delete: :nothing)
+      # with
+      add :post_id, references(:posts, on_delete: :delete_all), null: false
+      add :user_id, references(:users, on_delete: :delete_all), null: false
+      # ...
+```
+Now we should be able to migrate:
+```
+mix ecto.migrate
+```
+
+## Testing
+
+**Start simple with the seed file**
+
+Lets add a comment to our prebuild posts:
+
+```
+# priv/repo/seeds.exs
+# ...
+# add the alias to keep things short
+alias FeenixIntro.Blogs.Comment
+
+# ...
+# this ensures all we have all the correct fields:
+Repo.insert!(%Comment{user_id: dog.id, post_id: post1.id, message: "woof" })
+
+# this also checks the relationships
+post2
+|> Ecto.build_assoc(:comments)
+|> Comment.changeset(%{user_id: dog.id, post_id: post2.id, message: "BARK" })
+|> Repo.insert!()
+```
+
+Lets run the seed and see if all is working:
+```
+mix run priv/repo/seeds.exs
+```
+
+Nice lets make a quick git snapshot before we work on the html aspects
+```
+git add .
+git commit -m "Comments added as a resource and relationship to Posts established"
+```
+
+## Preload comments within get_post
+
+To show the comments within a post we will need to preload the comments -- this is done by adding `Repo.preload(:comments)` to our function: `def get_post!(id)` -- however, we will also want to display the comment's author -- so we need to do a nested preload with: `Repo.preload([comments: [:user]])`
+
+So now this function looks like:
+```
+# lib/feenix_intro/blogs.ex
+def get_post!(id) do
+    Post
+    |> Repo.get!(id)
+    |> Repo.preload(:user)
+    |> Repo.preload([comments: [:user]])
+  end
+```
+
+This can actually be shortened to (this will be helpful later):
+```
+lib/feenix_intro/blogs.ex
+def get_post!(id) do
+    Post
+    |> Repo.get!(id)
+    |> Repo.preload([:user, comments: [:user]])
+  end
+```
+
+## Display the comments within the Post show
+
+Now that we have updated the get_post! to preload comments we can display the comments too by adding to the end of our post's - show template:
+
+```
+# lib/feenix_intro_web/templates/post/show.html.eex
+
+# ...
+<table>
+  <thead>
+    <tr>
+      <th>Comment Author</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for comment <- @post.comments do %>
+    <tr>
+      <td><%= comment.user.name %></td>
+      <td><%= comment.message %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
+<span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
+```
+
+Start the server `mix phx.server` and be sure this works
+
+Assuming it works, lets commit:
+```
+git add .
+git commit -m "display comments and comment author on post show page"
+```
+
+## Creating Comments (as a nested resource)
+
+Since we have added comments within the Blogs context and they are associated with a post - it makes sense to create and display comments as a nested resource.  To set this up lets change our routes file:
+
+```
+# lib/feenix_intro_web/router.ex
+# ...
+  scope "/", FeenixIntroWeb do
+    pipe_through :browser
+
+    get "/", PageController, :index
+    resources "/users", UserController
+
+    # replace this line:
+    # resources "/posts", PostController
+    # with:
+    resources "/posts", PostController do
+      resources "/comments", CommentController, only: [:create]
+    end
+  end
+  # ...
+```
+
+This means we will be able to create a comment only within the context of an existing post (seems reasonable) -- more actions can be added later such as `edit` or `delete` possibly.
+
+This also means we need to display our comments within the context of existing posts (the best place for this is the `show` - where all the details of the post are shown).
+
+Let's create the controller we just defined - we will need to make a new file:
+
+```
+# lib/feenix_intro_web/controllers/comment_controller.ex
+defmodule FeenixIntroWeb.CommentController do
+  use FeenixIntroWeb, :controller
+
+  alias FeenixIntro.Blogs
+
+  def create(conn, %{"post_id" => post_id, "comment" => comment_params}) do
+    # define the post we are nested within
+    post = Blogs.get_post!(post_id)
+
+    # create our new comment and handle (success or failure)
+    case Blogs.create_comment(post, comment_params) do
+      {:ok, _comment} ->
+        conn
+        |> put_flash(:info, "Comment created")
+        |> redirect(to: Routes.post_path(conn, :show, post))
+
+      # TODO: return to form and show errors
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "Comment creation failed")
+        |> redirect(to: Routes.post_path(conn, :show, post))
+    end
+  end
+
+end
+```
+
+Note: at the moment we don't handle errors, and allow those to be fixed.  We will get to that in a second step.
+
+We need to update the function `create_comment` in order to work as a nested resource:
+```
+#  @doc """
+  Creates a comment.
+
+  ## Examples
+      # also update our function docs
+      # replace
+      # iex> create_comment(%{field: value})
+      # with
+      iex> create_comment(post, %{field: value})
+      {:ok, %Comment{}}
+
+      # replace:
+      # iex> create_comment(%{field: bad_value})
+      # with:
+      iex> create_comment(post, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  # replace
+  # def create_comment(attrs \\ %{}) do
+  #   %Comment{}
+  #   |> Comment.changeset(attrs)
+  #   |> Repo.insert()
+  # end
+
+  # with (this uses the passed in post and creates an association with the new comment)
+  def create_comment(%Post{} = post, attrs \\ %{}) do
+    post
+    |> Ecto.build_assoc(:comments)
+    |> Comment.changeset(attrs)
+    |> Repo.insert()
+  end
+```
+
+In order to create a new Comment **form** the `show` function will need to borrow from a typical `new` function and send and empty struct (changeset) for the form -- lets start by updating the PostController show function:
+```
+# lib/feenix_intro_web/controllers/post_controller.ex
+  # ...
   alias FeenixIntro.Blogs.Comment
 
-  # ...
+  def show(conn, %{"id" => id}) do
+    post = Blogs.get_post!(id)
+    users = Accounts.list_users()
+    # replace:
+    # render(conn, "show.html", post: post, users: users)
 
-  schema "posts" do
-    belongs_to(:user, User)
-
-    # add a has many comments
-    has_many(:comments, Comment)
-
-  # ...
+    # with: This allows us to add comments on the Post show form!
+    comment_changeset = Blogs.change_comment(%Comment{})
+    render(conn, "show.html", post: post, users: users,
+                              comment_changeset: comment_changeset)
+  end
 ```
 
-# context has no webstuff
-mix phx.gen.html Blogs Post posts title:string body:text user_id:references:users
+Now that we have an empty changeset for the form - we can add the form to the show page with:
+```
+# lib/feenix_intro_web/templates/post/show.html.eex
+# ...
+<h3>Add a Comment</h3>
+<%= form_for @comment_changeset, Routes.post_comment_path(@conn, :create, @post), fn form -> %>
 
+  <%= label form, "Author" %>
+  <%= select form, :user_id, Enum.map(@users, &{&1.name, &1.id}) %>
+  <%= error_tag form, :user %>
 
+  <%= label form, :message %>
+  <%= textarea form, :message %>
+  <%= error_tag form, :message %>
 
-mix phx.gen.context Account Friendship friendships user_id:references:users friend_id:references:users
+  <div>
+    <%= submit "Save"%>
+  </div>
+<% end %>
+# ...
+```
 
-lib/ideas/account/friendship.ex
-defmodule Ideas.Account.Friendship do
-  use Ecto.Schema
-  import Ecto.Changeset
-  alias Ideas.Account.User
-  alias Ideas.Account.Friendship
+Let's try this out with: `mix phx.server`
 
-  @required_fields [:user_id, :friend_id]
+assuming all works as expected let's make another git commit:
+```
+git add .
+git commit -m "comment creation as a nested resource within posts"
+```
 
-  schema "friendships" do
-    belongs_to(:user, User)
-    belongs_to(:friend, User)
+## Handle Input Errors
 
-    # field :user_id, :id
-    # field :friend_id, :id
+Prevent empty strings:
 
-    timestamps()
-  end
+* https://stackoverflow.com/questions/32784008/phoenix-render-template-of-other-folder
 
-  @doc false
-  # def changeset(%Friendship{} = friendship, attrs) do
-  def changeset(friendship, attrs) do
-    friendship
+lets add a minimum message legth to comments:
+```
+# lib/feenix_intro/blogs/comment.ex
+  def changeset(comment, attrs) do
+    comment
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
-  end
-end
-
-also update: lib/ideas/account/user.ex
-defmodule Ideas.Account.User do
-  use Ecto.Schema
-  import Ecto.Changeset
-  alias Ideas.Blogs.Post
-  alias Ideas.Accounts.User
-  alias Ideas.Accounts.Friendship
-
-  schema "users" do
-    field :email, :string
-    field :name, :string
-    field :username, :string
-
-    has_many(:posts, Post)
-    has_many(:friendships, Friendship)
-    has_many(:friends, through: [:friendships, :friend])
-
-    timestamps()
+    |> validate_length(:message, min: 3)
   end
 
-  @doc false
-  def changeset(user, attrs) do
-    user
-    |> cast(attrs, [:name, :email, :username])
-    |> validate_required([:name, :email, :username])
-  end
-end
-
-
-Now update the seeds:
 ```
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Ideas.Repo.insert!(%Ideas.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
-alias Ideas.Repo
-alias Ideas.Blog.Post
-alias Ideas.Account.User
-alias Ideas.Account.Friendship
 
-# reset the datastore
-Repo.delete_all(User)
-
-# insert people
-me = Repo.insert!(%User{ name: "Bill Tihen", email: "btihen@gmail.com", username: "btihen" })
-Repo.insert!(%Post{ user_id: me.id, title: "Elixir", body: "Very cool ideas" })
-Repo.insert!(%Post{ user_id: me.id, title: "Phoenix", body: "live is fascinating" })
-
-ct = Repo.insert!(%User{ name: "Conrad Taylor", email: "conradwt@gmail.com", username: "conradwt" })
-Repo.insert!(%Post{ user_id: ct.id, title: "Phoenix-GraphQL", body: "very helpful stuff" })
-
-dhh = Repo.insert!(%User{ name: "David Heinemeier Hansson", email: "dhh@37signals.com", username: "dhh" })
-ezra = Repo.insert!(%User{ name: "Ezra Zygmuntowicz", email: "ezra@merbivore.com", username: "ezra" })
-matz = Repo.insert!(%User{ name: "Yukihiro Matsumoto", email: "matz@heroku.com", username: "matz" })
-
-ct
-|> Ecto.build_assoc(:friendships)
-|> Friendship.changeset( %{ user_id: ct.id, friend_id: matz.id } )
-|> Repo.insert
-
-dhh
-|> Ecto.build_assoc(:friendships)
-|> Friendship.changeset( %{ user_id: dhh.id, friend_id: ezra.id } )
-|> Repo.insert
-
-dhh
-|> Ecto.build_assoc(:friendships)
-|> Friendship.changeset( %{ user_id: dhh.id, friend_id: matz.id } )
-|> Repo.insert
-
-ezra
-|> Ecto.build_assoc(:friendships)
-|> Friendship.changeset( %{ user_id: ezra.id, friend_id: dhh.id } )
-|> Repo.insert
-
-ezra
-|> Ecto.build_assoc(:friendships)
-|> Friendship.changeset( %{ user_id: ezra.id, friend_id: matz.id } )
-|> Repo.insert
-
-matz
-|> Ecto.build_assoc(:friendships)
-|> Friendship.changeset( %{ user_id: matz.id, friend_id: ct.id } )
-|> Repo.insert
-
-matz
-|> Ecto.build_assoc(:friendships)
-|> Friendship.changeset( %{ user_id: matz.id, friend_id: ezra.id } )
-|> Repo.insert
-
-matz
-|> Ecto.build_assoc(:friendships)
-|> Friendship.changeset( %{ user_id: matz.id, friend_id: dhh.id } )
-|> Repo.insert
+Now, change the controller to prep the data just like a post `show` and send the changeset - with the errors. `|> put_view(FeenixIntroWeb.PostView)` is how we redirect to other external views as of Phoenix 1.5.1:
 ```
+# lib/feenix_intro_web/controllers/comment_controller.ex
+  # add the alias
+  alias FeenixIntro.Accounts
+
+  # ...
+
+  def create(conn, %{"post_id" => post_id, "comment" => comment_params}) do
+    # ...
+
+      # replace:
+      # {:error, _changeset} ->
+      #   conn
+      #   |> put_flash(:error, "Comment creation failed, please fix the errors")
+      #   |> redirect(to: Routes.post_path(conn, :show, post))
+
+      # with:
+      {:error, %Ecto.Changeset{} = changeset} ->
+        users = Accounts.list_users()
+        conn
+        |> put_flash(:error, "Comment creation failed, please fix the errors")
+        |> put_view(FeenixIntroWeb.PostView)   # as of Phoenix 1.5.1
+        |> render("show.html", post: post, users: users, comment_changeset: changeset)
+# ...
+```
+
+Assuming this works make a new git commit:
+```
+git add .
+git commit -m "handle comment creation errors"
+```
+
+## Flexible preloading
+
+You may have noticed the pre-loading is hard-coded -- in this case it is ok, but might not always be good.  Here is a flexible alternative:
+
+We can update / replace the following functions with the following:
+```
+# lib/feenix_intro/blogs.ex
+  def list_posts(opts \\ [:user]) do
+    preloads = Keyword.get(opts, :preloads, [])
+    Post
+    |> Repo.all()
+    |> Repo.preload(preloads)
+  end
+
+  def get_post!(id, opts \\ [:user, comments: [:user]]) do
+    preloads = Keyword.get(opts, :preloads, [])
+    Post
+    |> Repo.get!(id)
+    |> Repo.preload(preloads)
+  end
+
+  def get_comment!(id, opts \\ [:user]) do
+    preloads = Keyword.get(opts, :preloads, [])
+    Comment
+    |> Repo.get!(id)
+    |> Repo.preload(preloads)
+  end
+```
+
+And now we can change our show post controller to look like - so that we can use this flexibility:
+```
+# lib/feenix_intro_web/controllers/post_controller.ex
+  # ...
+
+  def index(conn, _params) do
+    # posts = Blogs.list_posts()
+    preloads = [:user]
+    posts = Blogs.list_posts(preloads: preloads)
+    render(conn, "index.html", posts: posts)
+  end
+
+  def new(conn, _params) do
+    users = Accounts.list_users()
+    changeset = Blogs.change_post(%Post{})
+    render(conn, "new.html", changeset: changeset, users: users)
+  end
+
+  # ...
+
+  def show(conn, %{"id" => id}) do
+    # post = Blogs.get_post!(id)
+    preloads = [:user, comments: [:user]]
+    post = Blogs.get_post!(id, preloads: preloads)
+    users = Accounts.list_users()
+    # This allows us to add comments on the Post show form!
+    comment_changeset = Blogs.change_comment(%Comment{})
+    render(conn, "show.html", post: post,
+                              users: users,
+                              comment_changeset: comment_changeset)
+  end
+```
+
+Now we have the flexibilty to preload or not depending on what we want to do,

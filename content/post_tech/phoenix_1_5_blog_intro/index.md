@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Phoenix 1.5 Blog"
+title: "Phoenix 1.5 Blog Intro"
 subtitle: "Learn Basic Relationships in Phoneix"
 summary: "This article covers how to create a new app with contexts, relationships, preloading, etc.  The basics for most dynamic websites (excluding authentication). Comming later."
 authors: ["Bill Tihen"]
-tags: ["Phoenix", "Elixir", "Relationships", "Templates", "Preloading"]
-categories: ["Code"]
+tags: ["Relationships", "Templates", "Preloading"]
+categories: ["Code", "Phoenix", "Elixir"]
 date: 2020-07-04T13:06:29+02:00
-lastmod: 2020-07-04T13:06:29+02:00
+lastmod: 2020-07-05T13:06:29+02:00
 featured: false
 draft: false
 
@@ -266,17 +266,23 @@ whe we look in the Accounts API we see: `list_users()`
   alias FeenixIntro.Accounts
   # ...
   def new(conn, _params) do
-    # get users from the Accounts context
-    users = Accounts.list_users()
     changeset = Blogs.change_post(%Post{})
+    # replace:
+    # render(conn, "new.html", changeset: changeset)
+    # with:
+    # collection of users for post form
+    users = Accounts.list_users()
+    # include the collection of users to the new form
     render(conn, "new.html", changeset: changeset, users: users)
-    # users: users - sends the users to the form as @users
   end
   # ...
   def edit(conn, %{"id" => id}) do
     post = Blogs.get_post!(id)
-    users = Accounts.list_users()
     changeset = Blogs.change_post(post)
+    # replace:
+    render(conn, "edit.html", post: post, changeset: changeset)
+    # with:
+    users = Accounts.list_users()
     render(conn, "edit.html", post: post, changeset: changeset, users: users)
   end
 # ...

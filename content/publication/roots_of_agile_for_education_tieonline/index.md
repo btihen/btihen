@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Roots of Agile for Education"
-authors: ["Paul Magnuson", "Bill Tihen"]
+authors: ["Paul Magnuson", "btihen"]
 date: 2019-12-16
 doi: ""
 

@@ -4,7 +4,7 @@
 title: "GraphQL API with Pheonix"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-10T11:59:53+02:00

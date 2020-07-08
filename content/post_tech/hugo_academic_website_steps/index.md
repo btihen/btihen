@@ -4,7 +4,7 @@
 title: "Hugo Website using Github"
 subtitle: "Using the Academic Theme"
 summary: "hugo web (with the Academic Theme) and using git submodules and github to publish a free website"
-authors: ["Bill Tihen"]
+authors: ["btihen"]
 tags: ["Hugo", "Static Site", "git", "submodules"]
 categories: ["code"]
 date: 2020-05-16T10:39:21+02:00

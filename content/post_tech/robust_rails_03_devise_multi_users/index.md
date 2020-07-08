@@ -4,7 +4,7 @@
 title: "Durable_rails_users"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-10T20:45:51+02:00

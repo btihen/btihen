@@ -4,7 +4,7 @@
 title: "Rails_6_clean_input"
 subtitle: ""
 summary: "Rails 6 makes it easy to format inputs"
-authors: ["Bill Tihen"]
+authors: ["btihen"]
 tags: ["Rails 5", "Rails 6", "Types", "Virtual Attributes", "Clean Input"]
 categories: []
 date: 2020-04-14T18:57:00+02:00

@@ -4,7 +4,7 @@
 title: "Robust_rails_04_devise_permissions"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-10T21:11:10+02:00

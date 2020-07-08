@@ -4,7 +4,7 @@
 title: "Robust_rails_04_devise_add_fields"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-20T21:05:32+02:00

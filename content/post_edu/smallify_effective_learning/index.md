@@ -4,7 +4,7 @@
 title: "Smallify for Effective Learning"
 subtitle: ""
 summary: ""
-authors: ["Bill Tihen"]
+authors: ["btihen"]
 tags: ["smallify", "littlebets"]
 categories: ["Education"]
 date: 2020-05-03T19:26:25+02:00

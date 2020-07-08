@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Designed to Float your Boat"
-authors: ["Paul Magnuson", "Bill Tihen", "Dan Patton"]
+authors: ["Paul Magnuson", "btihen", "Dan Patton"]
 date: 2018-04-10
 doi: ""
 

@@ -4,7 +4,7 @@
 title: "Github Website with a Custom Domain & SSL"
 subtitle: ""
 summary: ""
-authors: ["Bill Tihen"]
+authors: ["btihen"]
 tags: ["website", "ssl", "domain", "github", "cloudflare", "namecheap"]
 categories: ["Website"]
 date: 2020-05-31T13:22:48+02:00

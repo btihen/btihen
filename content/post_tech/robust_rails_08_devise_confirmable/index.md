@@ -4,7 +4,7 @@
 title: "Robust_rails_04_devise_confirmable"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-20T21:05:56+02:00

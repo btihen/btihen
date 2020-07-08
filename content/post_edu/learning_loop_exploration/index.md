@@ -4,7 +4,7 @@
 title: "Exploration in the Classroom"
 subtitle: "Learning Loop: Exploration"
 summary: "When students are trusted to explore and know that mistakes are ok, learning becomes fun and engaging. Exploration builds on student interests so they learn the basics naturally - and even specialize on aspects of particular interest to them."
-authors: ["Bill Tihen"]
+authors: ["btihen"]
 tags: ["exploration", "trust", "adventure", "joy", "engagement", "student choice"]
 categories: ["Education", "Agile", "Self-Regulation", "Student Agency"]
 date: 2020-05-30T16:57:16+02:00

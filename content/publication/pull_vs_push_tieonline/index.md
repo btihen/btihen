@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Pull vs Push: Student Centric"
-authors: ["Paul Magnuson", "Bill Tihen"]
+authors: ["Paul Magnuson", "btihen"]
 date: 2020-01-17
 doi: ""
 

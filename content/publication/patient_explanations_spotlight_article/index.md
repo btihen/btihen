@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Patient Explanations Lead to Good Things"
-authors: ["Paul Magnuson", "Bill Tihen"]
+authors: ["Paul Magnuson", "btihen"]
 date: 2019-10-16
 doi: ""
 

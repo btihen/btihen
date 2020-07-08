@@ -4,7 +4,7 @@
 title: "Hugo Academic Content Commands"
 subtitle: "Summary of Content Creation Commands"
 summary: "A quick summary of the Hugo Academic Theme creation commands"
-authors: ["Bill Tihen"]
+authors: ["btihen"]
 tags: ["Hugo", "Static Site", "git", "Academic Theme", "commands"]
 categories: ["code"]
 date: 2020-05-23T10:39:21+02:00

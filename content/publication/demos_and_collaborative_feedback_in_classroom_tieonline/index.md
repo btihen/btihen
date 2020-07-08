@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Demos and Feedback in the Classroom"
-authors: ["Paul Magnuson", "Bill Tihen"]
+authors: ["Paul Magnuson", btihen]
 date: 2020-02-18
 doi: ""
 

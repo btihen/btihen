@@ -4,7 +4,7 @@
 title: "Plan, Do, Reflect"
 subtitle: ""
 summary: ""
-authors: ["Bill Tihen"]
+authors: ["btihen"]
 tags: ["smallify", "littlebets"]
 categories: ["Education"]
 date: 2020-05-03T19:25:32+02:00

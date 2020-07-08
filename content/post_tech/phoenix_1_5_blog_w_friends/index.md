@@ -1,11 +1,11 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Phoenix_1_5_blog_w_friends"
-subtitle: "Relationships - 'has_many_through' and self-referential relations"
-summary: ""
-authors: ["Bill Tihen"]
-tags: ["Relationships", "Templates", "Preloading"]
+title: "Phoenix 1.5 Blog with Friendship Relations"
+subtitle: "Relationships - join_table, 'has_many_through' and self-referential relations"
+summary: "In this article we cover join_tables, has_many_through and how simple it is to handle two ids on the same table with different names / meanings."
+authors: ["btihen"]
+tags: ["Relationships", "Join Table", "has_many_through", "self-references"]
 categories: ["Code", "Elixir", "Phoenix"]
 date: 2020-07-15T18:32:15+02:00
 lastmod: 2020-07-15T18:32:15+02:00
@@ -29,10 +29,9 @@ projects: []
 ---
 ## Purpose
 
-This article builds on the existing article: https://btihen.me/post_tech/phoenix_1_5_blog_n_relations/ and adds nested relationships and has_many_through.
+This article builds on the existing article: https://btihen.me/post_tech/phoenix_1_5_blog_w_comments/ and adds a join table so we can excersize a  has_many_through relationship.  Also this is a self-referential join-table (both fields reference the same root table - with different names).
 
-
-## has_many_through Relationships
+## Join Table for a has_many_through Relationship
 
 **Lets model friendships between authors**
 ```

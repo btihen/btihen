@@ -4,7 +4,7 @@
 title: "Explore, Uplift and Reflect"
 subtitle: "Keys to an engaging classroom where Agile-mindset thrives"
 summary: "There are a few keys to engaging students while learning and enjoying their own worth as a person and learner.  While learning required materials -- within a context important to the student."
-authors: ["Bill Tihen"]
+authors: ["btihen"]
 tags: ["agile", "explore", "choice", "differentiated", "reflect", "retrospective", "uplift"]
 categories: ["Education"]
 date: 2020-05-24T15:16:45+02:00

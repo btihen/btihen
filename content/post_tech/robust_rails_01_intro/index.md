@@ -4,7 +4,7 @@
 title: "Durable_rails_intro"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-30T20:49:00+02:00

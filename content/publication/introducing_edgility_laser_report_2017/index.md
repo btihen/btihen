@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Introducing EDgility"
-authors: ["Paul Magnuson", "Bill Tihen"]
+authors: ["Paul Magnuson", "btihen"]
 date: 2017-03-13
 doi: ""
 

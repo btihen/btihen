@@ -1,11 +1,11 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Phoenix 1.5 with Comments"
+title: "Phoenix 1.5 Blog with Comments"
 subtitle: "nested pre-loads and nested resources"
 summary: "Exploring more nested Reources with Phoenix"
-authors: ["Bill Tihen"]
-tags: ["Relationships", "Templates", "Preloading"]
+authors: ["btihen"]
+tags: ["Relationships", "Templates", "Nested Preloading", "Nested Resources", "Render Foriegn Views", "User Error Handling"]
 categories: ["Code", "Elixir", "Phoenix"]
 date: 2020-07-10T09:43:51+02:00
 lastmod: 2020-07-10T09:43:51+02:00
@@ -29,7 +29,7 @@ projects: []
 ---
 ## Purpose
 
-This article builds on the existing article: https://btihen.me/post_tech/phoenix_1_5_blog_n_relations/ and adds nested relationships and has_many_through.
+This article builds on the existing article: https://btihen.me/post_tech/phoenix_1_5_blog_intro/ and adds nested relationships and has_many_through.
 
 ## now lets create comments (a has many through for users)
 

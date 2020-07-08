@@ -4,7 +4,7 @@
 title: "Durable_rails_config"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-10T20:46:07+02:00

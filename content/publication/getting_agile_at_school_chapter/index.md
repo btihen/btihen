@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Getting Agile at School"
-authors: ["Paul Magnuson", "Bill Tihen", "Nicola Cosgrove", "Daniel Patton"]
+authors: ["Paul Magnuson", "btihen", "Nicola Cosgrove", "Daniel Patton"]
 date: 2019-04-16T18:04:29+02:00
 doi: ""
 

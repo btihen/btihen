@@ -4,7 +4,7 @@
 title: "Docker Intro using MailCatcher"
 subtitle: "Safely Test email sending in a dev environment"
 summary: "Learn to set-up mail catcher for safe email testing with an introduction to Docker"
-authors: ["Bill Tihen"]
+authors: ["btihen"]
 tags: ["Docker", "email", "Testing"]
 categories: ["Code"]
 date: 2020-05-12T21:19:09+02:00

@@ -4,7 +4,7 @@
 title: "Robust_rails_10_output_models"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-20T21:29:56+02:00

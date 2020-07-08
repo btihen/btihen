@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Bill Tihen
+title: Bill Tihen
 
 # Username (this should match the folder name)
 authors:
@@ -13,11 +13,13 @@ superuser: true
 role: Developer, Data and Educator
 
 # Organizations/Affiliations
-organizations: []
-# - name: Container4
-#   url: "https://container4.ch"
-# - name: Garaio REM
-#   url: "https://www.garaio-rem.ch/"
+organizations:
+- name: Container4
+  url: "https://container4.ch"
+- name: Garaio REM
+  url: "https://www.garaio-rem.ch/"
+- name: PeakChallenges
+  url: "https://www.peakchallenges.ch/"
 
 # Short bio (displayed in user profile at end of posts)
 bio: Developer, Educator and very currious.
@@ -79,6 +81,7 @@ user_groups: []
 # - Researchers
 # - Visitors
 ---
+# Bill Tihen
 
 On a quest to explore and uplift.
 

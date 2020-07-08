@@ -4,7 +4,7 @@
 title: "Robust_rails_12_external_services"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-20T21:31:15+02:00

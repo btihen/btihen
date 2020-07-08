@@ -4,7 +4,7 @@
 title: "Robust_rails_06_seo_freindly_urls"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-20T21:25:18+02:00

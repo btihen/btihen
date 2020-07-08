@@ -4,7 +4,7 @@
 title: "Robust_rails_08_devise_recoverable"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-20T21:08:08+02:00

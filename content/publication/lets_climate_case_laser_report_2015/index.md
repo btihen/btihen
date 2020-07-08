@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "LETS ClimateCase"
-authors: ["Dan Patton", "Bill Tihen", "John Harlin"]
+authors: ["Dan Patton", "btihen", "John Harlin"]
 date: 2015-05-14
 doi: ""
 

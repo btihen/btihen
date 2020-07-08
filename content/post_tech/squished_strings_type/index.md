@@ -4,7 +4,7 @@
 title: "Squished String Type (Rails 5/6)"
 subtitle: "String inputs that strip away leading, trailing and double spaces using typed virtual attributes"
 summary: "String inputs that strip away leading, trailing and double spaces using typed virtual attributes"
-authors: ["Bill Tihen"]
+authors: ["btihen"]
 tags: ["Rails 5", "Rails 6", "Types", "Virtual Attributes"]
 categories: []
 date: 2020-05-03T20:11:22+02:00

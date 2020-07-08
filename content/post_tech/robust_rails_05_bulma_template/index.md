@@ -4,7 +4,7 @@
 title: "Robust_rails_09_bulma_template"
 subtitle: ""
 summary: ""
-authors: []
+authors: ["btihen"]
 tags: []
 categories: []
 date: 2020-07-20T21:09:40+02:00

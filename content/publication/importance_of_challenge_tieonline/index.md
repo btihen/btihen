@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Importance of Challenge: Engaged, Deep Learning"
-authors: ["Paul Magnuson", "Bill Tihen"]
+authors: ["Paul Magnuson", "btihen"]
 date: 2019-12-31
 doi: ""
 

@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Build Confidence: Exploration and Student Choice"
-authors: ["Paul Magunson", "Bill Tihen"]
+authors: ["Paul Magunson", "btihen"]
 date: 2020-02-10
 doi: ""
 

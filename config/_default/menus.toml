@@ -4,6 +4,16 @@
 #   The weight parameter defines the order that the links will appear in.
 
 [[main]]
+  name = ".me"
+  url = "/authors/btihen/"
+  weight = 20
+
+[[main]]
+  name = ""
+  url = ""
+  weight = 30
+
+[[main]]
   name = "Tech"
   url = "#tech"
   weight = 40
@@ -31,15 +41,19 @@
 #   weight = 100
 
 [[main]]
-  name = "About"
-  url = "#about"
-  weight = 110
-
-[[main]]
   name = "Contact"
   url = "#contact"
   weight = 120
 
+[[main]]
+  name = "Bio"
+  url = "#about"
+  weight = 130
+
+[[main]]
+  name = "Experiences"
+  url = "#experience"
+  weight = 150
 
 # [[main]]
 #   name = "Explore"

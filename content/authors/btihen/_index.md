@@ -12,6 +12,8 @@ superuser: true
 # Role/position
 role: Developer, Data and Educator
 
+external_link: "/challenges/student_challenges/"
+
 # Organizations/Affiliations
 organizations:
 - name: Container4
@@ -81,7 +83,6 @@ user_groups: []
 # - Researchers
 # - Visitors
 ---
-# Bill Tihen
 
 On a quest to explore and uplift.
 

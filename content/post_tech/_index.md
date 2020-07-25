@@ -1,5 +1,5 @@
 ---
-title: Posts
+title: Technical Posts
 layout: posts  # Do not modify.
 
 # View.

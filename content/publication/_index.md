@@ -1,5 +1,6 @@
 ---
 title: Publications
+layout: publication  # Do not modify.
 
 # View.
 #   1 = List

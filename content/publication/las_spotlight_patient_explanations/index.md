@@ -1,7 +1,7 @@
 ---
 title: Patient Explanations Lead to Good Things
 authors:
-- pmagnuson
+- Paul Magnuson
 - btihen
 date: 2019-10-16
 doi: ''

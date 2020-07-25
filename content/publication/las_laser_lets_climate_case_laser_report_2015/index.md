@@ -1,7 +1,7 @@
 ---
 title: LETS ClimateCase
 authors:
-- Dan Patton
+- Daniel Patton
 - btihen
 - John Harlin
 date: 2015-05-14

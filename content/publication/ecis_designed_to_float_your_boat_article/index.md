@@ -1,9 +1,9 @@
 ---
 title: Designed to Float your Boat
 authors:
-- pmagnuson
+- Paul Magnuson
 - btihen
-- Dan Patton
+- Daniel Patton
 date: 2018-04-10
 doi: ''
 publishDate: 2020-04-16T19:10:29.000+02:00

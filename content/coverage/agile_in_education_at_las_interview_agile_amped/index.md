@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Agile in Education at Leysin American School"
-authors: ["Bill Tihen", "Paul Magnuson", "Howard Sublett"]
+authors: ["btihen", "Paul Magnuson", "Howard Sublett"]
 date: 2016-12-01
 doi: ""
 
@@ -49,7 +49,7 @@ url_video:
 url_sound: https://soundcloud.com/agileamped/agile-in-education-at-leysin-american-school-in-switzerland
 
 # Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder. 
+# To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
   caption: "AgileAmped Soundcloud Image"

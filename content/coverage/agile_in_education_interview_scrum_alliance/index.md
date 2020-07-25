@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Agile in Education: Bill Tihen and Paul Magnuson of Leysin American School"
-authors: ["Bill Tihen", Paul Magnuson"]
+authors: ["btihen", Paul Magnuson"]
 date: 2017-01-17
 doi: ""
 

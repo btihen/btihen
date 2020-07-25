@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Robot Gardener"
-authors: ["btihen", "Paul Magnuson", "Dan Patton"]
+authors: ["btihen", "Paul Magnuson", "Daniel Patton"]
 date: 2017-05-25T14:10:13+02:00
 doi: ""
 
@@ -19,7 +19,7 @@ publication_types: ["2"]
 publication: "Spotlight 2016-2017: Middle School Curriculum Development: Robot Gardeners (Pages 9-13)"
 publication_short: "Spotlight 2016-2017 (Pages 9-13)"
 
-abstract: "An interview with Dan Patton (science) and Bill Tihen (IT) who joined forces to create a course that includes both their interests—biology and electronics. The basic task for students? Build a terrarium that will support a healthy garden, but make it using simple robotics and coding so that the garden will stay alive even when you aren’t around."
+abstract: "An interview with Daniel Patton (science) and Bill Tihen (IT) who joined forces to create a course that includes both their interests—biology and electronics. The basic task for students? Build a terrarium that will support a healthy garden, but make it using simple robotics and coding so that the garden will stay alive even when you aren’t around."
 
 # Summary. An optional shortened abstract.
 summary: ""

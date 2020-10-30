@@ -296,7 +296,9 @@ rails g controller Landing index --no-helper --no-assets --no-controller-specs -
 
 now check or add this the root page to: `config/routes.rb`:
 ```
-  get 'landing/index'
+  
+  get '/landing', to: 'landing#index', as: :landing
+  # get 'landing/index'
   root to: "landing#index"
 ```
 
@@ -305,7 +307,7 @@ lets add a hidden paragraph as content to the top of the landing page so we can 
 <p hidden id='landing_index'>Landing Index</p>
 ```
 
-lets create the following feature test:
+lets create the following feature test (to test the feature setup):
 ```
 # spec/features/landing_page_spec.rb
 require 'rails_helper'
@@ -317,6 +319,46 @@ RSpec.describe 'Landing Page Works without a login', type: :feature do
     page_tag = find('p#landing_index', text: 'Landing Index', visible: false)
     expect(page_tag).to be_truthy
   end
+end
+```
+
+create a request test to be sure it works as we wish (we dont need a feature test when we arent navigating)
+```
+RSpec.describe "Landings", type: :request do
+
+  describe "GET /index" do
+    it "'/landing' returns http success" do
+      get "/landing"
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("<p hidden id='landing_index'>Landing Index</p>")
+    end
+    it "'landing_path' returns http success" do
+      get landing_path
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("<p hidden id='landing_index'>Landing Index</p>")
+    end
+    it "'/' returns http success" do
+      get "/"
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("<p hidden id='landing_index'>Landing Index</p>")
+    end
+    it "'root_path' returns http success" do
+      get root_path
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("<p hidden id='landing_index'>Landing Index</p>")
+    end
+    # it "'/landing/index' returns http success" do
+    #   get "/landing/index"
+    #   expect(response).to have_http_status(:success)
+    #   expect(response.body).to include("<p hidden id='landing_index'>Landing Index</p>")
+    # end
+    # it "'landing_index_path' returns http success" do
+    #   get landing_index_path
+    #   expect(response).to have_http_status(:success)
+    #   expect(response.body).to include("<p hidden id='landing_index'>Landing Index</p>")
+    # end
+  end
+
 end
 ```
 

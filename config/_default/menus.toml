@@ -14,25 +14,35 @@
   weight = 30
 
 [[main]]
-  name = "Tech"
-  url = "#tech"
-  weight = 40
-
-[[main]]
   name = "Edu"
-  url = "#edu"
-  weight = 50
+  url = "#post_edu"
+  weight = 20
 
 [[main]]
-  name = "Publications"
+  name = "Elixir"
+  url = "#post_elixir_phoenix"
+  weight = 21
+
+[[main]]
+  name = "Ruby"
+  url = "#post_ruby_rails"
+  weight = 22
+
+[[main]]
+  name = "Web"
+  url = "#post_web_tech"
+  weight = 23
+
+[[main]]
+  name = "Pubs"
   url = "#publications"
   # url = "/publication"
   weight = 60
 
 [[main]]
-  name = "Coverage"
-  url = "#coverage"
-  # url = "/coverage"
+  name = "News"
+  url = "#in_news"
+  # url = "/in_news"
   weight = 70
 
 # [[main]]
@@ -40,26 +50,25 @@
 #   url = "/courses"
 #   weight = 100
 
-[[main]]
-  name = "Contact"
-  url = "#contact"
-  weight = 120
+# [[main]]
+#   name = "Contact"
+#   url = "#contact"
+#   weight = 120
 
-[[main]]
-  name = "Bio"
-  url = "#about"
-  weight = 130
+# [[main]]
+#   name = "Bio"
+#   url = "#about"
+#   weight = 130
 
-[[main]]
-  name = "Experiences"
-  url = "#experience"
-  weight = 150
+# [[main]]
+#   name = "Experiences"
+#   url = "#experience"
+#   weight = 150
 
 # [[main]]
 #   name = "Explore"
 #   url = "/explore"
 #   weight = 80
-
 
 # [[main]]
 #   name = "Projects"

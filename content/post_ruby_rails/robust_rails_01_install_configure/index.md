@@ -7,8 +7,8 @@ summary: ""
 authors: ["btihen"]
 tags: ["rails", "configure", "install", "durable", "testing"]
 categories: ["Rails"]
-date: 2020-09-10T20:46:07+02:00
-lastmod: 2020-09-10T20:46:07+02:00
+date: 2020-09-10T01:46:07+02:00
+lastmod: 2020-10-31T01:46:07+02:00
 featured: true
 draft: false
 
@@ -29,24 +29,27 @@ projects: []
 ---
 # Intro
 
-To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3).  I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features).
+To document is mostly for me -- at least until I automate my setup defaults. However, I am glad to share and get ideas from others too.  I will build a little calendar app I use with friends (it's focused on being mobile friendly and easy to use -- not a full featured calendar).
 
 # Rails Setup
 
-Take from: 
+Taken from:
 * https://gist.github.com/alxndr/7569551
 * https://www.codewithjason.com/rails-integration-tests-rspec-capybara/
 * https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68
 
 ## create the project:
 ```
-# -T - skips tests - I like using rspec
-# -d postgresql - I like using postgresql best for the db
-# Spring & listen speed testing - but can get out of sync and make problems
+# -T - skips tests;              I like rspec
+# -d postgresql;                 I like postgresql best for the db
+# --skip-spring --skip-listen;   Spring caches and doesn't notice all changes (even after rails restart)
+#                                I have lost several hours not realizing Spring wasn't seeing my changes
 
-rails new calendar -T -d postgresql --webpack=stimulus # --skip-spring --skip-listen
+rails new calendar -T -d postgresql --webpack=stimulus --skip-spring --skip-listen
 
 cd calendar
+
+# in some cases you may have serveral bundlers or need to create binstubs
 # gem install bundler:2.1.4
 # rails app:update:bin
 ```

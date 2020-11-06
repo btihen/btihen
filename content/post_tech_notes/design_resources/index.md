@@ -1,8 +1,8 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Web Images"
-subtitle: "Helpful Resources"
+title: "Design Resources"
+subtitle: "Web Design Resources"
 summary: "Looking for images, drawings, photos and icons -- here are a few helpful resources"
 authors: ["btihen"]
 tags: ["exploration", "trust", "adventure", "joy", "engagement", "student choice"]
@@ -27,12 +27,41 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 ---
+
+## Logos
+
+- https://logomakr.com/
+- https://www.freelogodesign.org/
+- https://www.namecheap.com/logo-maker/app/
+- https://hatchful.shopify.com/onboarding/pick-space
+
 ## Images and Icons
 
 I'm often looking for a way to make websites more interesting here are a few resources I use:
 
+## Drawings
+
+https://themeisle.com/blog/free-illustrations/
+
 - [Undraw](https://undraw.co/) -- free to use drawings in SVG
+- [stubborn.fun](https://stubborn.fun/) - new
+- [drawkit](https://www.drawkit.io/)
+- [stories.freepick](https://stories.freepik.com/)
+- [illlustrations](https://illlustrations.co/)
+- [iradesign](https://iradesign.io/illustrations) - can change the colors!
+- [absurd](https://absurd.design/) - funky stuff
+- [manypixels](https://www.manypixels.co/gallery/?color=50c6e1) - colors are adjustable!
+- [icons8](https://icons8.com/) - images, drawings, photos, Icons!
+- [humaaans](https://www.humaaans.com/) - all about people and lots of adjustments
+- [grapbox](https://grapbox.net/) - images, drawings, photos, Icons!
+- [uistore](https://www.uistore.design/) - mix of stuff
+
+## Photos
 - [Unsplash](https://unsplash.com/) - photos free to use for everyone
+
+## Icons
+- [IonIcons](https://ionicons.com/)
+- [FontAwesome](https://fontawesome.com/) - Icons; many are completely free
 - [Noun Project](https://thenounproject.com/) - Icons and photos for all to use
 
 

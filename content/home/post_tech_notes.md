@@ -7,12 +7,12 @@ headless = true   # This file represents a page section.
 active = true     # Activate this widget? true/false
 weight = 20       # Order that this section will appear.
 
-title = "Web Tech Posts"
+title = "Tech Notes Posts"
 subtitle = "Recent"
 
 [content]
   # Page type to display. E.g. post, talk, or publication.
-  page_type = "post_web_tech"
+  page_type = "post_tech_notes"
 
   # Choose how much pages you would like to display (0 = all pages)
   count = 2

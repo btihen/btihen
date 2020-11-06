@@ -6,12 +6,12 @@
 [[main]]
   name = ".me"
   url = "/authors/btihen/"
-  weight = 20
+  weight = 10
 
 [[main]]
-  name = ""
-  url = ""
-  weight = 30
+  name = "Projects"
+  url = "#projects"
+  weight = 15
 
 [[main]]
   name = "Edu"

@@ -43,7 +43,7 @@ As a **demo presenter**: 1) listen and 2) do not comment or or mount a defense t
 
 Students (and many teachers) are not very practiced at Pixar’s **additive feedback**, so practice is practice is essential.  In fact, initially I guide all demos to ensure they learn the practices to feel safe while demoing, giving and getting additive feedback.  After demos I do a quick reflection with the group to help them think through what ideas to use and what to disregard.  Over time, the students get good at this and I no longer guide the demos.
 
-While teaching more deeply technical topics I used code reviews frameworks by [Trisha Gee](https://trishagee.com/) of JetBrains and [Dr. Michaela Greiler (Doctor McKayla)](https://www.michaelagreiler.com/about/) - who studied effective code reviews while working in Research and Development at Microsoft.  Even when I teach the **Pixar** feedback technique I still use Doctor McKayla feedback [video](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/) to set the tone.
+When 'natural' feedback isn't easy or when working with technical topics where there are multiple ways to solve a problem and when judgement is important. Then instead of emphasizing 'addative' feedback, I turn to [Dr. Michaela Greiler (Doctor McKayla)](https://www.michaelagreiler.com/about/) **code review guidelines** in her video [Respectful, Constructive Code-Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/).  She developed these guidelines while working at Microsoft's Research and Development Department while studying the effects of code reviews and feedback on team performance.
 
 I avoid the phrase "constructive feedback," since that phrase is too often code for stating what you personally think is correct. When the teacher does that, from the position of power granted to teachers by way of assigning grades, for example, constructive feedback becomes another way to tell students what is right (according to the teacher) and what students should do. Encouraging additive feedback puts the focus on what the student is learning, not what the teacher is thinking.
 
@@ -51,9 +51,9 @@ To ensure that collaborative feedback is practiced I require every project to in
 
 Resources:
 
+- **Creativity, Inc.:** Overcoming the Unseen Forces That Stand in the Way of True Inspiration, ISBN-13: 978-0593070109, by Ed Catmull (co-founder of Pixar) and Amy Wallace. This book sparked a lot of interest in 'addative' or 'plussing' feedback.
 - [Pixar’s Secret to giving Feedback](https://joehirsch.me/2017/03/29/pixar/)
 - [How Pixar Fosters Collective Creativity](https://hbr.org/2008/09/how-pixar-fosters-collective-creativity)
 - [Five ways Pixar makes Better Decisions](https://hbr.org/2010/07/how-to-make-good-decisions-les)
-- [What to Look for in a Code Review](https://leanpub.com/whattolookforinacodereview) - more technical, complex feedback systems based on respect, understandability and technical needs.  Not focused on creatively like the Pixar Framework.
-- [How to Give Respectful and Constructive Code Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/) - by Dr. Michaela Greiler (Doctor McKayla).  I also look forward to her forthcomming book.
-- [Code Review (Feedback) Workshops](https://www.michaelagreiler.com/workshops/) - Dr. Michaela Greiler (Doctor McKayla) offers excellent feedback training targeted at coders, but her techniques work well for all written and verbal feedback.
+- [How to Give Respectful and Constructive Code Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/) - by Dr. Michaela Greiler (Doctor McKayla).  She is also working on a Code Review Book.
+- [What to Look for in a Code Review](https://leanpub.com/whattolookforinacodereview), by Trisha Gee of Jet Brains.

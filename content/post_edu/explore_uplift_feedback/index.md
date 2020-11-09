@@ -49,11 +49,26 @@ I avoid the phrase "constructive feedback," since that phrase is too often code 
 
 To ensure that collaborative feedback is practiced I require every project to include at least one adjustment that students must credit to another student’s feedback when they hand-in or present their project.
 
-Resources:
+## Resources
+
+**Effective Feedback**
+
+- [The secret to giving great feedback](https://www.youtube.com/watch?v=wtl5UrrgU8c): The Way We Work, a **TED** series, by cognitive psychologist LeeAnn Renniger.  She shares a scientifically proven method for giving effective feedback. Visit https://go.ted.com/thewaywework for more! She also has a book: **Surprise**: Embrace the Unpredictable and Engineer the Unexpected Hardcover, ISBN-13 : 978-0399169823, by Tania Luna, LeeAnn Renninger PhD.
+- [How to Give Respectful and Constructive Code Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/) - a short video by Dr. Michaela Greiler (Doctor McKayla).
+
+
+**Feedback that Cultivates Creativity**
 
 - **Creativity, Inc.:** Overcoming the Unseen Forces That Stand in the Way of True Inspiration, ISBN-13: 978-0593070109, by Ed Catmull (co-founder of Pixar) and Amy Wallace. This book sparked a lot of interest in 'addative' or 'plussing' feedback.
 - [Pixar’s Secret to giving Feedback](https://joehirsch.me/2017/03/29/pixar/)
 - [How Pixar Fosters Collective Creativity](https://hbr.org/2008/09/how-pixar-fosters-collective-creativity)
 - [Five ways Pixar makes Better Decisions](https://hbr.org/2010/07/how-to-make-good-decisions-les)
-- [How to Give Respectful and Constructive Code Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/) - by Dr. Michaela Greiler (Doctor McKayla).  She is also working on a Code Review Book.
-- [What to Look for in a Code Review](https://leanpub.com/whattolookforinacodereview), by Trisha Gee of Jet Brains.
+
+**Technical Feedback** _(without being the sage on the stage)_
+
+- Dr. Michaela Greiler has a full lenght talk [How To Phrase Respectful Code Review Feedback](https://www.youtube.com/watch?v=hzBHtgWlc4I&feature=emb_rel_end).  She is also working on a Code Review Book.
+- [What to Look for in a Code Review](https://leanpub.com/whattolookforinacodereview), by Trisha Gee of Jet Brains.  She also has a talk [Code Review Best Practices](https://trishagee.com/presentations/code_review_best_practice/).
+
+**Agile Communication and Managment Approaches** _(classroom management)
+
+- [Become an Effective Software Engineering Manager](https://pragprog.com/titles/jsengman/become-an-effective-software-engineering-manager/): How to Be the Leader Your Development Team Needs, ISBN: 9781680507249, by James Stanier.  This book is a reflection about how to go beyond agile and what has worked well at **Spotify**.

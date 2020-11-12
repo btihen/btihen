@@ -44,13 +44,13 @@ I'm often looking for a way to make websites more interesting here are a few res
 https://themeisle.com/blog/free-illustrations/
 
 - [Undraw](https://undraw.co/) -- free to use drawings in SVG
+- [manypixels](https://www.manypixels.co/gallery/?color=50c6e1) - colors are adjustable!
 - [stubborn.fun](https://stubborn.fun/) - new
 - [drawkit](https://www.drawkit.io/)
-- [stories.freepick](https://stories.freepik.com/)
+- [stories.freepick](https://stories.freepik.com/) - with attribution
 - [illlustrations](https://illlustrations.co/)
 - [iradesign](https://iradesign.io/illustrations) - can change the colors!
 - [absurd](https://absurd.design/) - funky stuff
-- [manypixels](https://www.manypixels.co/gallery/?color=50c6e1) - colors are adjustable!
 - [icons8](https://icons8.com/) - images, drawings, photos, Icons!
 - [humaaans](https://www.humaaans.com/) - all about people and lots of adjustments
 - [grapbox](https://grapbox.net/) - images, drawings, photos, Icons!
@@ -61,8 +61,15 @@ https://themeisle.com/blog/free-illustrations/
 
 ## Icons
 - [IonIcons](https://ionicons.com/)
+- [themifyIcons](https://themify.me/themify-icons) - good variety and brands too
 - [FontAwesome](https://fontawesome.com/) - Icons; many are completely free
-- [Noun Project](https://thenounproject.com/) - Icons and photos for all to use
+- [FontAwesome6](https://fontawesome.com/icons?d=gallery&q=archive)
+- [Noun Project](https://thenounproject.com/) - Icons and photos for all to use (with attribution)
+- [Octicons](https://primer.style/octicons/) - free icons on github
+- [Glyphicons](https://glyphicons.com/) - Icons in Bootstrap see also: https://getbootstrap.com/docs/3.3/components/
+- [SimpleIcons](https://simpleicons.org/)
+- [devicon](https://devicon.dev/)
+
 
 
 ## SVG Text Logos

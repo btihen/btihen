@@ -43,7 +43,7 @@ As a **demo presenter**: 1) listen and 2) do not comment or or mount a defense t
 
 Students (and many teachers) are not very practiced at Pixar’s **additive feedback**, so practice is practice is essential.  In fact, initially I guide all demos to ensure they learn the practices to feel safe while demoing, giving and getting additive feedback.  After demos I do a quick reflection with the group to help them think through what ideas to use and what to disregard.  Over time, the students get good at this and I no longer guide the demos.
 
-When 'natural' feedback isn't easy or when working with technical topics where there are multiple ways to solve a problem and when judgement is important. Then instead of emphasizing 'addative' feedback, I turn to [Dr. Michaela Greiler (Doctor McKayla)](https://www.michaelagreiler.com/about/) **code review guidelines** in her video [Respectful, Constructive Code-Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/).  She developed these guidelines while working at Microsoft's Research and Development Department while studying the effects of code reviews and feedback on team performance.
+When 'natural' feedback isn't easy or when working with technical topics where there are multiple ways to solve a problem and when judgement is important. Then instead of emphasizing 'additive' feedback, I turn to [Dr. Michaela Greiler (Doctor McKayla)](https://www.michaelagreiler.com/about/) **code review guidelines** in her video [Respectful, Constructive Code-Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/).  She developed these guidelines while working at Microsoft's Research and Development Department while studying the effects of code reviews and feedback on team performance.
 
 I avoid the phrase "constructive feedback," since that phrase is too often code for stating what you personally think is correct. When the teacher does that, from the position of power granted to teachers by way of assigning grades, for example, constructive feedback becomes another way to tell students what is right (according to the teacher) and what students should do. Encouraging additive feedback puts the focus on what the student is learning, not what the teacher is thinking.
 
@@ -53,8 +53,8 @@ To ensure that collaborative feedback is practiced I require every project to in
 
 **Effective Feedback**
 
-- [The secret to giving great feedback](https://www.youtube.com/watch?v=wtl5UrrgU8c): The Way We Work, a **TED** series, by cognitive psychologist LeeAnn Renniger.  She shares a scientifically proven method for giving effective feedback. Visit https://go.ted.com/thewaywework for more! She also has a book: **Surprise**: Embrace the Unpredictable and Engineer the Unexpected Hardcover, ISBN-13 : 978-0399169823, by Tania Luna, LeeAnn Renninger PhD.
-- [How to Give Respectful and Constructive Code Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/) - a short video by Dr. Michaela Greiler (Doctor McKayla).
+- [The secret to giving great feedback](https://www.youtube.com/watch?v=wtl5UrrgU8c): The Way We Work, a **TED** series, by cognitive psychologist [Dr. LeeAnn Renniger](https://lifelabslearning.com/faculty/dr-leeann-renniger/).  She shares a scientifically proven method for giving effective feedback. Visit https://go.ted.com/thewaywework for more! She also has a book: **Surprise**: Embrace the Unpredictable and Engineer the Unexpected Hardcover, ISBN-13 : 978-0399169823, by Tania Luna, LeeAnn Renninger PhD.
+- [How to Give Respectful and Constructive Code Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/) - a short video by [Dr. Michaela Greiler]() (Doctor McKayla) where she describes respectful ways to collaborate and improve a shared project.
 
 
 **Feedback that Cultivates Creativity**
@@ -66,9 +66,9 @@ To ensure that collaborative feedback is practiced I require every project to in
 
 **Technical Feedback** _(without being the sage on the stage)_
 
-- Dr. Michaela Greiler has a full lenght talk [How To Phrase Respectful Code Review Feedback](https://www.youtube.com/watch?v=hzBHtgWlc4I&feature=emb_rel_end).  She is also working on a Code Review Book.
+- Dr. Michaela Greiler has a full length talk [How To Phrase Respectful Code Review Feedback](https://www.youtube.com/watch?v=hzBHtgWlc4I&feature=emb_rel_end).  She is also working on a Code Review Book.
 - [What to Look for in a Code Review](https://leanpub.com/whattolookforinacodereview), by Trisha Gee of Jet Brains.  She also has a talk [Code Review Best Practices](https://trishagee.com/presentations/code_review_best_practice/).
 
-**Agile Communication and Managment Approaches** _(classroom management)
+**Agile Communication and Management Approaches** _(classroom management)
 
 - [Become an Effective Software Engineering Manager](https://pragprog.com/titles/jsengman/become-an-effective-software-engineering-manager/): How to Be the Leader Your Development Team Needs, ISBN: 9781680507249, by James Stanier.  This book is a reflection about how to go beyond agile and what has worked well at **Spotify**.

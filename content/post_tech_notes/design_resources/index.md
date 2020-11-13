@@ -5,10 +5,10 @@ title: "Design Resources"
 subtitle: "Web Design Resources"
 summary: "Looking for images, drawings, photos and icons -- here are a few helpful resources"
 authors: ["btihen"]
-tags: ["exploration", "trust", "adventure", "joy", "engagement", "student choice"]
-categories: ["Education", "EDgile", "Practice", "Classroom"]
+tags: ["icons", "images", "pictures", "design"]
+categories: ["Design", "OpenSource"]
 date: 2020-11-01T01:57:16+02:00
-lastmod: 2020-11-01T01:57:16+02:00
+lastmod: 2020-11-012T01:57:16+02:00
 featured: true
 draft: false
 

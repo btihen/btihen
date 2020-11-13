@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Codium", "Editor", "Plugin", "Tooling"]
 categories: ["Code Editor"]
 date: 2020-11-03T01:19:09+02:00
-lastmod: 2020-11-03T01:19:09+02:00
+lastmod: 2020-11-13T01:19:09+02:00
 featured: true
 draft: false
 
@@ -27,9 +27,13 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 ---
+Need to point Codium to MS extions?  Do the following:
+
 ### **Like Codium but need a MS Code Plugin?**
 
 https://stackoverflow.com/questions/37143536/no-extensions-found-when-running-visual-studio-code-from-source
+
+open:
 
 `vim /Applications/VSCodium.app/Contents/Resources/app/product.json`
 

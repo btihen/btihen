@@ -51,24 +51,29 @@ To ensure that collaborative feedback is practiced I require every project to in
 
 ## Resources
 
+_Technology companies focus on communication and feedback to create an environment of enthusiastic, engaged learners.  Fundamentally, they are moving away from an 'authoritative',  'telling' and 'corrective' approach and instead toward an 'amplifying', 'curious' and 'collaborative' approach._
+
+**Pixar's Plussing**
+
+Amplifying feedback over silencing feedback.
+
+- [Pixar's "Plussing" - Feedback Tool](https://www.youtube.com/watch?v=jziy7comOT8) - In this short video he describes how to use Pixar's Plussing in the the classroom to improve learning and collaboration.  [David Lee](https://www.davidleeedtech.org/) is the Tech & Innovation Specialist at [Singapore American School](https://www.sas.edu.sg/).  He is also the author of [Design Thinking in the Classroom](https://www.davidleeedtech.org/designthinkingintheclassroom).
+- [Pixar’s Secret to giving Feedback](https://joehirsch.me/2017/03/29/pixar/) - a short, clear article describing the differences between silencing and amplifying ('plussing' or 'additive') feedback.
+- [How Pixar Fosters Collective Creativity](https://hbr.org/2008/09/how-pixar-fosters-collective-creativity), by Ed Catmull. A Harvard Business Review article that describes the misconception about creativity. The focus of the article is summarize with this quote: "The view that good ideas are rarer and more valuable than good people is rooted in a misconception of creativity." Ed Catmull is the author of **[Creativity, Inc.](https://www.creativityincbook.com/):** Overcoming the Unseen Forces That Stand in the Way of True Inspiration, ISBN-13: 978-0593070109, by Ed Catmull (co-founder of Pixar) and Amy Wallace. This is the book that sparked a lot of interest in 'additive' or 'plussing' feedback.
+- [Five ways Pixar makes Better Decisions](https://hbr.org/2010/07/how-to-make-good-decisions-les) - a Harvard Business Review article that describes how organizations with good judgment have a number of typical attributes. One is that they involve a number of different people in making important decisions. Their senior executives keep in mind that they don’t have a monopoly on knowledge and judgment and therefore involve multiple people in decision processes. Thomas H. Davenport is the President’s Distinguished Professor in Management and Information Technology at [Babson College](https://www.babson.edu/), a research fellow at the [MIT Initiative on the Digital Economy](http://ide.mit.edu/), and a senior adviser at [Deloitte Analytics](https://www2.deloitte.com/global/en/pages/deloitte-analytics/topics/deloitte-analytics-services.html). He is the author of over a dozen management books, most recently [Only Humans Need Apply: Winners and Losers in the Age of Smart Machines](https://www.harpercollins.com/products/only-humans-need-apply-thomas-h-davenportjulia-kirby?variant=32217989349410) and [The AI Advantage](https://mitpress.mit.edu/books/ai-advantage).
+
 **Effective Feedback**
 
-- [The secret to giving great feedback](https://www.youtube.com/watch?v=wtl5UrrgU8c): The Way We Work, a **TED** series, by cognitive psychologist [Dr. LeeAnn Renniger](https://lifelabslearning.com/faculty/dr-leeann-renniger/).  She shares a scientifically proven method for giving effective feedback. Visit https://go.ted.com/thewaywework for more! She also has a book: **Surprise**: Embrace the Unpredictable and Engineer the Unexpected Hardcover, ISBN-13 : 978-0399169823, by Tania Luna, LeeAnn Renninger PhD.
-- [How to Give Respectful and Constructive Code Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/) - a short video by [Dr. Michaela Greiler]() (Doctor McKayla) where she describes respectful ways to collaborate and improve a shared project.
+Sharing perspective instead of authoritatively telling.
 
-
-**Feedback that Cultivates Creativity**
-
-- **Creativity, Inc.:** Overcoming the Unseen Forces That Stand in the Way of True Inspiration, ISBN-13: 978-0593070109, by Ed Catmull (co-founder of Pixar) and Amy Wallace. This book sparked a lot of interest in 'addative' or 'plussing' feedback.
-- [Pixar’s Secret to giving Feedback](https://joehirsch.me/2017/03/29/pixar/)
-- [How Pixar Fosters Collective Creativity](https://hbr.org/2008/09/how-pixar-fosters-collective-creativity)
-- [Five ways Pixar makes Better Decisions](https://hbr.org/2010/07/how-to-make-good-decisions-les)
+- [The secret to giving great feedback](https://www.youtube.com/watch?v=wtl5UrrgU8c): The Way We Work, a **TED** series, by cognitive psychologist [LeeAnn Renniger](https://lifelabslearning.com/faculty/dr-leeann-renniger/).  She shares a scientifically proven method for giving effective feedback. Visit https://go.ted.com/thewaywework for more! She also has a book: [**Surprise**: Embrace the Unpredictable and Engineer the Unexpected](https://www.penguinrandomhouse.com/books/316304/surprise-by-tania-luna-and-leeann-renninger-phd/), ISBN-13 : 978-0399169823, by Tania Luna and LeeAnn Renninger PhD.
+- [How to Give Respectful and Constructive Code Review Feedback](https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/) - a short video by Dr. [Michaela Greiler](https://www.michaelagreiler.com/about/) (Doctor McKayla) explaining 10 ways to respectfully collaborate and improve.
 
 **Technical Feedback** _(without being the sage on the stage)_
 
 - Dr. Michaela Greiler has a full length talk [How To Phrase Respectful Code Review Feedback](https://www.youtube.com/watch?v=hzBHtgWlc4I&feature=emb_rel_end).  She is also working on a Code Review Book.
 - [What to Look for in a Code Review](https://leanpub.com/whattolookforinacodereview), by Trisha Gee of Jet Brains.  She also has a talk [Code Review Best Practices](https://trishagee.com/presentations/code_review_best_practice/).
 
-**Agile Communication and Management Approaches** _(classroom management)
+**Agile Communication and Management Approaches** _(classroom management)_
 
 - [Become an Effective Software Engineering Manager](https://pragprog.com/titles/jsengman/become-an-effective-software-engineering-manager/): How to Be the Leader Your Development Team Needs, ISBN: 9781680507249, by James Stanier.  This book is a reflection about how to go beyond agile and what has worked well at **Spotify**.

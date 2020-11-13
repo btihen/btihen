@@ -77,3 +77,8 @@ Sharing perspective instead of authoritatively telling.
 **Agile Communication and Management Approaches** _(classroom management)_
 
 - [Become an Effective Software Engineering Manager](https://pragprog.com/titles/jsengman/become-an-effective-software-engineering-manager/): How to Be the Leader Your Development Team Needs, ISBN: 9781680507249, by James Stanier.  This book is a reflection about how to go beyond agile and what has worked well at **Spotify**.
+
+**Teachers on Communication and Inspiration**
+
+- [Teaching Methods for Inspiring the Students of the Future](https://www.youtube.com/watch?v=UCFg9bcW7Bk) - A TEDxLafayette talk by Joe Ruhl on working with students: Choice, Collaboration, Communication, Critical Thinking, Creativity and Caring.
+- [What makes a good teacher great?](https://www.youtube.com/watch?v=vrU6YJle6Q4) - A TEDxSantoDomingo talk by Azul Terronez on connecting and listing to students and developing rapor.

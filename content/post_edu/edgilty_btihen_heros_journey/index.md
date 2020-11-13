@@ -60,3 +60,11 @@ To quickly compare the above project flow to an Agile process, including the kic
 - The Agile Samurai: How Agile Masters Deliver Great Software, by Jonathan Rasmusson (ISBN-13 9781934356586)
 - [Advice on Conduction Agile Project Kickoff Meetings](https://www.mountaingoatsoftware.com/blog/advice-on-conducting-agile-project-kickoff-meetings), by Ben Kohen
 - [How To Run A Project Kickoff Meeting (With Sample Agendas)](https://thedigitalprojectmanager.com/project-kickoff-meeting/), by Ben Aston
+
+**Invoke/Involve Stories**
+
+Allow students to dream a future and work with difficulties.
+
+- [Common Structure of the Greatest Communicators](https://youtu.be/1nYFpuc2Umk) - A TEDxEast talk by Nancy Duarte.  Explores making the status quo unappealing and draw them forward to the future of what can be, drawing people in and using resistance to move forward.
+- [The Clues to a Great Story](https://www.ted.com/talks/andrew_stanton_the_clues_to_a_great_story?language=en) - shares what he knows about storytelling -- starting at the end and working back to the beginning. A TED talk by Andrew Stanton, the writer behind "Toy Story" and "Wall-E" and "John Carter." _Contains graphic language._
+- [The magical science of storytelling](https://www.youtube.com/watch?v=Nj-hdQMa3uA) - a TEDxStockholm by David JP Phillips.  David JP Phillips shares key neurological findings on storytelling and with the help of his own stories, induces in us the release of four neurotransmitters of his choice.

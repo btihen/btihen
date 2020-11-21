@@ -7,8 +7,8 @@ summary: "Generally people remember stories and much of children’s play involv
 authors: ["btihen"]
 tags: ["choice", "buy-in", "student-directed learning", "hero’s journey", "challenge", "story-telling"]
 categories: ["Education", "EDgile", "Practice", "Classroom"]
-date: 2021-02-06T01:16:20+02:00
-lastmod: 2021-02-06T01:16:20+02:00
+date: 2021-01-01T01:16:20+02:00
+lastmod: 2021-01-01T01:16:20+02:00
 featured: true
 draft: false
 

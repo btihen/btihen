@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Tweets - A Standard Rails Single Page App"
-subtitle: "A simple Rails App that works off one page"
-summary: "Simple Intro into basic Hotwire features"
+title: "Tweets - A Single Page Rails App (using reloads)"
+subtitle: "A simple Rails App that uses one page"
+summary: "A simple Rails App that works off one page (a prep-project to build a Rails SPA with Hotwire)"
 authors: ["btihen"]
-tags: ["Rails", "Rails 6", "Hotwire", "SPA", "HTML", "WebSocket"]
+tags: ["Rails", "Rails 6", "Hotwire", "SPA", "HTML"]
 categories: []
 date: 2021-02-25T18:57:00+02:00
-lastmod: 2021-02-25T18:57:00+02:00
+lastmod: 2021-02-28T18:57:00+02:00
 featured: true
 draft: false
 
@@ -29,9 +29,9 @@ projects: []
 ---
 ## Overview
 
-This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire (in the next article)
+This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire in the next article [Tweets - A Rails based Single Page App using Hotwire](/post_ruby_rails/rails_tweet_single_page_reloads/)
 
-(Hotwire)[https://hotwire.dev/] allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using (Turbo)[https://turbo.hotwire.dev/] - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.
+[Hotwire](https://hotwire.dev/) allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using [Turbo](https://turbo.hotwire.dev/) - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.
 
 This code can be found at: https://github.com/btihen/tweet_simulator_rails
 

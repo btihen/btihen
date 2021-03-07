@@ -83,11 +83,10 @@ user_groups: []
 # - Researchers
 # - Visitors
 ---
+Developer, Educator, Meditator and Nature Enthusiast.
 
-On a quest to explore and uplift.
+I hold a Masters in Electrical Engineering (with a focus on Materials Science). I also have a ScrumMaster certification.
 
-Developer, Educator and very curious.
+I have worked as a robotics designer, teacher, systems administrator and software engineer. My technical work has strongly influenced how I teach: Research and Agile practices have helped me develop a keen interest in the joy of exploring or 'playful experiments.' Agile presents the Plan, Do, Reflect, Adjust loop and I have found that  'smallifying' large tasks is an effective way to make progress with a large overwhelming project. In fact, taking little exploratory 'bets' / experiments to move forward, helps many people feel safe. When I realized these are also excellent learning methodologies, I realized in addition to content, I need to teach these skills too.
 
-I love exploring / hiking in the alps with my dog and I love learning new programming ideas.
-
-Feel free to checkout my exploratory repository.
+Over time I have also realized that one of the most important aspects of a classroom (or work environment) is that it is exciting, engaging and generally an uplifting environment.  Or possibly an energy gifting experience. I have found the when students can choose their learning outcomes & goals (within the expectations of the class curriculum) the classroom can offer students these experiences too.

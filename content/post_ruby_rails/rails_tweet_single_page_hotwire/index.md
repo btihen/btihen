@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Rails", "Rails 6", "Hotwire", "SPA", "HTML", "WebSocket"]
 categories: []
 date: 2021-02-28T18:57:00+02:00
-lastmod: 2021-03-04T18:57:00+02:00
+lastmod: 2021-03-07T18:57:00+02:00
 featured: true
 draft: false
 
@@ -352,9 +352,10 @@ git add .
 git commit -m "broadcast deleted tweets via hotwire"
 ```
 
-### Hotwire can handle Forms too!
 
-Turbo unlike Turbo-Links works with Forms as well as links.
+### Edit / Updates to all clients!
+
+Turbo unlike Turbo-Links works with Forms as well as links.  This allows us to edit our posts.
 
 #### Start with the Create Form
 
@@ -688,8 +689,20 @@ git commit -m "turbo frame now allows in-place edit and cancel edit without relo
 
 ### Likes and Retweet
 
-
-### Links that render outside of current Frame
-
+I was able to get these special routes / actions to update just the calling browser, but unable to get these to broadcast to all open connections.
 
 ## Resources
+
+I am particularly fond of the GoRails videos.
+
+* https://hotwire.dev/
+* https://turbo.hotwire.dev/
+* https://github.com/hotwired/hotwire-rails
+* https://www.youtube.com/watch?v=NtTfYfWAzw0
+* https://www.youtube.com/watch?v=77GvSdc2Pf8
+* https://www.youtube.com/watch?v=NtTfYfWAzw0
+* https://www.youtube.com/watch?v=MRv4XGu6QkY
+* https://gorails.com/episodes/hotwire-rails?autoplay=1
+* https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/
+* https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/
+* https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87

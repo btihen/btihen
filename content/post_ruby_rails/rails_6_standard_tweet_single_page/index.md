@@ -29,7 +29,7 @@ projects: []
 ---
 ## Overview
 
-This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire in the next article [Tweets - A Rails based Single Page App using Hotwire](/post_ruby_rails/rails_tweet_single_page_hotwire/)
+This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire in the next article [Tweets - A Rails based Single Page App using Hotwire](/post_ruby_rails/rails_6_hotwire_tweet_single_page/)
 
 [Hotwire](https://hotwire.dev/) allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using [Turbo](https://turbo.hotwire.dev/) - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.
 

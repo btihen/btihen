@@ -10,7 +10,7 @@ categories: []
 date: 2020-07-10T20:46:07+02:00
 lastmod: 2020-07-10T20:46:07+02:00
 featured: true
-draft: false
+draft: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -41,7 +41,7 @@ create the project:
 # Spring & listen speed testing - but can get out of sync and make problems
 rails new challenges -T -d postgresql --skip-spring --skip-listen
 
-Excerpt From: David Bryant Copeland. “Sustainable Web Development with Ruby on Rails.” Apple Books. 
+Excerpt From: David Bryant Copeland. “Sustainable Web Development with Ruby on Rails.” Apple Books.
 cd challenges
 gem install bundler:2.1.4
 rails app:update:bin
@@ -296,7 +296,7 @@ rails g controller Landing index --no-helper --no-assets --no-controller-specs -
 
 now check or add this the root page to: `config/routes.rb`:
 ```
-  
+
   get '/landing', to: 'landing#index', as: :landing
   # get 'landing/index'
   root to: "landing#index"
@@ -315,7 +315,7 @@ require 'rails_helper'
 RSpec.describe 'Landing Page Works without a login', type: :feature do
   scenario 'Visit landing Page' do
     visit root_path
-    
+
     page_tag = find('p#landing_index', text: 'Landing Index', visible: false)
     expect(page_tag).to be_truthy
   end

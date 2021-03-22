@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Tweets - A Rails based Single Page App using Hotwire"
+title: "Rails 6.1 - Hotwire (Realtime SPA)"
 subtitle: "A simple Rails App that works off one page"
-summary: "A simple Rails App that works off one page (a prep-project to build a Rails SPA with Hotwire)"
+summary: "A simple Single Page App using Rails and Hotwire"
 authors: ["btihen"]
-tags: ["Rails", "Rails 6", "Hotwire", "SPA", "HTML", "WebSocket"]
+tags: ['Rails', 'Hotwire', 'SPA', 'WebSocket', 'realtime']
 categories: []
 date: 2021-02-28T18:57:00+02:00
-lastmod: 2021-03-07T18:57:00+02:00
+lastmod: 2021-03-22T18:57:00+02:00
 featured: true
 draft: false
 
@@ -29,9 +29,11 @@ projects: []
 ---
 ## Overview
 
-In this article we convert a seemingly 'single-page' web app that reloads with every request see previous article [Tweets - A Single Page Rails App (using reloads)](/post_ruby_rails/rails_tweet_single_page_reloads/) and convert it into a proper 'single-page' app that only refreshes the aspects that change.  This makes web-pages with lots of data and complexity FAST and feel like native apps.  This is done with Hotwire (using web-sockets).
+[Hotwire](https://hotwire.dev/)  is planned to be integrated into Rails 7.x and is already included in the soon to be published book: [Modern Front-End Development for Rails: Hotwire, Stimulus, Turbo, and React ](https://pragprog.com/titles/nrclient/modern-front-end-development-for-rails/)
 
-[Hotwire](https://hotwire.dev/) allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using [Turbo](https://turbo.hotwire.dev/) - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.
+Hotwire allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using [Turbo](https://turbo.hotwire.dev/) - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.
+
+In this article we convert a seemingly 'single-page' web app that reloads with every request see previous article [Tweets - A Single Page Rails App (using reloads)](/post_ruby_rails/rails_6_standard_tweet_single_page_reloads/) and convert it into a proper 'single-page' app that only refreshes the aspects that change.  This makes web-pages with lots of data and complexity FAST and feel like native apps.  This is done with Hotwire (using web-sockets).
 
 ## Basic Setup
 

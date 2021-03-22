@@ -743,7 +743,6 @@ Now it should look like:
 https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html
 
 
-
 ### Discourgaged - no longer necessary:
 
 If you plan to user database_cleaner -- then also see this article to finish your config:

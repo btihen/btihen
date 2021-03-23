@@ -45,21 +45,6 @@ In the end, I feel like its easier / better to use tailwindcss with AlpineJS sin
 
 ## Install Tailwind CSS 2.0
 
-### Upgrade Webpacker
-
-webpacker-rails 5.x uses postcss7 by default so we will upgrade to webpacker-rails 6 (currently still in pre release)
-
-```
-# Gemfile
-# gem 'webpacker', '~> 5.0'
-gem 'webpacker', '~> 6.0.0.pre'
-```
-
-now
-```
-bundle
-```
-
 ### Tailwind CSS 2.0 Install
 
 https://tailwindcss.com/docs

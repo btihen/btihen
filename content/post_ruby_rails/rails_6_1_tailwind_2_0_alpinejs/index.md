@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Rails 6.1 with TailwindCSS 2.0 and AlineJS"
+title: "Rails 6.1 with TailwindCSS 2.0 and AlpineJS"
 subtitle: ""
 summary: ""
 authors: ["btihen"]

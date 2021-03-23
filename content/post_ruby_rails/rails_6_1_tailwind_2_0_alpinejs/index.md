@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["rails 6", "configure", "install", "tailwindcss", "alpinejs"]
 categories: ["Rails"]
 date: 2021-03-21T01:46:07+02:00
-lastmod: 2021-03-21T01:46:07+02:00
+lastmod: 2021-03-23T01:46:07+02:00
 featured: true
 draft: false
 
@@ -45,21 +45,42 @@ In the end, I feel like its easier / better to use tailwindcss with AlpineJS sin
 
 ## Install Tailwind CSS 2.0
 
+### Upgrade Webpacker
+
+webpacker-rails 5.x uses postcss7 by default so we will upgrade to webpacker-rails 6 (currently still in pre release)
+
+```
+# Gemfile
+# gem 'webpacker', '~> 5.0'
+gem 'webpacker', '~> 6.0.0.pre'
+```
+
+now
+```
+bundle
+```
+
 ### Tailwind CSS 2.0 Install
 
 https://tailwindcss.com/docs
 
-Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8)
+Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8) -- with or without upgrading webpacker the following should work:
 ```
-yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+yarn add tailwindcss@latest postcss@latest autoprefixer@latest
 
-# install AlpineJS
+# if you get this error: Error: PostCSS plugin tailwindcss requires PostCSS 8. use:
+# yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+```
 
+now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus playwell together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!
+```
 yarn add alpinejs
+yarn add alpine-turbo-drive-adapter
+```
 
+Now create the tailwind config file
+```
 npx tailwindcss init
-# or possibly
-# npx tailwindcss init --full
 ```
 
 now config tailwind:
@@ -113,9 +134,9 @@ cat <<EOF >app/javascript/stylesheets/application.scss
 /* app/javascript/stylesheets/application.scss */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
-
-/* Add any custom CSS here */
 @import "tailwindcss/utilities";
+
+/* Add custom CSS here */
 EOF
 ```
 
@@ -127,8 +148,12 @@ import "@hotwired/turbo-rails"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+// import alpinejs and its necessary rails adaptation
+import 'alpine-turbo-drive-adapter'
+require("alpinejs")
+
 // import tailwind into javascript
-import "../stylesheets/application"
+import "../stylesheets/application.scss"
 
 Rails.start()
 ActiveStorage.start()

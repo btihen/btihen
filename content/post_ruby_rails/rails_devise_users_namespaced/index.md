@@ -1,11 +1,11 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Rails Devise User with Roles"
+title: "Rails Devise User Model with Roles"
 subtitle: ""
 summary: ""
 authors: ["btihen"]
-tags: []
+tags: ["rails", "devise", "authentication", "namespace"]
 categories: []
 date: 2020-07-10T20:45:51+02:00
 lastmod: 2020-07-10T20:45:51+02:00

@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Design Resources"
+title: "Web Design Resources"
 subtitle: "Web Design Resources"
 summary: "Looking for images, drawings, photos and icons -- here are a few helpful resources"
 authors: ["btihen"]
@@ -61,6 +61,8 @@ https://themeisle.com/blog/free-illustrations/
 
 ## Icons
 - [IonIcons](https://ionicons.com/)
+- [HeroIcons](https://heroicons.dev/)
+- [FeatherIcons](https://feathericons.com/)
 - [themifyIcons](https://themify.me/themify-icons) - good variety and brands too
 - [FontAwesome](https://fontawesome.com/) - Icons; many are completely free
 - [FontAwesome6](https://fontawesome.com/icons?d=gallery&q=archive)

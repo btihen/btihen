@@ -2,13 +2,13 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Rails 6.1 - Hotwire with Modals"
-subtitle: "A simple Rails App that works off one page"
-summary: "A simple Single Page App using Rails and Hotwire"
+subtitle: "A simple Rails App that works off one page - integrating modal forms"
+summary: "A simple Single Page App using Rails and Hotwire - integrated with a modal forms"
 authors: ["btihen"]
-tags: ['Rails', 'Hotwire', 'SPA', 'WebSocket', 'realtime']
+tags: ['Rails', 'Hotwire', 'SPA', 'WebSocket', 'realtime', 'modal forms']
 categories: []
-date: 2021-04-10T18:57:00+02:00
-lastmod: 2021-04-10T18:57:00+02:00
+date: 2021-03-06T18:57:00+02:00
+lastmod: 2021-03-06T18:57:00+02:00
 featured: true
 draft: false
 

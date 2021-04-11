@@ -7,8 +7,8 @@ summary: ""
 authors: ["btihen"]
 tags: ["rails 6", "configure", "install", "tailwindcss", "alpinejs"]
 categories: ["Rails"]
-date: 2021-03-21T01:46:07+02:00
-lastmod: 2021-04-10T01:46:07+02:00
+date: 2020-09-10T02:46:07+02:00
+lastmod: 2021-03-09T01:46:07+02:00
 featured: true
 draft: false
 

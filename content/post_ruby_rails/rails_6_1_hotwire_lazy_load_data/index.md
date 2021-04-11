@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Rails 6.1 - Hotwire Lazy Loading Data"
+title: "Rails 6.1 - Hotwire with Lazy Loading"
 subtitle: "A simple Rails App that works off one page using flash messages"
 summary: "A simple Single Page App using Rails and flash messages with Hotwire"
 authors: ["btihen"]
 tags: ['Rails', 'Hotwire', 'SPA', 'WebSocket', 'realtime', 'lazy load data']
 categories: []
-date: 2021-04-11T01:57:00+02:00
-lastmod: 2021-04-11T01:57:00+02:00
+date: 2021-03-28T01:57:00+02:00
+lastmod: 2021-03-38T01:57:00+02:00
 featured: true
 draft: false
 

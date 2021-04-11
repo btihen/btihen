@@ -7,8 +7,8 @@ summary: "A simple Single Page App using Rails and flash messages with Hotwire"
 authors: ["btihen"]
 tags: ['Rails', 'Hotwire', 'SPA', 'WebSocket', 'realtime', 'flash message']
 categories: []
-date: 2021-03-20T18:57:00+02:00
-lastmod: 2021-03-20T18:57:00+02:00
+date: 2021-03-06T18:57:00+02:00
+lastmod: 2021-03-06T18:57:00+02:00
 featured: true
 draft: false
 

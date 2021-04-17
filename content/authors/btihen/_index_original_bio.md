@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Developer, Data and Educator
+role: Developer, Data Enthusiast and Educator
 
 external_link: "/challenges/student_challenges/"
 

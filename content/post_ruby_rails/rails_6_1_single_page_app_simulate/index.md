@@ -7,7 +7,7 @@ summary: "A simple Rails App that works off one page (a prep-project to build a 
 authors: ["btihen"]
 tags: ["Rails", "Rails 6", "Hotwire", "SPA", "HTML"]
 categories: []
-date: 2021-02-25T18:57:00+02:00
+date: 2021-02-20T18:57:00+02:00
 lastmod: 2021-03-07T18:57:00+02:00
 featured: true
 draft: false

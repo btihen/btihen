@@ -10,7 +10,10 @@ authors:
 superuser: true
 
 # Role/position
-role: Developer, Data and Educator
+role: Developer, Data Enthusiast, Educator and Nature's Friend
+
+# Short bio (displayed in user profile at end of posts)
+bio: very curious -- known to explore knownledge and nature
 
 external_link: "/challenges/student_challenges/"
 
@@ -22,9 +25,6 @@ organizations:
   url: "https://www.garaio-rem.ch/"
 - name: PeakChallenges
   url: "https://www.peakchallenges.ch/"
-
-# Short bio (displayed in user profile at end of posts)
-bio: Developer, Educator and very currious.
 
 interests:
 - Alps

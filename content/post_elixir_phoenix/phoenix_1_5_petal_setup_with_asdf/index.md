@@ -3,12 +3,12 @@
 
 title: "Phoenix 1.5 PETAL Stack Setup - w/ asdf"
 subtitle: "Phoenix, Elixir, TailwindCSS, AlpineJS, LiveView - PETAL Stack"
-summary: "Create a dynamic SPA staying mostly in the Pheonix/Elixir mindset - managing the software using asdf "
+summary: "Create a modern Phoenix SPA with tremendous flexibility"
 authors: ["btihen"]
 tags: ["Phoenix", "Elixir", "TailwindCSS", "AlpineJS", "LiveView", "PETAL Stack"]
 categories: ["Code"]
-date: 2021-04-10T17:01:53+02:00
-lastmod: 2021-04-10T17:01:53+02:00
+date: 2021-04-10T01:01:53+02:00
+lastmod: 2021-04-18T01:01:53+02:00
 featured: false
 draft: false
 
@@ -87,7 +87,7 @@ mkdir fenix
 Now we will tell it which software to use:
 ```
 touch fenix/.tool-versions
-cat <<EOF >>fenix/.tool-versionsx
+cat <<EOF >>fenix/.tool-versions
 erlang 23.3.1
 elixir 1.11.4-otp-23
 Postgres 13.2
@@ -102,9 +102,9 @@ https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58
 Now you can simply do:
 ```
 mix phx.new fenix --live
-mix ecto.creatte
-mix phx.server
 cd fenix
+mix ecto.create
+mix phx.server
 ```
 
 
@@ -286,3 +286,18 @@ add a test html from tailwind to the end of: `lib/fenix_web/live/page_live.html.
 </section>
 ```
 Now when we start the server with `mix phx.server` we should have a centered / red title and colored buttons on our counter.
+
+
+## Add Test helpers
+
+  wallaby / hound - browser testing
+  {:faker, "~> 0.16", only: :test},
+  {:ex_machina, "~> 2.7.0", only: :test},
+  {:phoenix_integration, "~> 0.8.2"}
+  mox - mock testing external apis
+  moch
+  FakerElixir
+
+## Auth Users
+
+phx.auth.gen

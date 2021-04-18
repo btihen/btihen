@@ -33,7 +33,7 @@ As was seen in [Using Hotwire with Flash Messages](/post_ruby_rails/rails_6_1_ho
 
 ## Basic Setup
 
-Start with the code at the end of: [Using Hotwire in Rails](/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/)
+Start with the code at the end of: [Using Hotwire in Rails](/post_ruby_rails/rails_6_1_hotwire_simple_realtime/)
 
 
 ## Prepare our code

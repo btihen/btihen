@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Rails 6.1 - Hotwire (Realtime SPA)"
+title: "Rails 6.1 - Hotwire (Simple Realtime SPA)"
 subtitle: "A simple Rails App that works off one page"
 summary: "A simple Single Page App using Rails and Hotwire"
 authors: ["btihen"]

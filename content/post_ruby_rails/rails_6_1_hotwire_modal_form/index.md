@@ -29,11 +29,11 @@ projects: []
 ---
 ## Overview
 
-Now that you have the basics of using Hotwire in Rails [Using Hotwire in Rails](/post_ruby_rails/rails_6_1_hotwire_single_model/) - its interesting to try using it in other contexts, inparticular **modals** are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.
+Now that you have the basics of using Hotwire in Rails [Using Hotwire in Rails](/post_ruby_rails/rails_6_1_hotwire_simple_realtime/) - its interesting to try using it in other contexts, inparticular **modals** are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.
 
 ## Basic Setup
 
-Start with the code at the end of: [Using Hotwire in Rails](/post_ruby_rails/rails_6_1_hotwire_single_model/)
+Start with the code at the end of: [Using Hotwire in Rails](/post_ruby_rails/rails_6_1_hotwire_simple_realtime/)
 
 
 ## Add jQuery to Bootstrap Setup

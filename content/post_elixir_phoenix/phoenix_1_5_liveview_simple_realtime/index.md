@@ -27,7 +27,9 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 ---
-I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn't enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.
+Here is a quick example of how to create a very simple "real-time"-"single-page-app" using phoenix-liveview.  This provides the same functionality to as [Realtime Rails with Hotwire](post_ruby_rails/rails_6_1_hotwire_simple_realtime) - in order to compare.
+
+The repo can be found here: https://github.com/btihen/live-tweets
 
 ## create / config a project
 
@@ -83,6 +85,8 @@ git init
 git add .
 git commit -m "initial setup commit"
 ```
+
+This code commit can be seen at: https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe
 
 ## create our tweet model
 
@@ -185,6 +189,9 @@ to
 ```
 
 Cool now our SPA works like we want -- but it isn't real-time between two users / browsers.
+
+
+This code can be seen at: https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6
 
 ## Broadcast changes with Pubsub
 
@@ -325,3 +332,16 @@ mix phx.server
 ```
 Now any changes we make should be seen all users.
 
+Cool lets snapshot this.
+
+```
+git checkout -b liveview_spa_broadcast_with_pubsub
+git add .
+git commit -m "add realtime broadcast to all users"
+```
+
+This code can be seen at: https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac
+
+## Summary
+
+In my mind this is far simpler to setup as a single page app - using the LiveView generator and a little more work to add broadcasting than in Rails.  Converting a Standard Phoenix HTML page to LiveView however is considerably more difficult than Converting a Standard Rails page to Hotwire.  I also find adding advanced features much more straight-forward in LiveView - as you write the event_handlers in you liveview pages and it is very clear what is happening.  In rails you need to know what is happening without being able to see the code.  I also like that LiveView - when it can't find an event - you get lots of errors.  This is very helpful.

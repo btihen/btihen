@@ -332,7 +332,7 @@ mix phx.server
 ```
 Now any changes we make should be seen all users.
 
-Cool lets snapshot this.
+Cool, lets snapshot this.
 
 ```
 git checkout -b liveview_spa_broadcast_with_pubsub

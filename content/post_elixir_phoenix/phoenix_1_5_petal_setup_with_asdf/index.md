@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Phoenix", "Elixir", "TailwindCSS", "AlpineJS", "LiveView", "PETAL Stack"]
 categories: ["Code"]
 date: 2021-04-10T01:01:53+02:00
-lastmod: 2021-04-18T01:01:53+02:00
+lastmod: 2021-04-25T01:01:53+02:00
 featured: false
 draft: false
 
@@ -107,6 +107,13 @@ mix ecto.create
 mix phx.server
 ```
 
+assuming all is good lets configure git:
+```
+git init
+git add .
+git commit -m "initial Phoneix install with LiveView"
+```
+
 
 ## install & test Alpine JS
 https://underjord.io/getting-started-with-petal.html
@@ -158,6 +165,12 @@ test with:
 `mix phx.server`
 
 when typing the name should appear below!
+
+let's snapshot:
+```
+git add .
+git commit -m "phoenix with alpine js"
+```
 
 
 ## Integrating Tailwind into phoenix
@@ -287,6 +300,11 @@ add a test html from tailwind to the end of: `lib/fenix_web/live/page_live.html.
 ```
 Now when we start the server with `mix phx.server` we should have a centered / red title and colored buttons on our counter.
 
+now lets snapshot our PETAL setup:
+```
+git add .
+git commit -m "Tailwind installed"
+```
 
 ## Add Test helpers
 

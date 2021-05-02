@@ -805,8 +805,10 @@ http://localhost:4000/auth/github/callback
 
 **Configure Github Credential Secrets**
 
+* https://hexdocs.pm/elixir/Application.html
 * https://devato.com/post/handling-environment-variables-in-phoenix
 * https://stackoverflow.com/questions/44510403/phoenix-import-module-into-config
+* https://stackoverflow.com/questions/30995743/how-to-get-a-variable-value-from-environment-files-in-phoenix
 
 First update `.gitignore` with the line:
 ```

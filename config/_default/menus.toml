@@ -14,14 +14,9 @@
   weight = 15
 
 [[main]]
-  name = "Edu"
-  url = "#post_edu"
-  weight = 20
-
-[[main]]
   name = "Elixir"
   url = "#post_elixir_phoenix"
-  weight = 21
+  weight = 20
 
 [[main]]
   name = "Ruby"
@@ -29,9 +24,20 @@
   weight = 22
 
 [[main]]
-  name = "Web"
-  url = "#post_web_tech"
-  weight = 23
+  name = "Crystal"
+  url = "#post_crystal"
+  weight = 24
+
+[[main]]
+  name = "Tech"
+  url = "#post_tech_notes"
+  weight = 26
+
+[[main]]
+  name = "Edu"
+  url = "#post_edu"
+  weight = 28
+
 
 [[main]]
   name = "Pubs"

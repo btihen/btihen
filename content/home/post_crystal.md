@@ -7,12 +7,12 @@ headless = true   # This file represents a page section.
 active = true     # Activate this widget? true/false
 weight = 30       # Order that this section will appear.
 
-title = "Education"
+title = "Crystal Language"
 subtitle = "Recent"
 
 [content]
   # Page type to display. E.g. post, talk, or publication.
-  page_type = "post_edu"
+  page_type = "post_crystal"
 
   # Choose how much pages you would like to display (0 = all pages)
   count = 2

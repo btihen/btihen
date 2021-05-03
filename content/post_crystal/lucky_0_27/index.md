@@ -8,8 +8,8 @@ authors: ["btihen"]
 tags: ["Relationships", "Basics"]
 categories: ["Crystal", "Lucky", "Languages"]
 categories: ["Code"]
-date: 2021-04-25T01:01:53+02:00
-lastmod: 2021-04-27T01:01:53+02:00
+date: 2021-05-02T01:01:53+02:00
+lastmod: 2021-05-03T01:01:53+02:00
 featured: false
 draft: false
 

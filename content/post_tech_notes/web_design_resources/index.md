@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["icons", "images", "pictures", "design"]
 categories: ["Design", "OpenSource"]
 date: 2020-11-01T01:57:16+02:00
-lastmod: 2020-11-012T01:57:16+02:00
+lastmod: 2021-05-03T01:57:16+02:00
 featured: true
 draft: false
 
@@ -28,6 +28,11 @@ image:
 projects: []
 ---
 
+## Thesarus (word finder)
+
+- [wordhippo](https://www.wordhippo.com/) - finds older and specialty words!
+-
+
 ## Logos
 
 - https://logomakr.com/
@@ -35,9 +40,11 @@ projects: []
 - https://www.namecheap.com/logo-maker/app/
 - https://hatchful.shopify.com/onboarding/pick-space
 
+
 ## Images and Icons
 
 I'm often looking for a way to make websites more interesting here are a few resources I use:
+
 
 ## Drawings
 
@@ -56,15 +63,20 @@ https://themeisle.com/blog/free-illustrations/
 - [grapbox](https://grapbox.net/) - images, drawings, photos, Icons!
 - [uistore](https://www.uistore.design/) - mix of stuff
 
+
 ## Photos
+
 - [Unsplash](https://unsplash.com/) - photos free to use for everyone
 
+
 ## CSS
+
 - [headlessui](https://headlessui.dev/)
 - [tailwindui](https://tailwindui.com/)
 
 
 ## Icons
+
 - [IonIcons](https://ionicons.com/)
 - [HeroIcons](https://heroicons.dev/)
 - [FeatherIcons](https://feathericons.com/)
@@ -76,7 +88,12 @@ https://themeisle.com/blog/free-illustrations/
 - [Glyphicons](https://glyphicons.com/) - Icons in Bootstrap see also: https://getbootstrap.com/docs/3.3/components/
 - [SimpleIcons](https://simpleicons.org/)
 - [devicon](https://devicon.dev/)
+- [iconic](https://iconic.app/)
 
+
+## DB Svelte Tool
+
+- [dbgate](https://dbgate.org)
 
 
 ## SVG Text Logos
@@ -110,5 +127,4 @@ Sometimes I find it hard to come up with a good logo, but not a shortname.
   <text x="0" y="22" class="heavy" fill="blue">ED</text>
   <text x="0" y="40" class="small" fill="green">gility</text>
 </svg>
-
 ```

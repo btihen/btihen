@@ -28,6 +28,8 @@ image:
 projects: []
 ---
 
+~/devel/learning/crystal_frameworks/lucky/brews
+
 ## Why Lucky
 
 Lucky offers all the features I use in Rails - but is type safe and faster than rails.  Lucky's focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).  See: https://luckyframework.org/guides/getting-started/why-lucky for a full list of what Lucky aims to improve.
@@ -739,7 +741,7 @@ https://www.luckyframework.org/guides/database/models#polymorphic-associations
 
 One reason I favor Lucky is the database `Avram` supports polymorphic relationships - which seems to come up a lot in my code - so lets see how to get it working and support multiple types:
 
-
+Pets -> Cats, Dogs, Horses, etc
 
 ## Optional Relations
 

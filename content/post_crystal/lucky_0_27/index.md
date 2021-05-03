@@ -2,12 +2,11 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: "Lucky Framework with Crystal Language"
-subtitle: "Basics of Lucky with Relationships, Types, Forms and Language Tweeks"
-summary: ""
+subtitle: "Basics of Lucky: Relationships, Types, Forms and Language Tweeks"
+summary: "A simple but reasonably comprehensive overview of Lucky features - with the context of a 'mini-project'"
 authors: ["btihen"]
-tags: ["Relationships", "Basics"]
-categories: ["Crystal", "Lucky", "Languages"]
-categories: ["Code"]
+tags: ["Relationships", "Basics", "Forms", "Components", "Routing", "Lucky", "Web Framework", "Crystal Language"]
+categories: ["Code", "Lucky", "Crystal Language"]
 date: 2021-05-02T01:01:53+02:00
 lastmod: 2021-05-03T01:01:53+02:00
 featured: false
@@ -41,6 +40,7 @@ This article is a collection of making sense of the following resources
 - https://luckycasts.com/
 - https://luckyframework.org/guides
 - https://onchain.io/blog/lucky_tutorial
+- https://github.com/andrewmcodes/awesome-lucky
 - https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1
 
 My goal is to have a simple tutorial for important basic features and orientation of the Lucky Framework - for myself and students I work with.
@@ -771,3 +771,13 @@ For now something like **LiveView** and **Hotwire** are not yet integrated into 
 
 https://github.com/cable-cr/cable
 https://github.com/luckyframework/lucky/issues/554
+
+
+## Deploying Lucky & ENV
+
+https://fullstackstanley.com/read/categories/lucky-framework/
+
+
+## Security (Alternatives)
+
+https://github.com/grottopress/shield

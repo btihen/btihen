@@ -71,8 +71,11 @@ https://themeisle.com/blog/free-illustrations/
 
 ## CSS
 
+- [Bulma](https://bulma.io/)
+- [tailwindcss](https://tailwindcss.com/docs)
 - [headlessui](https://headlessui.dev/)
 - [tailwindui](https://tailwindui.com/)
+- [tailwindtoolbar](https://www.tailwindtoolbox.com/starter-components)
 
 
 ## Icons

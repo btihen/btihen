@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Phoenix", "Elixir", "TailwindCSS", "AlpineJS", "LiveView", "PETAL Stack"]
 categories: ["Code"]
 date: 2021-04-10T01:01:53+02:00
-lastmod: 2021-04-25T01:01:53+02:00
+lastmod: 2021-05-06T01:01:53+02:00
 featured: false
 draft: false
 
@@ -31,8 +31,9 @@ I have been enjoying the tools associated with Elixir and exploring the frontend
 
 ## Install asdf - and required software
 
-https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/
-https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58
+- https://thinkingelixir.com/install-elixir-using-asdf/
+- https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/
+- https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58
 
 On a Mac I used Homebrew:
 ```
@@ -333,16 +334,13 @@ git add .
 git commit -m "Tailwind installed"
 ```
 
-## Add Test helpers
 
-  wallaby / hound - browser testing
-  {:faker, "~> 0.16", only: :test},
-  {:ex_machina, "~> 2.7.0", only: :test},
-  {:phoenix_integration, "~> 0.8.2"}
-  mox - mock testing external apis
-  moch
-  FakerElixir
+## Resources
 
-## Auth Users
-
-phx.auth.gen
+- https://www.youtube.com/watch?v=o4Prej0wIZA
+- http://blog.pthompson.org/alpine-js-and-liveview
+- https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix
+- https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix
+- https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js
+- https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace
+- https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/

@@ -7,8 +7,8 @@ summary: "This article covers how to create a new app with contexts, relationshi
 authors: ["btihen"]
 tags: ["Relationships", "Templates", "Preloading", "has_many", "belongs_to", "dependent delete", "selection in form"]
 categories: ["Code", "Phoenix", "Elixir"]
-date: 2020-07-04T13:06:29+02:00
-lastmod: 2020-07-06T13:06:29+02:00
+date: 2020-05-04T13:06:29+02:00
+lastmod: 2020-05-06T13:06:29+02:00
 featured: false
 draft: true
 

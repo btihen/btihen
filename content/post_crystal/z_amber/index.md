@@ -7,8 +7,8 @@ summary: "Exploring more nested Reources with Phoenix"
 authors: ["btihen"]
 tags: ["Relationships", "Templates", "Nested Preloading", "Nested Resources", "Render Foriegn Views", "User Error Handling"]
 categories: ["Code", "Elixir", "Phoenix"]
-date: 2020-07-10T09:43:51+02:00
-lastmod: 2020-07-10T09:43:51+02:00
+date: 2020-05-06T09:43:51+02:00
+lastmod: 2020-05-06T09:43:51+02:00
 featured: false
 draft: true
 

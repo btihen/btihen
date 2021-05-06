@@ -31,20 +31,45 @@ projects: []
 ## Thesarus (word finder)
 
 - [wordhippo](https://www.wordhippo.com/) - finds older and specialty words!
--
+
+## Code hightlights
+
+- https://highlightjs.org/usage/
+
+## Docs
+
+- https://plantuml.com/
+- https://dbdiagram.io/home
+- https://www.planttext.com/
+- https://plantuml.com/ie-diagram
+- https://www.quickdatabasediagrams.com/
+- https://graphviz.org/doc/info/lang.html
+- https://modeling-languages.com/uml-tools/#textual
+- https://mamchenkov.net/wordpress/2015/08/20/graphviz-dot-erds-network-diagrams
+- https://towardsdatascience.com/drawing-a-uml-diagram-in-the-vs-code-53c2e67deffe
+
+
 
 ## Logos
 
 - https://logomakr.com/
 - https://www.freelogodesign.org/
 - https://www.namecheap.com/logo-maker/app/
-- https://hatchful.shopify.com/onboarding/pick-space
+- https://hatchful.shopify.com/onboarding/pick-space\
+- https://svgx.app/?ref=madewithsvelte.com
 
 
+## Slides
+
+- [EagleJS](https://zulko.github.io/eaglejs-demo/#/) - Vue Based
+- [RevealJS](https://revealjs.com/installation/) - React Based
+- [RemarkJS](https://github.com/gnab/remark/wiki)
+- [GlideJS](https://glidejs.com/)
+- [Marp](https://marp.app/)
+-
 ## Images and Icons
 
 I'm often looking for a way to make websites more interesting here are a few resources I use:
-
 
 ## Drawings
 
@@ -69,6 +94,32 @@ https://themeisle.com/blog/free-illustrations/
 - [Unsplash](https://unsplash.com/) - photos free to use for everyone
 
 
+## CSS - NextGen
+
+- [Windi](https://github.com/windicss/windicss)
+- [ViteRuby/Rails](https://vite-ruby.netlify.app/)
+- [Vite/Windi/Rails](https://web-crunch.com/posts/vite-ruby-on-rails-application-template)
+- [Vite/Windi/Rails6](https://github.com/justalever/kickoff_vite_rails)
+
+- [AwesomeVite.js](https://github.com/vitejs/awesome-vite#integrations-with-backends)
+
+- [RailsViewComponents](https://dev.to/bvalentino/using-viewcomponents-with-actioncable-1kg2)
+- [IntroRailsViewComponents](https://dev.to/andy/rails-to-introduce-view-components-3ome)
+- [RailsViewComponents](https://bloggie.io/@kinopyo/viewcomponent-my-attempt-to-answer-what-value-it-brings)
+- [RailsViewComponents](https://medium.flatstack.com/a-component-based-approach-to-writing-views-in-ruby-on-rails-applications-using-view-components-17e262d9ae2b)
+
+- [Vite/Phoenix/Article](https://mindreframer.com/posts/js-bundling-with-instant-live-reload-for-phoenix-and-liveview/)
+- [Vite/Phoenix/DemoRepo](https://github.com/mindreframer/phx-vite-demo/compare/checkpoint-0...checkpoint-4)
+```
+# learn to build a rails template!
+git clone https://github.com/justalever/kickoff_vite_rails.git
+rails new project --skip-webpack-install --skip-javascript -m kickoff_vite_rails/template.rb
+
+cd project
+bin/rails s
+bin/vite dev (in second window or with forman/overmind)
+```
+
 ## CSS
 
 - [Bulma](https://bulma.io/)
@@ -77,6 +128,23 @@ https://themeisle.com/blog/free-illustrations/
 - [tailwindui](https://tailwindui.com/)
 - [tailwindtoolbar](https://www.tailwindtoolbox.com/starter-components)
 
+
+## CSS / AlpineJS / StimulusJS
+
+
+- [AplineToolbox](https://www.alpinetoolbox.com/tools/)
+- [Night/DayTailwindCSS](https://www.youtube.com/watch?v=a_Jkn4hb6kI)
+- [ResponsiveNavBarTailwindCSS](https://www.youtube.com/watch?v=L6Jwa7al8os)
+- [AccessibleNavWTailwind](https://zaengle.com/blog/building-an-accessible-nav-with-alpine-js-and-tailwind-css)
+- [NavBarTailwindCSS](https://web-crunch.com/posts/lets-build-tailwind-css-responsive-navbar)
+
+- [Vue/Rails6](https://www.youtube.com/watch?v=VLNOfRIiiYk)
+- [Vue/Rails6-WebCrunch](https://www.youtube.com/watch?v=eUedqaHS4RQ)
+- [Vue/RailsAPI-WebCrunch](https://web-crunch.com/posts/ruby-on-rails-api-vue-js)
+- [Vue/Rails6](https://medium.com/swlh/how-to-integrate-vue-js-with-rails-6-5bd4c6263b18)
+- [Vue/Rails6/LevelUp](https://levelup.gitconnected.com/vue-js-with-rails-6-and-performing-crud-operations-b043ef3691f2)
+- [Vue/Buefy/Rails6](https://dev.to/mixed_code/setup-for-vue-and-buefy-in-rails-6-3cng)
+- [Buefy-BulmaUI](https://dev.to/itachiuchiha/bulma-based-ui-components-for-vuejs-41i4)
 
 ## Icons
 

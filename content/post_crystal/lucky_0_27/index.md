@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Relationships", "Basics", "Forms", "Components", "Routing", "Lucky", "Web Framework", "Crystal Language"]
 categories: ["Code", "Lucky", "Crystal Language"]
 date: 2021-05-02T01:01:53+02:00
-lastmod: 2021-05-03T01:01:53+02:00
+lastmod: 2021-05-06T01:01:53+02:00
 featured: false
 draft: false
 
@@ -678,6 +678,11 @@ I appreciate how explicit these are!
 If we leave some fields out - Lucky gives us validation errors - all fields appear to be required without explicitly allowing nils - but we don't see them with our default form.  Lets fix that.
 
 
+## Optional Fields
+
+Often a **breed** is unknown - we could just add an `unknown` value, but that's silly, lets figure out how to work with unknown / unneeded data and allow nil in our `breed` field.
+
+
 ## Add Validations
 
 Let's add a few custom validations:
@@ -689,15 +694,21 @@ Let's add a few custom validations:
 
 Now that we have some logic lets add some tests
 
-
-## Optional Fields
-
-Often a **breed** is unknown - we could just add an `unknown` value, but that's silly, lets figure out how to work with unknown / unneeded data and allow nil in our `breed` field.
+- [BrowserTesting](https://github.com/luckyframework/lucky_flow)
 
 
+## Pretty URLs
+
+- https://github.com/luckyframework/avram_slugify
+
+
+## Lucky PubSub
+
+- https://github.com/luckyframework/pulsar
 ## Bulma Integration
 
 Integrate CSS Frameworks
+
 
 ## View Components
 
@@ -728,11 +739,9 @@ Lets change the Front-End language on the fly
 Lets make the new TailwindUI menu bar have the dynamic features.
 
 
-
 ## Has many through
 
 https://www.luckyframework.org/guides/database/models#has-many-through-many-to-many
-
 
 
 ## Polymorphic Relationships
@@ -743,8 +752,8 @@ One reason I favor Lucky is the database `Avram` supports polymorphic relationsh
 
 Pets -> Cats, Dogs, Horses, etc
 
-## Optional Relations
 
+## Optional Relations
 
 
 ## Internationalization (i18n)
@@ -783,3 +792,10 @@ https://fullstackstanley.com/read/categories/lucky-framework/
 ## Security (Alternatives)
 
 https://github.com/grottopress/shield
+
+
+## Message / Events - Queues
+
+- [Redis](https://github.com/mosquito-cr/mosquito)
+- [Sidekiq](https://github.com/mperham/sidekiq.cr)
+- [InMemory-JobQueue](https://github.com/bmulvihill/dispatch)

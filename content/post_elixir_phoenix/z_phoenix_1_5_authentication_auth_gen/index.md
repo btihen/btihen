@@ -7,10 +7,10 @@ summary: "Create a modern Phoenix SPA with tremendous flexibility"
 authors: ["btihen"]
 tags: ["Phoenix", "Elixir", "Authentication", "POW", "Email", "HogMail"]
 categories: ["Code"]
-date: 2021-04-25T01:01:53+02:00
+date: 2021-05-06T01:01:53+02:00
 lastmod: 2021-05-06T01:01:53+02:00
 featured: false
-draft: false
+draft: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -30,9 +30,21 @@ projects: []
 
 ## Auth
 
+Auth with auth.gen
+- https://elixircasts.io/using-phx_gen_auth-for-phoenix-authentication
+- https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-1/
+- https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-2/
+- https://fullstackphoenix.com/tutorials/combining-authentication-solutions-with-guardian-and-phx-gen-auth
+- https://medium.com/swlh/how-to-swap-registration-flow-to-a-live-view-with-phx-gen-auth-4966f80b412e
+- https://medium.com/swlh/how-to-part-2-swap-registration-flow-to-a-live-view-with-phx-gen-auth-multi-step-form-25371540fce1
+
+
+Auth with PubSub
+- https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3
+
+
 Auth with POW
 * https://www.youtube.com/watch?v=hnD0Z0LGMIk
-* https://www.skcript.com/svr/using-bamboo-to-send-emails-in-phoenix/
 * https://www.kabisa.nl/tech/real-world-phoenix-lets-auth-some-users/
 * https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/
 * https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/
@@ -41,33 +53,12 @@ Auth with POW
 * https://medium.com/@andreichernykh/phoenix-simple-authentication-authorization-in-step-by-step-tutorial-form-dc93ea350153
 
 
-POW and LiveViews
-- https://dev.to/oliverandrich/how-to-connect-pow-and-live-view-in-your-phoenix-project-1ga1
-
-
-Auth with auth.gen
-- https://elixircasts.io/using-phx_gen_auth-for-phoenix-authentication
-- https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-1/
-- https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-2/
-- https://fullstackphoenix.com/tutorials/combining-authentication-solutions-with-guardian-and-phx-gen-auth
-
-
-Auth with PubSub
-- https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3
-
-
 Auth with Email
 - https://hex.pm/packages/bamboo
 - https://hexdocs.pm/bamboo_smtp/readme.html
 - https://elixircasts.io/sending-email-with-bamboo-part-1
 - https://elixircasts.io/sending-email-with-bamboo-part-2
 - https://devato.com/post/use-bamboo-to-send-email-in-phoenix
-- https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/
-- https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl
-
-
-General Auth Principles
-https://nithinbekal.com/posts/phoenix-authentication/
 
 ## Mail in Test Env
 
@@ -497,45 +488,66 @@ Cool it does, but it we try to use it - it complains it needs email back-end set
 
 https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl
 
-First we will create a mailer function in: `lib/my_app_web/pow/pow_mailer.ex`
+First we will create a mailer function in: `lib/my_app/pow_mailer.ex`
 
 ```
-mkdir lib/my_app_web/pow/
-touch lib/my_app_web/pow/pow_mailer.ex
-cat <<EOF > lib/my_app_web/pow/pow_mailer.ex
 defmodule FareWeb.Pow.Mailer do
   use Pow.Phoenix.Mailer
-
+  # use Bamboo.Mailer, otp_app: :fare
   require Logger
+
+  # import Bamboo.Email
 
   @impl true
   def cast(%{user: user, subject: subject, text: text, html: html}) do
-    # Forward Struct to logger - disable/remove when Bamboo configured
+    # for use when Bamboo is configured
+    # new_email(
+    #   to: user.email,
+    #   from: "reading-list@example.com",
+    #   subject: subject,
+    #   html_body: html,
+    #   text_body: text
+    # )
+
+    # send to logger - disable when
     %{to: user.email, subject: subject, text: text, html: html}
   end
 
   @impl true
   def process(email) do
-    # log email sent
+    # actually deliver emails - enable when `bamboo` configured
+    # deliver_now(email)
+
+    # check email functionality and contents
     Logger.debug("E-mail sent: #{inspect email}")
   end
 end
-EOF
 ```
 
-now that we have an email template we need to tell pow about the mailer with the config: `mailer_backend: MyAppWeb.Pow.Mailer` in `config/config.exs` so change to:
+now that we have an email template we need to tell pow about the mailer with the config: `mailer_backend: MyAppWeb.Pow.Mailer` in `config/confix.exs` so change from:
 ```
 # config for pow - user authentication
 config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
   web_module: MyAppWeb,
-  mailer_backend: MyAppWeb.Pow.Mailer,  # add this
+  extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+```
+to:
+```
+
+# config for pow - user authentication
+config :my_app, :pow,
+  user: MyApp.Users.User,
+  repo: MyApp.Repo,
+  web_module: MyAppWeb,
+  mailer_backend: MyAppWeb.Pow.Mailer,
   extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
 ```
 
-Now generate the POW mail templates - with:
+Now generate any mail templates needed with:
 ```
 mix pow.extension.phoenix.mailer.gen.templates --extension PowResetPassword --extension PowEmailConfirmation
 ```
@@ -552,14 +564,25 @@ Phoenix also needs to know about the mailer templates we will generate so add to
   end
 ```
 
-Now the final config change in `config/config.ex` to access our new templates:
+Now the final config change in `config/config.ex` from:
 ```
 # config for pow - user authentication
 config :fare, :pow,
   user: Fare.Users.User,
   repo: Fare.Repo,
-  web_module: MyAppWeb,
-  web_mailer_module: MyAppWeb,          # add this to access the templates
+  web_module: FareWeb,
+  mailer_backend: MyAppWeb.Pow.Mailer,
+  extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+```
+to:
+```
+# config for pow - user authentication
+config :fare, :pow,
+  user: Fare.Users.User,
+  repo: Fare.Repo,
+  web_module: FareWeb,
+  web_mailer_module: MyAppWeb,
   mailer_backend: MyAppWeb.Pow.Mailer,
   extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
@@ -614,100 +637,20 @@ config :my_app, :pow,
   web_module: MyAppWeb,
   web_mailer_module: MyAppWeb,
   mailer_backend: MyAppWeb.Pow.Mailer,
-  routes_backend: MyAppWeb.Pow.Routes,  # Add this line
+  routes_backend: MyAppWeb.Pow.Routes,
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation]
 ```
 
+
 Assuming all works we will snapshot now!
+
 ```
 git add .
 git commit -m "on logout go to landing page"
 ```
 
-
 ## Configure Email BAMBOO with POW
-
-- https://hexdocs.pm/bamboo/readme.html
-- https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/
-- https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl
-
-Use Bamboo to do the mailing find the new versions at:
-* https://hex.pm/packages/bamboo
-Add to `mix.exs`:
-```
-    {:bamboo, "~> 2.1"}
-```
-
-get the new dependency:
-```
-mix deps.get
-```
-
-In the Test Config we need to configure bamboo with:
-```
-# config/test.exs
-config :my_app, MyApp.Mailer,
-  adapter: Bamboo.TestAdapter
-```
-
-In the Dev Config lets setup the in-memory email config
-```
-# config/dev.exs
-config :fare, FareWeb.Pow.Mailer,
-  adapter: Bamboo.LocalAdapter
-```
-
-When using `Bamboo.LocalAdapter` in dev mode we can view the email (without digging through the log file) using `Bamboo.EmailPreviewPlug` - we set this up with:
-```
-if Mix.env == :dev do
-  forward "/sent_emails", Bamboo.EmailPreviewPlug
-end
-```
-
-Now let's setup our mailer to use Bamboo - we will edit:
-```
-# lib/my_app_web/pow/pow_mailer.ex
-defmodule MyAppWeb.Pow.Mailer do
-  use Pow.Phoenix.Mailer
-
-  # ADDED to use Bamboo
-  use Bamboo.Mailer, otp_app: :fare  # Bamboo needs to know the supervisor
-  import Bamboo.Email                # provides access to the Bamboo's methods
-
-  require Logger
-
-  @impl true
-  def cast(%{user: user, subject: subject, text: text, html: html}) do
-    # ADDED when Bamboo is configured
-    new_email(
-      to: user.email,
-      from: "reading-list@example.com",
-      subject: subject,
-      html_body: html,
-      text_body: text
-    )
-  end
-
-  @impl true
-  def process(email) do
-    # ADDED when Bamboo is configured
-    deliver_now(email)
-
-    # check email functionality and contents
-    Logger.debug("E-mail sent: #{inspect email}")
-  end
-end
-```
-Let's register a new account (or reset a password).
-Now we can see the sent email at: http://localhost/sent_emails (in dev mode)
-
-
-## Bamboo Adapters - SMTP Config (Production Ideas)
-
-Available adapters are listed at: https://hexdocs.pm/bamboo/readme.html#available-adapters
-
-Given the number of adapters - here we will configure just SMTP (and learn to trap it while testing)
 
 https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/
 https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl
@@ -718,7 +661,18 @@ Use Bamboo to do the mailing find the new versions at:
 Add to `mix.exs`:
 ```
     {:bamboo, "~> 2.1"},
-    {:bamboo_smtp, "~> 2.1"}
+    {:bamboo_smtp, "~> 4.0"}
+```
+
+Also add bamboo to the `applications` in mix - now it should look like:
+```
+  def application do
+    [
+      mod: {Fare.Application, []},
+      applications: [:bamboo, :bamboo_smtp],  # this was added
+      extra_applications: [:logger, :runtime_tools]
+    ]
+  end
 ```
 
 Now install and setup up: https://github.com/mailhog/ (on a MacOS) simply install with:
@@ -747,7 +701,8 @@ config :my_app, MyAppWeb.Pow.Mailer,
   port: 1025
 ```
 
-In production it might look like:
+
+in production it might look like:
 ```
 # config/config.exs
 config :my_app, MyApp.Mailer,
@@ -765,76 +720,37 @@ config :my_app, MyApp.Mailer,
   auth: :if_available # can be `:always`. If your smtp relay requires authentication set it to `:always`.
 ```
 
-Now you will need to start your mail-trap (in a separate cli terminal):
+
+Update the pow mail file `lib/read_it_later_web/pow/mailer.ex` to use Bamboo - the code will look like:
 ```
-mailhog
-# or `mailcather`
+defmodule MyAppWeb.Pow.Mailer do
+  use Pow.Phoenix.Mailer
+  use Bamboo.Mailer, otp_app: :my_app
+
+  import Bamboo.Email
+
+  @impl true
+  def cast(%{user: user, subject: subject, text: text, html: html}) do
+    new_email(
+      to: user.email,
+      from: "reading-list@example.com",
+      subject: subject,
+      html_body: html,
+      text_body: text
+    )
+  end
+
+  @impl true
+  def process(email) do
+    deliver_now(email)
+  end
+end
 ```
 
-Now when you register a new account or change a password you can see the email at:
-```
-http://localhost:8025
-```
-
-
-## Customizing - POW Flash messages
+## Adding flash messages to POW
 
 https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/
 
-Create a new module for our messages.
-```
-touch lib/my_app_web/pow/messages.ex
-cat <<EOF>>lib/my_app_web/pow/messages.ex
-defmodule MyAppWeb.Pow.Messages do
-  use Pow.Phoenix.Messages
-  use Pow.Extension.Phoenix.Messages,  # add extensions in use
-    extensions: [PowResetPassword, PowEmailConfirmation]
-
-  import MyAppWeb.Gettext
-
-  # PowMessages - functions defined:
-  # https://hexdocs.pm/pow/Pow.Phoenix.Messages.html#summary
-  # https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/messages.ex
-  def signed_in(_conn), do: gettext("Welcome back.")
-  def signed_out(_conn), do: gettext("Signed out successfullly.")
-  def user_not_authenticated(_conn), do: gettext("You need to sign in to see this page.")
-
-  # PowResetPassword - functions defined:
-  # https://github.com/danschultzer/pow/blob/master/lib/extensions/reset_password/phoenix/messages.ex
-  def invalid_token(_conn), do: "The reset token has expired."
-  def password_has_been_reset(_conn), do: "The password has been updated."
-  def email_has_been_sent(_conn), do: "An email with reset instructions has been sent to you."
-
-  # PowEmailConfirmation - functions defined:
-  # https://github.com/danschultzer/pow/blob/master/lib/extensions/email_confirmation/phoenix/messages.ex
-  def email_has_been_confirmed(_conn), do: "The email address has been confirmed."
-  def email_confirmation_failed(_conn), do: "The email address couldn't be confirmed."
-  def email_confirmation_required(_conn), do: "You need to confirm your e-mail with the link e-mailed to you."
-end
-EOF
-```
-
-To be able to use this module we need to tell our config about it - so we update `config/config.exs` with `messages_backend: FareWeb.Pow.Messages` - so now it looks like:
-```
-config :fare, :pow,
-  user: Fare.Users.User,
-  repo: Fare.Repo,
-  web_module: FareWeb,
-  web_mailer_module: FareWeb,
-  mailer_backend: Fare.Pow.Mailer,
-  routes_backend: FareWeb.Pow.Routes,
-  messages_backend: FareWeb.Pow.Messages,  # Add this line
-  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
-  extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation]
-```
-
-Now you should see your custom messages!
-
-let's snapshot this:
-```
-git add .
-git commit -m "allow POW to send custom / i18n messages"
-```
 
 
 ## Configure to allow 3rd Parties - Google, Apple, Github, etc.
@@ -915,7 +831,7 @@ Generate the PowAssent template too (the page when using this where the user add
 mix pow_assent.phoenix.gen.templates
 ```
 
-### Setup remote OAuth providers (Github - for now)
+### Setup remote OAutho providers (Github - for now)
 
 Go to:
 https://github.com/settings/applications/new
@@ -977,6 +893,15 @@ add the following comprehension to list all the configured OAuth log-in links:
       do: content_tag(:span, link)
 %>
 ```
+
+
+## Testing
+
+- https://github.com/dashbitco/mox
+- https://hex.pm/packages/phoenix_integration
+-
+
+
 
 ## Resources:
 

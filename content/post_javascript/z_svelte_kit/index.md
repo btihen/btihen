@@ -8,9 +8,9 @@ authors: ["btihen"]
 tags: ["Relationships", "Basics", "Forms", "Components", "Routing", "Lucky", "Web Framework", "Crystal Language"]
 categories: ["Code", "Lucky", "Crystal Language"]
 date: 2021-05-02T01:01:53+02:00
-lastmod: 2021-05-07T01:01:53+02:00
+lastmod: 2021-05-06T01:01:53+02:00
 featured: false
-draft: false
+draft: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -673,129 +673,14 @@ end
 
 I appreciate how explicit these are!
 
+## Display Validation Errors
+
+If we leave some fields out - Lucky gives us validation errors - all fields appear to be required without explicitly allowing nils - but we don't see them with our default form.  Lets fix that.
+
 
 ## Optional Fields
 
 Often a **breed** is unknown - we could just add an `unknown` value, but that's silly, lets figure out how to work with unknown / unneeded data and allow nil in our `breed` field.
-
-Since Crystal is strongly typed - one needs to explicitly mark that a field can be nil with `?` - you can see the docs here: https://luckyframework.org/guides/database/models#adding-a-column
-
-So to make **breed** optional we will change the pets model to:
-```
-class Pet < BaseModel
-  table do
-    column name : String
-    column species : String
-    column breed : String?  # adding `?` makes the field optional (nil-able)
-    column age : Int32
-    column house_trained : Bool
-
-    # relations
-    belongs_to owner : Owner
-  end
-end
-```
-
-Now when I run lucky - I'll expect to find some errors - (probably in a view saying I need null protecction).  However instead I get:
-```
-Unhandled exception: Pet has defined 'breed' as nilable (String?), but the database column does not allow nils.
-web          |
-web          | Either mark the column as required in Pet:
-web          |
-web          |   # Remove the '?'
-web          |   column breed : String
-web          |
-web          | Or, make the column optional in a migration:
-web          |
-web          |   ▸ Generate a migration:
-web          |
-web          |       lucky gen.migration MakePetBreedOptional
-web          |
-web          |   ▸ Make the column optional:
-web          |
-web          |       make_optional :pets, :breed
-```
-
-Oddly, I don't see anything in the migration Docs `https://www.luckyframework.org/guides/database/migrations` about marking a file optional (nor how to make it optional in the original migration).  Since we w
-
-But lets try:
-```
-lucky gen.migration MakePetBreedOptional
-```
-
-Hmm, the error says what to put in the migration, but not the rollback, lets search the luckyframework repos and see what we find:  https://github.com/luckyframework/avram/blob/f676a9a7d2e70d74891ad686039bf393983d0760/src/avram/migrator/statement_helpers.cr
-
-Here we see what the options are so lets edit the migration to look like:
-```
-class MakePetBreedOptional::V20210507125901 < Avram::Migrator::Migration::V1
-  def migrate
-    make_optional :pets, :breed
-    # alter table_for(Pet) do
-    #   make_optional :breed
-    # end
-  end
-
-  def rollback
-    # query for breed fields that are nil and fill them BEFORE making the field REQUIRED!
-    PetQuery.new.breed.is_nil.each do |pet|
-      SavePet.update!(pet, breed: "unknown")
-    end
-    # this would work too, but might as well let the db do the heavy lifting
-    # PetQuery.new.each do |pet|
-    #   SavePet.update!(pet, breed: "unknown") if pet.breed.nil?
-    # end
-
-    # simple way of making ONE field required
-    make_required :pets, :breed
-
-    # this would be better when changing lots of fields
-    # alter table_for(Pet) do
-    #   make_required :breed
-    # end
-  end
-end
-```
-
-OK - lets try again:
-```
-lucky dev
-```
-
-Cool it works - lets make a new record - with an null value.
-
-Lets look at the record within postgresql:
-```
-psql -d pets_development
-select * from pets;
-
- id |       created_at       |       updated_at       | name  | breed | species | age | house_trained | owner_id
-----+------------------------+------------------------+-------+-------+---------+-----+---------------+----------
-  1 | 2021-05-07 15:23:28+02 | 2021-05-07 15:23:28+02 | Nyima |       | dog     |  11 | t             |        1
-\q
-```
-
-Now let's be sure our rollback works.  Notice - before we make it `required` we find records with nil values and fill them `unknown`.  An example of adding data logic within a migration can be found at: https://luckyframework.org/guides/database/migrations#using-fill_existing_with-and-default-values
-```
-lucky db.rollback
-```
-OK - good the migration didn't crash - lets check the DB.
-```
-
-psql -d pets_development
-select * from pets;
-
- id |       created_at       |       updated_at       | name  |  breed  | species | age | house_trained | owner_id
-----+------------------------+------------------------+-------+---------+---------+-----+---------------+----------
-  1 | 2021-05-07 15:23:28+02 | 2021-05-07 16:28:55+02 | Nyima | unknown | dog     |  11 | t             |        1
-\q
-```
-
-Nice it worked.
-
-
-## Display Validation Errors
-
-If we leave some fields out - Lucky gives us validation errors - all fields appear to be required without explicitly allowing nils - but we don't see them with our default form.  Lets fix that.
 
 
 ## Add Validations
@@ -814,16 +699,12 @@ Now that we have some logic lets add some tests
 
 ## Pretty URLs
 
-Looks interesting and easy
-
 - https://github.com/luckyframework/avram_slugify
 
 
 ## Lucky PubSub
 
 - https://github.com/luckyframework/pulsar
-
-
 ## Bulma Integration
 
 Integrate CSS Frameworks

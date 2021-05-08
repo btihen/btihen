@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Relationships", "Basics", "Forms", "Components", "Routing", "Lucky", "Web Framework", "Crystal Language"]
 categories: ["Code", "Lucky", "Crystal Language"]
 date: 2021-05-02T01:01:53+02:00
-lastmod: 2021-05-07T01:01:53+02:00
+lastmod: 2021-05-08T01:01:53+02:00
 featured: false
 draft: false
 
@@ -29,6 +29,8 @@ projects: []
 ---
 
 ~/devel/learning/crystal_frameworks/lucky/brews
+
+https://github.com/stephendolan/lucky_jumpstart/
 
 ## Why Lucky
 
@@ -190,6 +192,22 @@ Wordsmith::Inflector.inflections.irregular("person", "persons")
 Wordsmith::Inflector.inflections.uncountable(%w(staff))
 ```
 
+https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr
+```
+# config/inflector.cr
+module Wordsmith
+  Inflector.inflections.clear
+
+  Inflector.inflections.plural(/$/, "s")
+  Inflector.inflections.plural(/s$/i, "s")
+
+  # etc, etc, etc
+
+  Inflector.inflections.irregular("human", "humans")
+  Inflector.inflections.irregular("person", "persons")
+end
+```
+
 Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:
 ```
 rm -rf lib && rm -rf bin && shards update
@@ -253,6 +271,84 @@ Cool - lets snapshot:
 ```
 git add .
 git commit -m "First simple 'Human' resource with scaffold"
+```
+
+
+## Create a Related Model
+
+https://www.luckyframework.org/guides/database/models#belongs-to
+https://www.luckyframework.org/guides/database/models#has-many-one-to-many
+https://luckyframework.org/guides/database/migrations#associations
+
+Unfortunately, the Lucky generators don't understand `belongs_to` so we will need to do a few extra tweeks -- since we can't do something like human:belongs_to or human:references like with Rails.
+
+So if we want to scaffold "pets" now and have them belong to humans (and humans can have many pets) - we first do:
+```
+lucky gen.resource.browser Pet name:String breed:String species:String age:Int32 house_trained:Bool
+```
+
+Now let's setup the relationships:
+
+First we need to update the migration with the human foreign_key using: `add_belongs_to`
+
+So we need to update our pets migration to:
+```
+# db/migrations/yyyymmddxxxxxx_create_pets.cr
+class CreatePets::V20210502100912 < Avram::Migrator::Migration::V1
+  def migrate
+    create table_for(Pet) do
+      primary_key id : Int64
+      add_timestamps
+      add name : String
+      add breed : String
+      add species : String
+      add age : Int32
+      add house_trained : Bool
+
+      # When the associated human is deleted, their pets are also deleted
+      # because we set on_delete: :cascade
+      add_belongs_to human : Human, on_delete: :cascade    # relationship - newly added
+    end
+  end
+
+  def rollback
+    drop table_for(Pet)
+  end
+end
+```
+
+Now that the pets database table will is correct - lets update the pet model too.
+This is straight-forward we just need to add `belongs_to human : Human` in the model file so it changes to:
+```
+# src/models/pet.cr
+class Pet < BaseModel
+  table do
+    column name : String
+    column breed : String
+    column species : String
+    column age : Int32
+    column house_trained : Bool
+
+    belongs_to human : Human     # relationship - newly added
+  end
+end
+```
+
+now we need to add `has_many` to the `Human` model.  So we change it to:
+```
+# src/models/human.cr
+class Human < BaseModel
+  table do
+    column name : String
+
+    has_many pets : Pet    # relationship - newly added
+  end
+end
+```
+
+Now we can migrate:
+```
+lucky db.migrate
 ```
 
 
@@ -339,84 +435,6 @@ cool - good enough for now.
 ```
 git add .
 git commit -m "added html links to user_home_page 'me'"
-```
-
-
-## Create a Related Model
-
-https://www.luckyframework.org/guides/database/models#belongs-to
-https://www.luckyframework.org/guides/database/models#has-many-one-to-many
-https://luckyframework.org/guides/database/migrations#associations
-
-Unfortunately, the Lucky generators don't understand `belongs_to` so we will need to do a few extra tweeks -- since we can't do something like human:belongs_to or human:references like with Rails.
-
-So if we want to scaffold "pets" now and have them belong to humans (and humans can have many pets) - we first do:
-```
-lucky gen.resource.browser Pet name:String breed:String species:String age:Int32 house_trained:Bool
-```
-
-Now let's setup the relationships:
-
-First we need to update the migration with the human foreign_key using: `add_belongs_to`
-
-So we need to update our pets migration to:
-```
-# db/migrations/yyyymmddxxxxxx_create_pets.cr
-class CreatePets::V20210502100912 < Avram::Migrator::Migration::V1
-  def migrate
-    create table_for(Pet) do
-      primary_key id : Int64
-      add_timestamps
-      add name : String
-      add breed : String
-      add species : String
-      add age : Int32
-      add house_trained : Bool
-
-      # When the associated human is deleted, their pets are also deleted
-      # because we set on_delete: :cascade
-      add_belongs_to human : Human, on_delete: :cascade    # relationship - newly added
-    end
-  end
-
-  def rollback
-    drop table_for(Pet)
-  end
-end
-```
-
-Now that the pets database table will is correct - lets update the pet model too.
-This is straight-forward we just need to add `belongs_to human : Human` in the model file so it changes to:
-```
-# src/models/pet.cr
-class Pet < BaseModel
-  table do
-    column name : String
-    column breed : String
-    column species : String
-    column age : Int32
-    column house_trained : Bool
-
-    belongs_to human : Human     # relationship - newly added
-  end
-end
-```
-
-now we need to add `has_many` to the `Human` model.  So we change it to:
-```
-# src/models/human.cr
-class Human < BaseModel
-  table do
-    column name : String
-
-    has_many pets : Pet    # relationship - newly added
-  end
-end
-```
-
-Now we can migrate:
-```
-lucky db.migrate
 ```
 
 ## Seed Files
@@ -582,14 +600,14 @@ class Pets::FormFields < BaseComponent
   needs operation : SavePet
 
   def render
-    mount Shared::Field, operation.name, &.text_input(autofocus: "true", attrs: [:required])
+    mount Shared::Field, operation.name, &.text_input(autofocus: "true")
     mount Shared::Field, operation.species do |input_html|
       input_html.select_input append_class: "select-input" do
         select_prompt("Select")
         options_for_select operation.species, [{"Dog", "dog"}, {"Cat", "cat"}]
       end
     end
-    mount Shared::Field, operation.breed  # default setting: &.text_input(attrs: [:required])
+    mount Shared::Field, operation.breed
     mount Shared::Field, operation.age, &.number_input(append_class: "custom-input", min: "0", max: "99")
     mount Shared::Field, operation.house_trained do |input_html|
       input_html.select_input append_class: "select-input" do
@@ -612,6 +630,12 @@ class Pets::FormFields < BaseComponent
   end
 end
 ```
+
+NOTE:
+
+1. the documentation has several examples with: `attrs: [:required]` in the form.  This does client side validation (will not even submit the form if empty).  I don't recommend using this generally.
+
+2. if you don't put anything next to the variable a text input without anything more than the errors are assumed `&.text_input()`
 
 Lets test again:
 ```

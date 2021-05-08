@@ -27,3 +27,5 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 ---
+
+https://nimblehq.co/blog/pretty-urls-in-rails-without-a-gem

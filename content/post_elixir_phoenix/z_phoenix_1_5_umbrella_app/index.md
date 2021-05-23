@@ -39,6 +39,7 @@ projects: []
 - https://www.youtube.com/watch?v=wVYIx7M6o28&list=PLxsE19GnjC5Nv1CbeKOiS5YqGqw35aZFJ
 - https://8thlight.com/blog/georgina-mcfadyen/2017/05/01/elixir-umbrella-projects.html
 - https://elixir-lang.org/getting-started/mix-otp/dependencies-and-umbrella-projects.html
+- https://medium.com/multiverse-tech/getting-our-feet-wet-with-elixir-umbrella-applications-8ba4b1f7b7dd
 - https://medium.com/@cedric_paumard/how-to-build-multiple-apps-in-elixir-thanks-to-umbrella-part-1-why-elixir-ce27ccb637e3
 - https://medium.com/@cedric_paumard/how-to-build-multiple-web-apps-with-elixir-thanks-to-umbrella-part-2-set-up-the-project-800d6d731dbd
 - https://medium.com/@cedric_paumard/how-to-build-multiple-apps-in-elixir-thanks-to-umbrella-part-1-why-elixir-ce27ccb637e3

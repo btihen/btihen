@@ -28,13 +28,42 @@ image:
 projects: []
 ---
 
-~/devel/learning/crystal_frameworks/lucky/brews
 
-https://github.com/stephendolan/lucky_jumpstart/
+## Purpose
+
+
+My goal is to have a simple tutorial to understand and use basic Lucky framework features.  I recommend this as a great platform if you work in English and publish in English.
+
+If internationalization and or other languages and language flexibility are important to you and your work, then I recommend Rails or Phoenix.  If/when internationalization and language flexibility become easier - I'll probably switch to Lucky.
+
 
 ## Why Lucky
 
-Lucky offers all the features I use in Rails - but is type safe and faster than rails.  Lucky's focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).  See: https://luckyframework.org/guides/getting-started/why-lucky for a full list of what Lucky aims to improve.
+1. Lucky offers all the features I use in Rails - but is type safe and faster than rails.
+2. Lucky's focus is on run-time stability (its not the fastest Crystal Framework, but it faster than rails).
+3. The code / structure is well organized.
+4. The Lucky Discord community is extremely helpful!
+5. The Docs are generally good when you are investigating a specific component & when that is missing - the codebase can be searched (and the code is clear)
+
+See: https://luckyframework.org/guides/getting-started/why-lucky for a full list of what Lucky aims to improve.
+
+PS - I didn't try out more advanced features such as file uploads, remote file storage, sending emails, etc.  These are all common in the apps I write.
+
+
+## Why Not Lucky (0.27)
+
+I am hoping that Lucky 1.0 will address much of the following.
+
+1. I found I had to read a lot of docs (scattered over many locations) & experiment to grock the basic design/mindset what do for common simple things: (like making a field optional and how to adapt a shared / component form)
+2. There aren't many Stack Overflow or Blogs describing basic usage.
+3. The docs in some cases are incomplete, misleading or have missing information and are not oriented to getting doing the things a framework beginner needs to know.
+4. The helper scripts don't help with Relationships - that must be done by hand
+5. Language support is very hard to accomplish - I was never able to reliably use the inflector.
+6. Setting up internationalization is time consuming and manual and as far as I can tell possibly not easy to integrate with the inflector.
+
+The language support is a BIGGIE for me - living in a country where we regularly work with multiple language (Rails and/or Phoenix have much better i18n support)!
+
+I don't see the lack of Stack Overflow articles as such a big problem since the Lucky Discord group is so helpful.
 
 
 ## Resources
@@ -45,16 +74,15 @@ This article is a collection of making sense of the following resources
 - https://luckyframework.org/guides
 - https://onchain.io/blog/lucky_tutorial
 - https://github.com/andrewmcodes/awesome-lucky
+- https://github.com/stephendolan/lucky_jumpstart
 - https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1
 
-My goal is to have a simple tutorial for important basic features and orientation of the Lucky Framework - for myself and students I work with.
 
-
-## installing Lucky
+## Installing Lucky
 
 For more information see: https://luckyframework.org/guides/getting-started/installing
 
-The `brew install` of lucky (on a MacOS) is bit broken, but the Linux install also works well on MacOS!
+The `brew install` of lucky (on a MacOS) is bit broken, but the Linux install technique works well on MacOS!
 
 First be sure openssl and postgresql are installed and findable:
 
@@ -158,62 +186,6 @@ Ok lets do an initial commit:
 git add .
 git commit -m "initial commit after create"
 ```
-
-## Language Inflections
-
-Let's make a little silly Human and Pets database/webpage:
-
-The simplest way to generate is with: `lucky gen.resource.browser` its basically the same as `rails g scaffold`
-
-So lets get started:
-```
-lucky gen.resource.browser Human name:String
-```
-
-OOPS - that generated the plural of `Human` as `Humen` instead of `Humans`!
-
-lets clear all our incorrect files and fix this:
-```
-git clean -fd
-```
-
-Now let's create a new config file for inflections `config/inflect.cr` and enter:
-```
-# this probably isn't necessary for very long - but for now it is needed.
-Wordsmith::Inflector.inflections.irregular("human", "humans")
-
-# I like using persons (also a dictionary word) over people, to do this we need
-# - first we have to remove the original setting by doing:
-Wordsmith::Inflector.inflections.plurals.delete(/(p)erson$/i)
-# - now we can override the original with our preference
-Wordsmith::Inflector.inflections.irregular("person", "persons")
-
-# if using `staff` as in human staff - then also add staff to uncountable:
-Wordsmith::Inflector.inflections.uncountable(%w(staff))
-```
-
-https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr
-```
-# config/inflector.cr
-module Wordsmith
-  Inflector.inflections.clear
-
-  Inflector.inflections.plural(/$/, "s")
-  Inflector.inflections.plural(/s$/i, "s")
-
-  # etc, etc, etc
-
-  Inflector.inflections.irregular("human", "humans")
-  Inflector.inflections.irregular("person", "persons")
-end
-```
-
-Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:
-```
-rm -rf lib && rm -rf bin && shards update
-```
-
-Now we can try to create a new Resource again.
 
 
 ## Quick Lucky Test Tip
@@ -324,12 +296,12 @@ This is straight-forward we just need to add `belongs_to human : Human` in the m
 class Pet < BaseModel
   table do
     column name : String
-    column breed : String
+    column breed : String     # column breed : String? - makes this field optional
     column species : String
     column age : Int32
     column house_trained : Bool
 
-    belongs_to human : Human     # relationship - newly added
+    belongs_to human : Human  # relationship - newly added
   end
 end
 ```
@@ -443,14 +415,95 @@ https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1
 https://luckyframework.org/guides/database/database-setup#seeding-data
 
 Now we can create seed files and be sure our basic relations work:
+
+Lets test our building a model and the Lucky mechanisms before we get fancy with relationships and in particular polymorphism.
+
+https://luckyframework.org/guides/tutorial/new-resource
+
+So we will generate an animal resource - using a full stack generator:
+```
+lucky gen.resource.browser Animal nick_name:String species:String
+lucky db.migrate
 ```
 
+Now let's create some sample data in `tasks/db/seed/sample_data.cr` - via the seed task - from these instructions: https://luckyframework.org/guides/database/database-setup#seeding-data as our base.
+
+We will start by using what's used to save when we create new records with incomming data. `SaveAnimal.create!(nick_name: "racky coon")` so now our file will look like:
+```crystal
+# tasks/db/seed/sample_data.cr
+require "../../../spec/support/factories/**"
+
+class Db::Seed::SampleData < LuckyTask::Task
+  summary "Add sample database records helpful for development"
+
+  def call
+    SavePet.create!(nick_name: "racky coon")
+
+    puts "Done adding sample data"
+  end
+end
 ```
 
-and run the seeds with:
+We test this with:
+```bash
+lucky db.seed.sample_data
 ```
 
+assuming this runs we should be able to view this data in our db (I often use the cli - but you might also want to use: `dbgate` https://dbgate.org/):
 ```
+psql
+\l
+\c lucky_poly_development
+select * from animals;
+```
+
+cool - lets try a factory too - these are especially help when complex and building relationships, etc:
+
+```crystal
+# spec/support/factories/animal_factory.cr
+class AnimalFactory < Avram::Factory
+  def initialize
+    nick_name "Nick Name"
+  end
+end
+```
+
+now lets try using our factory in the seed file:
+```crystal
+# tasks/db/seed/sample_data.cr
+require "../../../spec/support/factories/**"
+
+class Db::Seed::SampleData < LuckyTask::Task
+  summary "Add sample database records helpful for development"
+
+  def call
+    SaveAnimal.create!(nick_name: "racky coon", species: "racoon")
+
+    # using a factory: https://luckyframework.org/guides/testing/creating-test-data#factory-create
+    AnimalFactory.create do |factory|
+      factory.nick_name("Dyno")
+      factory.species("Dog")
+    end
+
+    # a shortcut way to write a block in crystal, see: https://crystal-lang.org/reference/syntax_and_semantics/blocks_and_procs.html#short-one-argument-syntax
+    AnimalFactory.create &.nick_name("Shiné").species("cat")
+
+    puts "Done adding sample data"
+  end
+end
+```
+
+test again with:
+```bash
+lucky db.seed.sample_data
+```
+
+Sweet, let's snapshot and try more complex stuff!
+```bash
+git add .
+git commit -m "add a simple model and seed data in it"
+```
+
 
 
 ## Simple Lucky Forms (in pages instead of shared)
@@ -942,3 +995,61 @@ https://github.com/grottopress/shield
 - [Redis](https://github.com/mosquito-cr/mosquito)
 - [Sidekiq](https://github.com/mperham/sidekiq.cr)
 - [InMemory-JobQueue](https://github.com/bmulvihill/dispatch)
+
+
+
+## Language Inflections
+
+Let's make a little silly Human and Pets database/webpage:
+
+The simplest way to generate is with: `lucky gen.resource.browser` its basically the same as `rails g scaffold`
+
+So lets get started:
+```
+lucky gen.resource.browser Human name:String
+```
+
+OOPS - that generated the plural of `Human` as `Humen` instead of `Humans`!
+
+lets clear all our incorrect files and fix this:
+```
+git clean -fd
+```
+
+Now let's create a new config file for inflections `config/inflect.cr` and enter:
+```
+# this probably isn't necessary for very long - but for now it is needed.
+Wordsmith::Inflector.inflections.irregular("human", "humans")
+
+# I like using persons (also a dictionary word) over people, to do this we need
+# - first we have to remove the original setting by doing:
+Wordsmith::Inflector.inflections.plurals.delete(/(p)erson$/i)
+# - now we can override the original with our preference
+Wordsmith::Inflector.inflections.irregular("person", "persons")
+
+# if using `staff` as in human staff - then also add staff to uncountable:
+Wordsmith::Inflector.inflections.uncountable(%w(staff))
+```
+
+https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr
+```
+# config/inflector.cr
+module Wordsmith
+  Inflector.inflections.clear
+
+  Inflector.inflections.plural(/$/, "s")
+  Inflector.inflections.plural(/s$/i, "s")
+
+  # etc, etc, etc
+
+  Inflector.inflections.irregular("human", "humans")
+  Inflector.inflections.irregular("person", "persons")
+end
+```
+
+Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:
+```
+rm -rf lib && rm -rf bin && shards update
+```
+
+Now we can try to create a new Resource again.

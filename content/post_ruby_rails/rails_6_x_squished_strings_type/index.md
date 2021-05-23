@@ -27,6 +27,11 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 ---
+
+* https://discuss.rubyonrails.org/t/database-fields-are-polluted-with-both-nil-and-empty-values-when-submitting-forms/74877/3
+* https://bitbucket.org/tiu/rails-application-template/src/master/rails/lib/types/type/string.rb
+* https://stackoverflow.com/questions/3879680/how-can-i-make-rails-3-localize-my-date-formats/45743846#45743846
+
 Lets start by making a sample project (without tests -T):
 
 ```bash {linenos=table,hl_lines=1}

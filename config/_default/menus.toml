@@ -10,17 +10,17 @@
 
 [[main]]
   name = "Projects"
-  url = "#projects"
+  url = "https://container4.ch/"
   weight = 15
-
-[[main]]
-  name = "Elixir"
-  url = "#post_elixir_phoenix"
-  weight = 20
 
 [[main]]
   name = "Ruby"
   url = "#post_ruby_rails"
+  weight = 20
+
+[[main]]
+  name = "Elixir"
+  url = "#post_elixir_phoenix"
   weight = 22
 
 [[main]]
@@ -37,7 +37,6 @@
   name = "Edu"
   url = "#post_edu"
   weight = 28
-
 
 [[main]]
   name = "Pubs"

@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Rails', 'Databases', 'Data models', 'Framework Agnostic', 'belongs_to', 'has_one']
 categories: []
 date: 2021-05-29T01:57:00+02:00
-lastmod: 2021-05-29T01:57:00+02:00
+lastmod: 2021-05-30T01:57:00+02:00
 featured: true
 draft: false
 
@@ -39,35 +39,31 @@ In this case, I want to model a contact list of businesses and people.  Some peo
 
 The basic model will then look something like:
 
-              ┌───────────┐                         ┌───────────┐
-              │           │╲                       ╱│           │
-              │  Contact  │─────────────────────────│UserContact│
-              │           │╱                       ╲│           │
-              └───────────┘                         └───────────┘
-                    ┼                                    ╲│╱
-                    │                                     │
-      ┌─────────────┴───────────┐                         │
-      │                         │                         │
-     ╱│╲                       ╱│╲                       ╱│╲
-┌───────────┐             ┌───────────┐             ┌───────────┐
-│           │╲            │           │             │           │
-│ Business  │─○──────────┼│  Person   │             │   User    │
-│           │╱            │           │             │           │
-└───────────┘             └───────────┘             └───────────┘
-      ┼                         ┼                         ┼
-      │                         │                         │
-      └────────────┬────────────┘                         │
-                   │                                      │
-                  ╱│╲                                     │
-             ┌───────────┐                                │
-             │           │╲                               │
-             │  Remark   │─○──────────────────────────────┘
-             │           │╱
-             └───────────┘
-
-                        Created with Monodraw
-
-                  *virtual attribute
+                       ┌───────────┐           ┌───────────┐
+                       │           │╲         ╱│           │
+      ┌──────────────○┼│  Contact  │───────────│UserContact│
+      │                │           │╱         ╲│           │
+      │                └───────────┘           └───────────┘
+      │                      ┼                      ╲│╱
+      │                      ○                       │
+      │                      │                       │
+      │                      │                       │
+     ╱│╲                    ╱│╲                      │
+┌───────────┐          ┌───────────┐                 │
+│           │╲         │           │                 │
+│ Business  │─○───────┼│  Person   │                 │
+│           │╱         │           │                 │
+└───────────┘          └───────────┘                 │
+     ╲│╱                    ╲│╱                      │
+      │                      │                       │
+      │                      │                       │
+      │                      ○                       │
+      │                      ┼                      ╱│╲
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
 
                  Created with Monodraw
 
@@ -154,15 +150,17 @@ class Contact < ApplicationRecord
     errors.add :functions, "must be ONE or MORE of the following options: #{VALID_FUNCTIONS_LIST.join(',')}"
   end
 
-  # exclusive or (XOR) is true if one or the other is true, but not when both are true
-  # we could get a model (or possibly an id)
-  def validate_belongs_to_one_and_only_one_foreign_key
-    return if business.present? ^ person.present? ^ business_id.present? ^ person_id.present?
+  # exclusive or (XOR) is true if one or the other is true, but both
+  # if un-persisted we could get a model w/o an id
+  # if persisted we could have a model and an id
+  def validate_remarkable_belongs_to_one_and_only_one_foreign_key
+    return if (business_id.present? ^ person_id.present?) ||
+              (business.present? ^ person.present?)
 
-    # add to base since, the error could be either field.
+    # add to base since, some forms may not have the person/business fields
     errors.add :base, 'must belong to ONE business or person, but not both'
+    # errors.add :remarkable, 'must belong to a business or a person'
   end
-
 end
 ```
 

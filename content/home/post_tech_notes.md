@@ -5,7 +5,7 @@
 widget = "pages"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true   # This file represents a page section.
 active = true     # Activate this widget? true/false
-weight = 20       # Order that this section will appear.
+weight = 26       # Order that this section will appear.
 
 title = "Tech Notes Posts"
 subtitle = "Recent"
@@ -15,7 +15,7 @@ subtitle = "Recent"
   page_type = "post_tech_notes"
 
   # Choose how much pages you would like to display (0 = all pages)
-  count = 4
+  count = 3
 
   # Choose how many pages you would like to offset by
   offset = 0

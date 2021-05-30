@@ -7,8 +7,8 @@ summary: "Framework Agnostic Associations - Data models that work across many fr
 authors: ["btihen"]
 tags: ['Rails', 'Databases', 'Data models', 'Framework Agnostic', 'belongs_to', 'has_one']
 categories: []
-date: 2021-05-29T01:57:00+02:00
-lastmod: 2021-05-29T01:57:00+02:00
+date: 2021-05-30T01:57:00+02:00
+lastmod: 2021-05-30T01:57:00+02:00
 featured: true
 draft: false
 
@@ -39,38 +39,31 @@ In this case, I want to model a contact list of businesses and people.  Some peo
 
 The basic model will then look something like:
 
-              ┌───────────┐                         ┌───────────┐
-              │           │╲                       ╱│           │
-              │  Contact  │─────────────────────────│UserContact│
-              │           │╱                       ╲│           │
-              └───────────┘                         └───────────┘
-                    ┼                                    ╲│╱
-                    │                                     │
-      ┌─────────────┴───────────┐                         │
-      │                         │                         │
-     ╱│╲                       ╱│╲                       ╱│╲
-┌───────────┐             ┌───────────┐             ┌───────────┐
-│           │╲            │           │             │           │
-│ Business  │─○──────────┼│  Person   │             │   User    │
-│           │╱            │           │             │           │
-└───────────┘             └───────────┘             └───────────┘
-      ┼                         ┼                         ┼
-      │                         │                         │
-      └────────────┬────────────┘                         │
-                   │                                      │
-                  ╱│╲                                     │
-             ┌───────────┐                                │
-             │           │╲                               │
-             │  Remark   │─○──────────────────────────────┘
-             │           │╱
-             └───────────┘
-
-                        Created with Monodraw
-
-                  *virtual attribute
-
-                 Created with Monodraw
-
+                       ┌───────────┐           ┌───────────┐
+                       │           │╲         ╱│           │
+      ┌──────────────○┼│  Contact  │───────────│UserContact│
+      │                │           │╱         ╲│           │
+      │                └───────────┘           └───────────┘
+      │                      ┼                      ╲│╱
+      │                      ○                       │
+      │                      │                       │
+      │                      │                       │
+     ╱│╲                    ╱│╲                      │
+┌───────────┐          ┌───────────┐                 │
+│           │╲         │           │                 │
+│ Business  │─○───────┼│  Person   │                 │
+│           │╱         │           │                 │
+└───────────┘          └───────────┘                 │
+     ╲│╱                    ╲│╱                      │
+      │                      │                       │
+      │                      │                       │
+      │                      ○                       │
+      │                      ┼                      ╱│╲
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
 ## Rails app and first Models
 
     ┌────────────┐             ┌───────────┐
@@ -104,71 +97,209 @@ We discussed/explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associatio
 
 We disucssed/explained this in (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]
 
-## Polymorphic
+## Polymorphic Modeling
 
-Coming soon
+Is a model that can be associated with several different models - serving a similar purpose in all cases.  For example perhaps we would like to leave remarks on our interactions with various other business partners as shown below.
 
-a model associated with several different models - serving a similar purpose in both cases
+┌───────────┐          ┌───────────┐
+│           │╲         │           │
+│ Business  │─○───────┼│  Person   │
+│           │╱         │           │
+└───────────┘          └───────────┘
+     ╲│╱                    ╲│╱
+      │                      │
+      │                      │
+      │                      ○
+      │                      ┼
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
 
-      ┌────────────┐          ┌───────────┐
-      │            │╲       1 │           │
-      │  Business  │ ○ ─ ─ ─ ┼│  Person   │
-      │            │╱ 0..*    │           │
-      └────────────┘          └───────────┘
-            ╲│╱ *                * ╲│╱
-             └───────────┬──────────┘
-                         ┼ 1
-                 ┌──────────────┐
-                 │              │
-                 │  Transaction │
-                 │              │
-                 └──────────────┘
+A Remark could be either associated with either a person or a business - this is called polymorphism.  For ubiquitous things like comments, pictures, etc. this is a common approach.
 
-A contact could be either a person or a business - but must be one or the other.
+The standard rails way - is convenient (only uses 2 columns for any number of models), but lacks a foreign key so the DB can't ensure Data integrity.  For this reason, many other frameworks do not encourage this approach.  So we will use an approach accepted by all frameworks.
 
+### Models and relationships
+
+Lets build the user model first so we have all the models needed by Remark.
+
+```ruby
+bin/rails g model User email:string:uniq
+```
+
+Let's add an email validation to match the DB settings (and case insensitive):
+```ruby
+# app/models/user.rb
+class User < ApplicationRecord
+  validates :name, presence: true,
+                   uniqueness: { case_sensitive: false }
+end
+
+```
+
+Given the simplicity of this model we can just continue. lets build Remark now.
+```ruby
+bin/rails g model Remark note:text user:references business:references person:references
+```
+
+Like contact we will need to update the migration to allow null in the Business and Person foreign keys, but not for user.  Then we will update the models too.
+
+update the migration to ensure we have a note and user, and allow either a business or person associated with each remark:
+```ruby
+# db/migrate/20210530104742_create_remarks.rb
+class CreateRemarks < ActiveRecord::Migration[6.1]
+  def change
+    create_table :remarks do |t|
+      t.text :note, null: false
+
+      t.references :business, foreign_key: true
+      t.references :person, foreign_key: true
+      t.references :user, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+```
+
+Now we will update the User, Business and Person models to know they could have many remarks with `has_many :remarks`:
+```ruby
+# app/models/user.rb
+class User < ApplicationRecord
+  has_many :remarks
+  validates :email, presence: true,
+                    uniqueness: { case_sensitive: false }
+end
+```
+
+```ruby
+# app/models/person.rb
+class Person < ApplicationRecord
+  has_one :contact
+  has_many :remarks
+  belongs_to :business, optional: true
+
+  validates :contact, presence: true
+  validates :full_name, presence: true
+
+  def display_name
+    full_name
+  end
+
+  def employee_count
+    nil
+  end
+
+  def associated_business_name
+    business&.display_name
+  end
+end
+```
+
+```ruby
+# app/models/business.rb
+class Business < ApplicationRecord
+  has_one :contact
+  has_many :people
+  has_many :remarks
+
+  accepts_nested_attributes_for :contact
+
+  validates :contact, presence: true
+  validates :legal_name, presence: true
+
+  def display_name
+    legal_name
+  end
+
+  def employee_count
+    people.count
+  end
+
+  def associated_business_name
+    ""
+  end
+end
+```
+
+update the Remark model with the validations to enforce relations:
+```ruby
+# app/models/remark.rb
+class Remark < ApplicationRecord
+  belongs_to :user
+  belongs_to :person, optional: true
+  belongs_to :business, optional: true
+
+  validates :user, presence: true
+  validates :note, presence: true
+  # validate :validate_remarkable_belongs_to_one_and_only_one_foreign_key
+
+  def remarkable
+    business || person
+  end
+
+  private
+
+  # exclusive or (XOR) is true if one or the other is true, but both
+  # if un-persisted we could get a model w/o an id
+  # if persisted we could have a model and an id
+  def validate_remarkable_belongs_to_one_and_only_one_foreign_key
+    return if (business_id.present? ^ person_id.present?) ||
+              (business.present? ^ person.present?)
+
+    # add to base since, some forms may not have the person/business fields
+    errors.add :base, 'must belong to ONE business or person, but not both'
+    # errors.add :remarkable, 'must belong to a business or a person'
+  end
+end
+```
+
+Lets be sure this migrates:
 ```bash
-bin/rails g Contact roles:array business:references person:references
+bin/rails db:migrate
 ```
 
-update the migration to ensure we have a role provided & relations:
-```ruby
-#
-```
-
-update the Contact model with the validations & flexible relations:
-```ruby
-# contact.rb
-```
-
-update the Person model and relations:
-```ruby
-# person.rb
-
-```
-
-update the Business model and relations:
-```ruby
-# business.rb
-
-```
-
-
-lets use seed a couple of people too - so it now looks like:
+Now lets add the following to the end of our seed file:
 ```ruby
 # db/seed.rb
-business = Business.create(legal_name: "Business")
-company = Business.create(legal_name: "Company")
+# We will create a few users
+require 'securerandom'
 
-company.build_person(full_name: "Company Man")
-company.save
+10.times do
+  username = SecureRandom.alphanumeric(10)  # or use SecureRandom.uuid
+  User.create!(email: "#{username}@example.ch")
+end
 
-person = Person.create(full_name: "Own Person")
+# Lets add a remark to most People and Business (using a random user)
+users = User.all
+
+Person.all.each_with_index do |person, index|
+  next if rand(1..3) == 1  # skip one in 3 people
+
+  user = users.sample
+  Remark.create!(person: person, user: user,
+                note: "some note about #{person.display_name}, by user: #{user.email}")
+end
+
+Business.all.each_with_index do |business, index|
+  next if rand(1..4) == 1  # skip one in 4 businesses
+
+  user = users.sample
+  Remark.create!(business: business, user: user,
+                note: "some note about #{business.display_name}, by user: #{user.email}")
+end
 ```
 
 Lets check the seed with:
 ```bash
 bin/rails db:seed
 ```
+
+## N+1 checks & Forms
+
+**Comming soon ...**
 
 Assuming this works, let's see the "/people" page:
 ```bash
@@ -179,5 +310,5 @@ open localhost:3000/businesses/
 Great - lets snapshot:
 ```bash
 git add .
-git commit -m "created person possibly related to the model"
+git commit -m "created an agnostic polymorphic model with data integrity enforced"
 ```

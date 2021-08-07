@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Rails', 'Hotwire', 'SPA', 'WebSocket', 'realtime', 'modal forms']
 categories: []
 date: 2021-03-20T18:57:00+02:00
-lastmod: 2021-03-20T18:57:00+02:00
+lastmod: 2021-08-07T01:57:00+02:00
 featured: true
 draft: false
 
@@ -39,7 +39,7 @@ Start with the code at the end of: [Using Hotwire in Rails](/post_ruby_rails/rai
 ## Add jQuery to Bootstrap Setup
 
 First we need to ensure we have JS and JQuery (installed with Bootstrap) - so we will simply add the following to the end of our &lt;body> in the `application.html.erb` file:
-```
+```ruby
 # app/views/layouts/application.html.erb
 <body>
   <p id="notice"><%= notice %></p>
@@ -52,7 +52,7 @@ First we need to ensure we have JS and JQuery (installed with Bootstrap) - so we
 ## Add Modal to Index
 
 So we will start by replacing the new-form with a button that toggles the modal.
-```
+```ruby
 # app/views/tweets/index.html.erb
 <h1>Tweets</h1>
 <%= turbo_stream_from "tweets" %>
@@ -67,7 +67,7 @@ So we will start by replacing the new-form with a button that toggles the modal.
 ```
 
 So now lets make a partial that has the modal toggle button and the associated html to enable the modal to function (this code is basically copied from the Bootstrap website):
-```
+```ruby
 # app/views/tweets/_modal_new.html.erb
 <%= link_to "#", class: 'btn btn-sm btn-outline-primary', data: { toggle: "modal", target: "#tweetModal" } do %>
 New Tweet
@@ -83,7 +83,7 @@ New Tweet
 ```
 
 Notice we have a partial for the form still - this is because we have to point turbo at a dom_id within a partial (without doing this we can't get validation errors back into this form).  This is a mix of the Bootstrap example code placed within the rails form.
-```
+```ruby
 #  app/views/tweets/_modal_form.html.erb
 <%= form_with(model: tweet, id: dom_id(tweet)) do |form| %>
 
@@ -138,7 +138,7 @@ In fact, if you put the regular form back into the index page you will see that 
 ## Fix validation errors
 
 We fix this like this like a normal form - we change how the controller uses turbo_stream. So instead of pointing to the partial: "tweets/form" we need to point to "tweets/modal_form" (the new partial with the form).
-```
+```ruby
 # app/controllers/tweets_controller.rb
   def create
     @tweet = Tweet.new(tweet_params)
@@ -164,14 +164,14 @@ Now all our tests should work.
 
 Let's refactor - for future flexibility.  We'll create the template.  Since we are using the `create` method within the controller - we'll call the file: `create.turbo_stream.html.erb` - notice, unsurprisingly it looks what's in the controller.
 
-```
+```ruby
 # app/views/tweets/create.turbo_stream.erb
 <!--             action  dom_id           partial with the dom_id        actual data -->
 <%= turbo_stream.replace @tweet, partial: "tweets/modal_form", locals: { tweet: @tweet } %>
 ```
 
 Now we can make the controller look like:
-```
+```ruby
 # app/controllers/tweets_controller.rb
   def create
     @tweet = Tweet.new(tweet_params)

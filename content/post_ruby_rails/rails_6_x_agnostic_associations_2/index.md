@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Rails', 'Databases', 'Data models', 'Framework Agnostic', 'belongs_to', 'has_one']
 categories: []
 date: 2021-05-29T01:57:00+02:00
-lastmod: 2021-05-30T01:57:00+02:00
+lastmod: 2021-08-07T01:57:00+02:00
 featured: true
 draft: false
 
@@ -38,7 +38,7 @@ This is the second article in the series.  This article builds on (part 1)[post_
 In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.
 
 The basic model will then look something like:
-
+```
                        ┌───────────┐           ┌───────────┐
                        │           │╲         ╱│           │
       ┌──────────────○┼│  Contact  │───────────│UserContact│
@@ -66,21 +66,24 @@ The basic model will then look something like:
                        └───────────┘           └───────────┘
 
                  Created with Monodraw
+```
 
 ## Rails app and first Models
 
+```
     ┌────────────┐             ┌───────────┐
     │            │╲          1 │           │
     │  Business  │─○──────────┼│  Person   │
     │-legal_name │╱0..*        │-full_name │
     └────────────┘             └───────────┘
+```
 
 We discussed / explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]
 
 ## Polymorphic (STI) - sometime called inverse polymorphic
 
 In this article we will build this structure (a replacement for Rails STI).  Many frameworks will only use columns that can be identified as foreign keys to ensure DB integrity - therefore, we will build this using DB structures that are supported by Rails, Lucky and Phoenix and probably most frameworks.
-
+```
                    ┌─────────────┐
                    │   Contact   │
                    │  relations* │
@@ -98,6 +101,7 @@ In this article we will build this structure (a replacement for Rails STI).  Man
     └─────────────┘             └─────────────┘
   + array: supplier, reseller, customer, sales-rep
   * virtual attribute (public method)
+```
 
 A contact could be either a person or a business - but must be one or the other.
 

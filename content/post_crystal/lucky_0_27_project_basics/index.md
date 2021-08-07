@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Relationships", "Basics", "Forms", "Components", "Routing", "Lucky", "Web Framework", "Crystal Language"]
 categories: ["Code", "Lucky", "Crystal Language"]
 date: 2021-05-02T01:01:53+02:00
-lastmod: 2021-05-08T01:01:53+02:00
+lastmod: 2021-08-07T01:01:53+02:00
 featured: false
 draft: false
 
@@ -86,7 +86,7 @@ The `brew install` of lucky (on a MacOS) is bit broken, but the Linux install te
 
 First be sure openssl and postgresql are installed and findable:
 
-```
+```bash
 brew install openssl postgresql
 
 # and depending on your shell either (if you don't know which it is safe to do both):
@@ -101,7 +101,7 @@ source ~/.bash_profile
 
 Now install (or be sure ASDF is installed). https://asdf-vm.com/#/core-manage-asdf-vm
 
-```
+```bash
 brew install asdf
 # assuming bash
 echo -e "\n. $(brew --prefix asdf)/asdf.sh" >> ~/.bash_profile
@@ -112,22 +112,22 @@ echo -e "\n. $(brew --prefix asdf)/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
 ```
 
 Now we add asdf plugin for crystal:
-```
+```bash
 asdf plugin-add crystal https://github.com/asdf-community/asdf-crystal.git
 ```
 
 For both Ruby and Crystal the following is also helpful:
-```
+```bash
 echo "legacy_version_file = yes" >>~/.asdfrc
 ```
 
 Lucky 0.27 needs Crystal 0.36.1 (not Crystal 1.0.0) - so we install it with:
-```
+```bash
 asdf install crystal 0.36.1
 ```
 
 I like to the local folder to crystal 0.36.1 (& the node version too) - this will allow use to install and run the lucky-cli tool
-```
+```bash
 echo "cyrstal 0.36.1" >> .tool-versions
 echo "node 14.16.0" >> .tool-versions
 ```
@@ -135,7 +135,7 @@ echo "node 14.16.0" >> .tool-versions
 (but you can also just use: `asdf global crystal 0.36.1` - so you don't have to set the crystal version in every file you work in)!
 
 Now let's install lucky_cli & also lucky
-```
+```bash
 git clone https://github.com/luckyframework/lucky_cli
 cd lucky_cli
 git checkout v0.27.0
@@ -149,7 +149,7 @@ mv lucky /usr/local/bin
 ```
 
 Now if you check your settings you should get:
-```
+```bash
 lucky -v
 # This should return 0.27.0
 
@@ -168,7 +168,7 @@ psql --version
 
 Create your new Lucky project with the wizzard (just answer questions) - other options are at: https://luckyframework.org/guides/getting-started/starting-project
 
-```
+```bash
 lucky init
 cd {project_name}
 
@@ -182,7 +182,7 @@ lucky dev
 ```
 
 Ok lets do an initial commit:
-```
+```bash
 git add .
 git commit -m "initial commit after create"
 ```
@@ -191,12 +191,12 @@ git commit -m "initial commit after create"
 ## Quick Lucky Test Tip
 
 Lets quickly test our new config wiht `lucky exec` - type:
-```
+```bash
 lucky exec
 ```
 
 This gives you an edit in your cli and you can type a small amount of code and it will be compiles and print you the results - ie:
-```
+```ruby
 lucky exec
 # then when vim or nano opens you can enter something like:
 
@@ -208,7 +208,7 @@ pp pluralize(2, "human")
 ```
 
 and hopefuly you get `2 humans` - cool - it works lets snapshot our changes.
-```
+```bash
 git add .
 git commit -m "language inflection updates and customization"
 ```
@@ -219,12 +219,12 @@ git commit -m "language inflection updates and customization"
 https://luckyframework.org/guides/command-line-tasks/built-in
 
 Now if we try again (we are free to use human again):
-```
+```bash
 lucky gen.resource.browser Human name:String
 ```
 
 Now lets run the migration:
-```
+```bash
 lucky db.migrate
 
 # oops I haven't create the DB yet
@@ -240,7 +240,7 @@ lucky dev
 Now log_in and create humans at the `/humans` url
 
 Cool - lets snapshot:
-```
+```bash
 git add .
 git commit -m "First simple 'Human' resource with scaffold"
 ```
@@ -255,7 +255,7 @@ https://luckyframework.org/guides/database/migrations#associations
 Unfortunately, the Lucky generators don't understand `belongs_to` so we will need to do a few extra tweeks -- since we can't do something like human:belongs_to or human:references like with Rails.
 
 So if we want to scaffold "pets" now and have them belong to humans (and humans can have many pets) - we first do:
-```
+```bash
 lucky gen.resource.browser Pet name:String breed:String species:String age:Int32 house_trained:Bool
 ```
 
@@ -264,7 +264,7 @@ Now let's setup the relationships:
 First we need to update the migration with the human foreign_key using: `add_belongs_to`
 
 So we need to update our pets migration to:
-```
+```ruby
 # db/migrations/yyyymmddxxxxxx_create_pets.cr
 class CreatePets::V20210502100912 < Avram::Migrator::Migration::V1
   def migrate
@@ -291,7 +291,7 @@ end
 
 Now that the pets database table will is correct - lets update the pet model too.
 This is straight-forward we just need to add `belongs_to human : Human` in the model file so it changes to:
-```
+```ruby
 # src/models/pet.cr
 class Pet < BaseModel
   table do
@@ -307,7 +307,7 @@ end
 ```
 
 now we need to add `has_many` to the `Human` model.  So we change it to:
-```
+```ruby
 # src/models/human.cr
 class Human < BaseModel
   table do
@@ -319,7 +319,7 @@ end
 ```
 
 Now we can migrate:
-```
+```bash
 lucky db.migrate
 ```
 
@@ -330,7 +330,7 @@ https://luckycasts.com/videos/lucky-html-in-crystal
 https://www.luckyframework.org/guides/http-and-routing/routing-and-params#root-page
 
 If we look in `src/actions/home/index.cr` we see:
-```
+```ruby
 # src/actions/home/index.cr
 class Home::Index < BrowserAction
   include Auth::AllowGuests
@@ -360,7 +360,7 @@ So from looking at the existing html in `src/pages/me/show_page.cr` it's like a 
 
 
 In the end I created this:
-```
+```ruby
 # src/pages/me/show_page.cr
 class Me::ShowPage < MainLayout
   def content
@@ -399,12 +399,12 @@ end
 ```
 
 lets test it out:
-```
+```bash
 lucky dev
 ```
 
 cool - good enough for now.
-```
+```bash
 git add .
 git commit -m "added html links to user_home_page 'me'"
 ```
@@ -421,7 +421,7 @@ Lets test our building a model and the Lucky mechanisms before we get fancy with
 https://luckyframework.org/guides/tutorial/new-resource
 
 So we will generate an animal resource - using a full stack generator:
-```
+```bash
 lucky gen.resource.browser Animal nick_name:String species:String
 lucky db.migrate
 ```
@@ -429,7 +429,7 @@ lucky db.migrate
 Now let's create some sample data in `tasks/db/seed/sample_data.cr` - via the seed task - from these instructions: https://luckyframework.org/guides/database/database-setup#seeding-data as our base.
 
 We will start by using what's used to save when we create new records with incomming data. `SaveAnimal.create!(nick_name: "racky coon")` so now our file will look like:
-```crystal
+```ruby
 # tasks/db/seed/sample_data.cr
 require "../../../spec/support/factories/**"
 
@@ -450,7 +450,7 @@ lucky db.seed.sample_data
 ```
 
 assuming this runs we should be able to view this data in our db (I often use the cli - but you might also want to use: `dbgate` https://dbgate.org/):
-```
+```sql
 psql
 \l
 \c lucky_poly_development
@@ -459,7 +459,7 @@ select * from animals;
 
 cool - lets try a factory too - these are especially help when complex and building relationships, etc:
 
-```crystal
+```ruby
 # spec/support/factories/animal_factory.cr
 class AnimalFactory < Avram::Factory
   def initialize
@@ -469,7 +469,7 @@ end
 ```
 
 now lets try using our factory in the seed file:
-```crystal
+```ruby
 # tasks/db/seed/sample_data.cr
 require "../../../spec/support/factories/**"
 
@@ -516,7 +516,7 @@ https://luckyframework.org/guides/frontend/html-forms#shared-components
 
 
 Lets test the web page
-```
+```bash
 lucky dev
 ```
 
@@ -534,7 +534,7 @@ After I figured out how to update FormComponents I found this: https://luckycast
 This got me going!  However, one difficulty I had was the Boolean field `house_trained` - I tried both Checkboxes and Radio Buttons, but I kept getting `overload` errors (which I finally realized were type mis-matches - you can't send text into a Boolean field).  So I settled on a select_list where I can present a tuple with a "human readable value" and a "model value".
 
 So in the end my first draft form looked like:
-```
+```ruby
 # src/pages/pets/new_page.cr
 class Pets::NewPage < MainLayout
   needs operation : SavePet
@@ -607,12 +607,12 @@ of course this isn't shared by the `edit` page, but it is still helpful to see t
 So after a while I figured out how to revert this code and use SharedForms (I think this is a form of FrontEnd Components).
 
 Lets test again:
-```
+```bash
 lucky dev
 ```
 
 Cool it works as I expect
-```
+```bash
 git add .
 git commit -m "a working 'new' html form - not shared"
 ```
@@ -624,7 +624,7 @@ https://luckyframework.org/guides/frontend/html-forms
 https://luckyframework.org/guides/frontend/html-forms#shared-components
 
 With a little more experience with Lucky HTML lets try the component forms again at `src/components/pets/form_fields.cr` (so lets revert: `src/pages/pets/new_page.cr` back to:
-```
+```ruby
 # src/pages/pets/new_page.cr
 class Pets::NewPage < MainLayout
   needs operation : SavePet
@@ -647,7 +647,7 @@ end
 ```
 
 Once I had build the first form and understood the errors - so the same form as a form_component looks like:
-```
+```ruby
 # src/components/pets/form_fields.cr
 class Pets::FormFields < BaseComponent
   needs operation : SavePet
@@ -691,12 +691,12 @@ NOTE:
 2. if you don't put anything next to the variable a text input without anything more than the errors are assumed `&.text_input()`
 
 Lets test again:
-```
+```bash
 lucky dev
 ```
 
 cool - lets snapshot:
-```
+```bash
 git add .
 git commit -m "working shared form component with a variety of types"
 ```
@@ -710,7 +710,7 @@ I find it annoying after creating and updating a resource to have to then manual
 In lucky the routing/controll happens in the `action` files.
 
 To change what happens after creating and updating a Pet we simply change `src/actions/pets/create.cr` to:
-```
+```ruby
 # src/actions/pets/create.cr
 class Pets::Create < BrowserAction
   post "/pets" do
@@ -729,7 +729,7 @@ end
 ```
 
 And update `src/actions/pets/update.cr` is similarly easy:
-```
+```ruby
 # src/actions/pets/update.cr
 class Pets::Update < BrowserAction
   put "/pets/:pet_id" do
@@ -758,7 +758,7 @@ Often a **breed** is unknown - we could just add an `unknown` value, but that's 
 Since Crystal is strongly typed - one needs to explicitly mark that a field can be nil with `?` - you can see the docs here: https://luckyframework.org/guides/database/models#adding-a-column
 
 So to make **breed** optional we will change the pets model to:
-```
+```ruby
 class Pet < BaseModel
   table do
     column name : String
@@ -774,7 +774,7 @@ end
 ```
 
 Now when I run lucky - I'll expect to find some errors - (probably in a view saying I need null protecction).  However instead I get:
-```
+```bash
 Unhandled exception: Pet has defined 'breed' as nilable (String?), but the database column does not allow nils.
 web          |
 web          | Either mark the column as required in Pet:
@@ -796,14 +796,14 @@ web          |       make_optional :pets, :breed
 Oddly, I don't see anything in the migration Docs `https://www.luckyframework.org/guides/database/migrations` about marking a file optional (nor how to make it optional in the original migration).  Since we w
 
 But lets try:
-```
+```bash
 lucky gen.migration MakePetBreedOptional
 ```
 
 Hmm, the error says what to put in the migration, but not the rollback, lets search the luckyframework repos and see what we find:  https://github.com/luckyframework/avram/blob/f676a9a7d2e70d74891ad686039bf393983d0760/src/avram/migrator/statement_helpers.cr
 
 Here we see what the options are so lets edit the migration to look like:
-```
+```ruby
 class MakePetBreedOptional::V20210507125901 < Avram::Migrator::Migration::V1
   def migrate
     make_optional :pets, :breed
@@ -834,14 +834,14 @@ end
 ```
 
 OK - lets try again:
-```
+```bash
 lucky dev
 ```
 
 Cool it works - lets make a new record - with an null value.
 
 Lets look at the record within postgresql:
-```
+```sql
 psql -d pets_development
 select * from pets;
 
@@ -852,12 +852,11 @@ select * from pets;
 ```
 
 Now let's be sure our rollback works.  Notice - before we make it `required` we find records with nil values and fill them `unknown`.  An example of adding data logic within a migration can be found at: https://luckyframework.org/guides/database/migrations#using-fill_existing_with-and-default-values
-```
+```bash
 lucky db.rollback
 ```
 OK - good the migration didn't crash - lets check the DB.
-```
-
+```sql
 psql -d pets_development
 select * from pets;
 

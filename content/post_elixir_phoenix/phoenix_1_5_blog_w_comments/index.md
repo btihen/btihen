@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Relationships", "Templates", "Nested Preloading", "Nested Resources", "Render Foriegn Views", "User Error Handling"]
 categories: ["Code", "Elixir", "Phoenix"]
 date: 2020-07-10T09:43:51+02:00
-lastmod: 2020-07-10T09:43:51+02:00
+lastmod: 2021-08-07T01:43:51+02:00
 featured: false
 draft: false
 
@@ -44,7 +44,7 @@ mix phx.gen.context Blogs Comment comments message:text post_id:references:posts
 We need to create the relationships and update the migration to delete comments when post is deleted:
 
 Now lets create the relationship between posts and comments:
-```
+```elixir
 # lib/feenix_intro/blogs/comment.ex
 efmodule FeenixIntro.Blogs.Comment do
   use Ecto.Schema
@@ -76,7 +76,7 @@ efmodule FeenixIntro.Blogs.Comment do
 ```
 
 Now lets update posts relationship to comments:
-```
+```elixir
 # lib/feenix_intro/blogs/post.ex
   # ...
   alias FeenixIntro.Blogs.Comment
@@ -93,7 +93,7 @@ We could do the same `has_many` relationship with users - but its not needed.  I
 ## Update Migration to delete sub-resource when top-resource is deleted
 
 To create the rails equivalent of dependent_delete we change the migration to the following:
-```
+```elixir
 # priv/repo/migrations/20200704161651_create_comments.exs
       # ...
       # replce
@@ -115,7 +115,7 @@ mix ecto.migrate
 
 Lets add a comment to our prebuild posts:
 
-```
+```elixir
 # priv/repo/seeds.exs
 # ...
 # add the alias to keep things short
@@ -148,7 +148,7 @@ git commit -m "Comments added as a resource and relationship to Posts establishe
 To show the comments within a post we will need to preload the comments -- this is done by adding `Repo.preload(:comments)` to our function: `def get_post!(id)` -- however, we will also want to display the comment's author -- so we need to do a nested preload with: `Repo.preload([comments: [:user]])`
 
 So now this function looks like:
-```
+```elixir
 # lib/feenix_intro/blogs.ex
 def get_post!(id) do
     Post
@@ -159,7 +159,7 @@ def get_post!(id) do
 ```
 
 This can actually be shortened to (this will be helpful later):
-```
+```elixir
 lib/feenix_intro/blogs.ex
 def get_post!(id) do
     Post
@@ -172,7 +172,7 @@ def get_post!(id) do
 
 Now that we have updated the get_post! to preload comments we can display the comments too by adding to the end of our post's - show template:
 
-```
+```elixir
 # lib/feenix_intro_web/templates/post/show.html.eex
 
 # ...
@@ -209,7 +209,7 @@ git commit -m "display comments and comment author on post show page"
 
 Since we have added comments within the Blogs context and they are associated with a post - it makes sense to create and display comments as a nested resource.  To set this up lets change our routes file:
 
-```
+```elixir
 # lib/feenix_intro_web/router.ex
 # ...
   scope "/", FeenixIntroWeb do
@@ -234,7 +234,7 @@ This also means we need to display our comments within the context of existing p
 
 Let's create the controller we just defined - we will need to make a new file:
 
-```
+```elixir
 # lib/feenix_intro_web/controllers/comment_controller.ex
 defmodule FeenixIntroWeb.CommentController do
   use FeenixIntroWeb, :controller
@@ -266,7 +266,7 @@ end
 Note: at the moment we don't handle errors, and allow those to be fixed.  We will get to that in a second step.
 
 We need to update the function `create_comment` in order to work as a nested resource:
-```
+```elixir
 #  @doc """
   Creates a comment.
 
@@ -302,7 +302,7 @@ We need to update the function `create_comment` in order to work as a nested res
 ```
 
 In order to create a new Comment **form** the `show` function will need to borrow from a typical `new` function and send and empty struct (changeset) for the form -- lets start by updating the PostController show function:
-```
+```elixir
 # lib/feenix_intro_web/controllers/post_controller.ex
   # ...
   alias FeenixIntro.Blogs.Comment
@@ -321,7 +321,7 @@ In order to create a new Comment **form** the `show` function will need to borro
 ```
 
 Now that we have an empty changeset for the form - we can add the form to the show page with:
-```
+```elixir
 # lib/feenix_intro_web/templates/post/show.html.eex
 # ...
 <h3>Add a Comment</h3>
@@ -357,7 +357,7 @@ Prevent empty strings:
 * https://stackoverflow.com/questions/32784008/phoenix-render-template-of-other-folder
 
 lets add a minimum message legth to comments:
-```
+```elixir
 # lib/feenix_intro/blogs/comment.ex
   def changeset(comment, attrs) do
     comment
@@ -369,7 +369,7 @@ lets add a minimum message legth to comments:
 ```
 
 Now, change the controller to prep the data just like a post `show` and send the changeset - with the errors. `|> put_view(FeenixIntroWeb.PostView)` is how we redirect to other external views as of Phoenix 1.5.1:
-```
+```elixir
 # lib/feenix_intro_web/controllers/comment_controller.ex
   # add the alias
   alias FeenixIntro.Accounts
@@ -406,7 +406,7 @@ git commit -m "handle comment creation errors"
 You may have noticed the pre-loading is hard-coded -- in this case it is ok, but might not always be good.  Here is a flexible alternative:
 
 We can update / replace the following functions with the following:
-```
+```elixir
 # lib/feenix_intro/blogs.ex
   def list_posts(opts \\ [:user]) do
     preloads = Keyword.get(opts, :preloads, [])
@@ -431,7 +431,7 @@ We can update / replace the following functions with the following:
 ```
 
 And now we can change our show post controller to look like - so that we can use this flexibility:
-```
+```elixir
 # lib/feenix_intro_web/controllers/post_controller.ex
   # ...
 

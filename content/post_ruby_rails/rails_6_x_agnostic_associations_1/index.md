@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Rails', 'Databases', 'Data models', 'Framework Agnostic', 'belongs_to', 'has_many']
 categories: []
 date: 2021-05-19T01:57:00+02:00
-lastmod: 2021-05-30T01:57:00+02:00
+lastmod: 2021-08-07T01:57:00+02:00
 featured: true
 draft: false
 
@@ -38,7 +38,7 @@ This is the second article in the series.  This article is followed up with (par
 In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.
 
 The basic model will then look something like:
-
+```
                        ┌───────────┐           ┌───────────┐
                        │           │╲         ╱│           │
       ┌──────────────○┼│  Contact  │───────────│UserContact│
@@ -65,6 +65,7 @@ The basic model will then look something like:
                        │           │          ╲│           │
                        └───────────┘           └───────────┘
                     Created with Monodraw
+```
 
 ## Create a default Rails app
 
@@ -82,12 +83,13 @@ git commit -m "initial commit"
 ### Build Businesses
 
 Lets start with the simple relationship between businesses and people:
-
+```
 ┌────────────┐             ┌───────────┐
 │            │╲          1 │           │
 │  Business  │─○──────────┼│  Person   │
 │-legal_name │╱0..*        │-full_name │
 └────────────┘             └───────────┘
+```
 
 For expedience, I'll use scaffolds:
 

@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Elixir", "Phoenix", "LiveView", "PubSub", "Interactive"]
 categories: ["Code"]
 date: 2020-05-10T17:01:53+02:00
-lastmod: 2020-05-10T17:01:53+02:00
+lastmod: 2020-08-07T01:01:53+02:00
 featured: false
 draft: false
 
@@ -69,13 +69,10 @@ git init && git add -A && git commit -m "init"
 ### Step 2 - simple counter page using LiveView
 
 Make a counter_live folder & an index.ex file:
-```
+```elixir
 mkdir lib/counter_web/live/counter_live
 touch lib/counter_web/live/counter_live/index.ex
-```
-
-Add the following contents:
-{{< highlight elixir "linenos=table,linenostart=1" >}}
+cat <<EOF > lib/counter_web/live/counter_live/index.ex
 # lib/counter_web/live/counter_live/index.ex
 defmodule CounterWeb.CounterLive.Index do
   use CounterWeb, :live_view
@@ -125,17 +122,17 @@ defmodule CounterWeb.CounterLive.Index do
   end
 
 end
-{{< / highlight >}}
+```
 
 Now update the routers (so we can get to the new webpage -- now our app should work:
-{{< highlight elixir "linenos=table,linenostart=1" >}}
+```elixir
   scope "/", CounterWeb do
     pipe_through :browser
 
     # live "/", PageLive, :index        # remove this line
     live "/", CounterLive.Index, :index # add this line
   end
-{{< / highlight >}}
+```
 
 Start pheonix:
 
@@ -164,13 +161,10 @@ mix test
 We see that PageLive test fails.  This is because we replaced this behavior with `CounterLive`
 
 To fix this we will create a **CounterLive** test and delete **PageLive** test.
-```
+```elixir
 rm test/counter_web/live/page_live_text.exs
 touch test/counter_web/live/counter_live_text.exs
-```
-
-Here is the code for our new test: it basically just checks to be sure our Title is on the page:
-{{< highlight elixir "linenos=table,linenostart=1" >}}
+cat <<EOF > test/counter_web/live/counter_live_text.exs
 # test/counter_web/live/counter_live_text.exs
 defmodule CounterWeb.CounterLiveTest do
   use CounterWeb.ConnCase
@@ -184,7 +178,7 @@ defmodule CounterWeb.CounterLiveTest do
   end
 
 end
-{{< / highlight >}}
+```
 
 Now we can test again: `mix test`
 
@@ -354,4 +348,3 @@ Assuming it still works, I'll make one last git snapshot:
 git add .
 git commit -m "live pages using isolated components - like JS does"
 ```
-

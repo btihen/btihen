@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Phoenix", "Elixir", "TailwindCSS", "AlpineJS", "LiveView", "PETAL Stack"]
 categories: ["Code"]
 date: 2021-04-10T01:01:53+02:00
-lastmod: 2021-05-06T01:01:53+02:00
+lastmod: 2021-08-07T01:01:53+02:00
 featured: false
 draft: false
 
@@ -36,7 +36,7 @@ I have been enjoying the tools associated with Elixir and exploring the frontend
 - https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58
 
 On a Mac I used Homebrew:
-```
+```bash
 brew install asdf
 echo -e '\n. $(brew --prefix asdf)/asdf.sh' >> ~/.bash_profile
 echo -e '\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash' >> ~/.bash_profile
@@ -44,7 +44,7 @@ source ~/.bash_profile  # (or open a new terminal)
 ```
 
 Now you can install asdf software packages:
-```
+```bash
 asdf plugin-add erlang
 asdf plugin-add elixir
 asdf plugin-add nodejs
@@ -52,7 +52,7 @@ asdf plugin-add Postgres
 ```
 
 Now you need to install the desired versions (usually the newest) - currently:
-```
+```bash
 asdf list all erlang
 asdf install erlang 23.3.1
 
@@ -74,19 +74,19 @@ asdf install Postgres 13.2
 ## Get the newest Phoenix Hex Package
 
 Once you have established you have the requrements - the download the newest version of Phoenix (go to: https://hexdocs.pm/phoenix/installation.html#phoenix to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:
-```
+```bash
 mix archive.install hex phx_new 1.5.8
 ```
 
 ## create / config a project
 
 First we will creat the folder / project location
-```
+```bash
 mkdir fenix
 ```
 
 Now we will tell it which software to use:
-```
+```bash
 touch fenix/.tool-versions
 cat <<EOF >>fenix/.tool-versions
 erlang 23.3.1
@@ -101,7 +101,7 @@ EOF
 https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58
 
 Now you can simply do:
-```
+```bash
 mix phx.new fenix --live
 cd fenix
 mix ecto.create
@@ -109,7 +109,7 @@ mix phx.server
 ```
 
 assuming all is good lets configure git:
-```
+```bash
 git init
 git add .
 git commit -m "initial Phoneix install with LiveView"
@@ -120,14 +120,14 @@ git commit -m "initial Phoneix install with LiveView"
 https://underjord.io/getting-started-with-petal.html
 https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview
 
-```
+```bash
 cd assets
 npm install alpinejs
 ```
 
 Now change `app.js` is to require our new setup:
 
-```
+```bash
 # assets/js/app.js
 // .. after the app.scss import add:
 import Alpine from "alpinejs";
@@ -137,7 +137,7 @@ still in `assets/js/app.js` find`:
 `let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})`
 
 and change to:
-```
+```elixir
 let liveSocket =
     new LiveSocket("/live",
                     Socket,
@@ -151,7 +151,7 @@ let liveSocket =
 ```
 
 TEST by adding to the end of: `lib/fenix_web/live/page_live.html.leex`
-```
+```elixir
 <section>
   <h2>Alpine JS Installed</h2>
   <div x-data="{name:''}">
@@ -168,7 +168,7 @@ test with:
 when typing the name should appear below!
 
 let's snapshot:
-```
+```bash
 git add .
 git commit -m "phoenix with alpine js"
 ```
@@ -180,7 +180,7 @@ https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix
 
 This source gives several options - here we install with `postcss-import` (for components from the beginning):
 
-```
+```javascript
 cd assets
 npm install tailwindcss postcss autoprefixer postcss-loader@4.2  postcss-import --save-dev
 
@@ -197,7 +197,7 @@ EOF
 ```
 
 now open: `assets/webpack.config.js` and find:
-```
+```javascript
 {
 	test: /\.[s]?css$/,
 	use: [
@@ -207,8 +207,9 @@ now open: `assets/webpack.config.js` and find:
 	],
 }
 ```
+
 change too (add `'postcss-loader'` between `'css-loader'` & `'sass-loader'`):
-```
+```css
 {
 	test: /\.[s]?css$/,
 	use: [
@@ -221,11 +222,12 @@ change too (add `'postcss-loader'` between `'css-loader'` & `'sass-loader'`):
 ```
 
 now initialize tailwind config with:
-```
+```bash
 npx tailwindcss init
 ```
+
 this creates the file `tailwind.config.js` we will replace the `purge: [],` section with:
-```
+```javascript
 purge: [
     '../lib/**/*.ex',
     '../lib/**/*.leex',
@@ -235,7 +237,7 @@ purge: [
 ```
 
 Now the fill will look like:
-```
+```javascript
 module.exports = {
   purge: [
     '../lib/**/*.ex',
@@ -256,7 +258,7 @@ module.exports = {
 
 
 now in `assets/package.json` find:
-```
+```javascript
   "scripts": {
     "deploy": "webpack --mode production",
     "watch": "webpack --mode development --watch"
@@ -264,7 +266,7 @@ now in `assets/package.json` find:
 ```
 
 and change this to:
-```
+```javascript
   "scripts": {
     "deploy": "NODE_ENV=production webpack --mode production",
     "watch": "webpack --mode development --watch"
@@ -272,13 +274,13 @@ and change this to:
 ```
 
 we will create a file for our custom styles the `assets/css/custom-style.css` file:
-```
+```bash
 # assuming you are still in the assets directory on the cli
 touch css/custom-styles.css
 ```
 
 Let's also create our a custom component (we will make buttons for a counter to be sure tailwind and aplineJS are playing well together):
-```
+```css
 # assuming you are still in the assets directory on the cli
 mkdir css/components
 touch css/components/buttons.css
@@ -295,7 +297,7 @@ EOF
 ```
 
 Now will will configure Phoenix to load Tailwind, our custom-styles and our custom-components -- DO THIS AT THE TOP OF the file `assets/css/app.scss` (@imports must be before all else):
-```
+```css
 /* Import tailwind - with postcss-import installed */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
@@ -313,7 +315,7 @@ Now will will configure Phoenix to load Tailwind, our custom-styles and our cust
 
 
 add a test html from tailwind to the end of: `lib/fenix_web/live/page_live.html.leex`
-```
+```elixir
 <section class="grid grid-cols-1 gap-4">
   <div>
     <h2 class="text-red-500 text-5xl font-bold text-center">Tailwind CSS with AlpineJS</h2>
@@ -329,7 +331,7 @@ add a test html from tailwind to the end of: `lib/fenix_web/live/page_live.html.
 Now when we start the server with `mix phx.server` we should have a centered / red title and colored buttons on our counter.
 
 now lets snapshot our PETAL setup:
-```
+```bash
 git add .
 git commit -m "Tailwind installed"
 ```

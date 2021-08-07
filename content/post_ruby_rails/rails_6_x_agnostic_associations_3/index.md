@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Rails', 'Databases', 'Data models', 'Framework Agnostic', 'belongs_to', 'has_one']
 categories: []
 date: 2021-05-30T01:57:00+02:00
-lastmod: 2021-05-30T01:57:00+02:00
+lastmod: 2021-08-07T01:57:00+02:00
 featured: true
 draft: false
 
@@ -38,7 +38,7 @@ This is the second article in the series.  This article builds on (part 1)[post_
 In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.
 
 The basic model will then look something like:
-
+```
                        ┌───────────┐           ┌───────────┐
                        │           │╲         ╱│           │
       ┌──────────────○┼│  Contact  │───────────│UserContact│
@@ -64,19 +64,23 @@ The basic model will then look something like:
       └──────────────○┼│  Remark   │┼──────────│   User    │
                        │           │          ╲│           │
                        └───────────┘           └───────────┘
+```
+
 ## Rails app and first Models
 
+```
     ┌────────────┐             ┌───────────┐
     │            │╲          1 │           │
     │  Business  │─○──────────┼│  Person   │
     │-legal_name │╱0..*        │-full_name │
     └────────────┘             └───────────┘
+```
 
 We discussed/explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]
 
 ## Polymorphic (STI) - sometime called inverse polymorphic
 
-
+```
                    ┌─────────────┐
                    │   Contact   │
                    │  relations* │
@@ -94,13 +98,14 @@ We discussed/explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associatio
     └─────────────┘             └─────────────┘
   + array: supplier, reseller, customer, sales-rep
   * virtual attribute (public method)
+```
 
 We disucssed/explained this in (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]
 
 ## Polymorphic Modeling
 
 Is a model that can be associated with several different models - serving a similar purpose in all cases.  For example perhaps we would like to leave remarks on our interactions with various other business partners as shown below.
-
+```
 ┌───────────┐          ┌───────────┐
 │           │╲         │           │
 │ Business  │─○───────┼│  Person   │
@@ -116,6 +121,7 @@ Is a model that can be associated with several different models - serving a simi
       └──────────────○┼│  Remark   │┼──────────│   User    │
                        │           │          ╲│           │
                        └───────────┘           └───────────┘
+```
 
 A Remark could be either associated with either a person or a business - this is called polymorphism.  For ubiquitous things like comments, pictures, etc. this is a common approach.
 
@@ -297,7 +303,15 @@ Lets check the seed with:
 bin/rails db:seed
 ```
 
-## N+1 checks & Forms
+Cool that works!
+
+lets snapshot:
+```bash
+git add .
+git commit -m "polymorphic remark relations created"
+```
+
+### Views
 
 **Comming soon ...**
 
@@ -307,8 +321,14 @@ bin/rails s
 open localhost:3000/businesses/
 ```
 
+### N+1 checks
+
+
+
 Great - lets snapshot:
 ```bash
 git add .
 git commit -m "created an agnostic polymorphic model with data integrity enforced"
 ```
+
+### Input Forms (& Building new Info)

@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Relationships", "Templates", "Preloading", "has_many", "belongs_to", "dependent delete", "selection in form"]
 categories: ["Code", "Phoenix", "Elixir"]
 date: 2020-07-04T13:06:29+02:00
-lastmod: 2020-07-06T13:06:29+02:00
+lastmod: 2021-08-07T13:06:29+02:00
 featured: false
 draft: false
 
@@ -46,7 +46,7 @@ This article creates a basic web application backed by a database and creates a 
 find the most recent phoenix version:
 https://github.com/phoenixframework/phoenix/releases
 
-```
+```bash
 mix archive.install hex phx_new 1.5.3
 mix phx.new feenix_intro
 cd feenix_intro
@@ -58,7 +58,7 @@ test with: `mix phx.server` and go to `http://localhost:4000`
 Ideally you see a the Phoenix Start Page.
 
 Let's create a git snapshot
-```
+```bash
 git init && git add -A && git commit -m "init"
 ```
 
@@ -71,7 +71,7 @@ In our case we will need a Blogs and Accounts (better would have been Authors) c
 Blogs will have the posts and comments and Accounts will have the user and login credentials and user relationships (why not)?  To see the full documentation on Contexts see: https://hexdocs.pm/phoenix/contexts.html
 
 We will generate two resources and Contexts (and add more later) - lets start with users who will post their blogs (users will be within the Accounts context and posts will be within the Blogs context):
-```
+```bash
 mix phx.gen.html Accounts User users name:string email:string username:string:unique
 mix phx.gen.html Blogs Post posts title:string body:text user_id:references:users
 ```
@@ -84,7 +84,7 @@ And we can generate relationships (foriegn keys) with `references`
 Now that we have generated our code - we need to make a few updates:
 
 First: we need to update our routes in the scope area to look like:
-```
+```elixir
 # lib/ideas_web/router.ex
   scope "/", FeenixIntroWeb do
     pipe_through :browser
@@ -102,7 +102,7 @@ NOTE: the API's for our Contexts `Accounts` and `Blogs` is in `lib/feenix_intro/
 Before we migrate we need to define the relationships:
 
 so we update the users with a has_many relationship to posts
-```
+```elixir
 # lib/feenix_intro/accounts/user.ex
 defmodule FeenixIntro.Accounts.User do
   use Ecto.Schema
@@ -135,7 +135,7 @@ If you skip the alias, then `has_many` needs to be written as: `has_many(:posts,
 ## Define the belongs_to relationship
 
 **IMPORTANT:** replace the `field :user_id, :id` with `belongs_to(:user, User)` -- you CAN'T have both!
-```
+```elixir
 # lib/feenix_intro/blogs/post.ex
 defmodule FeenixIntro.Blogs.Post do
   use Ecto.Schema
@@ -168,7 +168,7 @@ NOTE: `@required_fields [:user_id, :title, :body]` isn't required, but as things
 ## Auto delete sub-resources
 
 To be sure we don't have unreferenced blogs if a user gets deleted we need to change our Blog migration to:
-```
+```elixir
 # priv/repo/migrations/20200704152318_create_posts.exs
 defmodule FeenixIntro.Repo.Migrations.CreatePosts do
   use Ecto.Migration
@@ -191,7 +191,7 @@ end
 ```
 
 Now it should be safe to migrate using:
-```
+```bash
 mix ecto.migrate
 ```
 
@@ -199,7 +199,7 @@ mix ecto.migrate
 
 Let's create seed data so that one we know how to do that and two have some data to test before we get all our views and forms working:
 
-```
+```elixir
 # priv/repo/seeds.exs
 
 # Script for populating the database. You can run it as:
@@ -226,14 +226,14 @@ Repo.insert!(%Post{ user_id: dog.id, title: "Dinner", body: "YES!" })
 ```
 
 now as the comments state run:
-```
+```bash
 mix run priv/repo/seeds.exs
 ```
 
 ## Testing
 
 run:
-```
+```bash
 mix phx.server
 # or if you prefer:
 # iex -S mix phx.server
@@ -259,7 +259,7 @@ Normally, this would be done with session info to autoselect the authenticated a
 
 In the controller we must load users and add the user_id to the post form:
 whe we look in the Accounts API we see: `list_users()`
-```
+```elixir
 # lib/feenix_intro_web/controllers/post_controller.ex
   # ...
   # add the accounts context alias
@@ -289,7 +289,7 @@ whe we look in the Accounts API we see: `list_users()`
 ```
 
 Now we need to adapt the form to give us a choice of users:
-```
+```elixir
 # lib/feenix_intro_web/templates/post/form.html.eex
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
@@ -305,7 +305,7 @@ Now we need to adapt the form to give us a choice of users:
 ```
 
 Assuming you can create posts now, lets make another git snapshot:
-```
+```bash
 git add .
 git commit -m "users and posts resources can be created"
 ```
@@ -314,7 +314,7 @@ git commit -m "users and posts resources can be created"
 
 lets display the Blog author - that's often interesting to others.
 We can do this with preloading in our Blog context:
-```
+```elixir
 # lib/feenix_intro/blogs.ex
   # change this line:
   # def list_posts, do: Repo.all(Post)
@@ -323,9 +323,10 @@ We can do this with preloading in our Blog context:
     |> Repo.all()
     |> Repo.preload(:user)
   end
-  ```
-and also our get_post
 ```
+
+and also our get_post
+```elixir
 # lib/feenix_intro/blogs.ex
   # change:
   # def get_post!(id), do: Repo.get!(Post, id)
@@ -337,7 +338,7 @@ and also our get_post
   end
 ```
 now we can update our index and show page to display the author's name at the top of the page:
-```
+```elixir
 # lib/feenix_intro_web/templates/post/show.html.eex
 <h1>Show Post</h1>
 
@@ -351,7 +352,7 @@ now we can update our index and show page to display the author's name at the to
 and in the index too:
 ```
 # lib/feenix_intro_web/templates/post/index.html.eex
-# ...
+# ...elixir
 <%= for post <- @posts do %>
     <tr>
       <td><%= post.user.name %></td>

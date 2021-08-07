@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Rails', 'Hotwire', 'SPA', 'WebSocket', 'realtime', 'flash message']
 categories: []
 date: 2021-03-06T18:57:00+02:00
-lastmod: 2021-03-06T18:57:00+02:00
+lastmod: 2021-08-07T01:57:00+02:00
 featured: true
 draft: false
 
@@ -40,7 +40,7 @@ Start with the code at the end of: [Using Hotwire in Rails](/post_ruby_rails/rai
 
 Remember, turbo_streams requires a dom_id and a partial in order to know where to send / update the HTML it generates -- so let's prepare `application.html.erb` so that flash messages use partials.
 
-```
+```ruby
 # app/views/layouts/application.html.erb
 <body>
   <%= render "shared/notice", notice: notice %>
@@ -49,13 +49,13 @@ Remember, turbo_streams requires a dom_id and a partial in order to know where t
 ```
 
 and of course we need a partials for notices now (we will keep it very simple):
-```
+```ruby
 # app/views/shared/_notice.html.erb
 <p id="notice"><%= notice %></p>
 ```
 
 now we will create a turbo template to handle the flash on create:
-```
+```ruby
 # app/views/tweets/create.turbo_stream.erb
 <%# to send a message to the notice partial %>
 <!--            action   dom_id         partial with dom_id   data to send in the notice -->
@@ -63,7 +63,7 @@ now we will create a turbo template to handle the flash on create:
 ```
 
 In order for the controller and turbo_stream to handle this non-standard action we need to update the create method in the controller with the instructions `format.turbo_stream` on a successful create:
-```
+```ruby
 # app/controllers/tweets_controller.rb
 def create
     @tweet = Tweet.new(tweet_params)
@@ -87,7 +87,7 @@ def create
 
 Now when we test everything works great, except our form no longer clears. We can fix that by adding a second action to the create template (we will send a Tweet.new - there are other approaches too - covered in [Hotwire and StimulusJS](/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs))
 
-```
+```ruby
 # app/views/tweets/create.turbo_stream.erb
 <%# clear form on create - without using JavaScript - by replacing the old Tweet info with Tweet.new %>
 <%= turbo_stream.replace "tweet-form", partial: "tweets/form", locals: { tweet: Tweet.new } %>
@@ -100,7 +100,7 @@ Now when we test everything works great, except our form no longer clears. We ca
 You might have noticed, that we have moved most of our turbo_steam template to the template file, but not the replace for validation errors -- since we already have a `replace` command in our template - we will need to leave our specific instructions in the errors as is -- until we clear the form with JS.
 
 NOTE: now that we are consolidating our template info it might be tempting to add the following:
-```
+```ruby
 <!-- to prepend on create - disabled to avoid double vision when broadcasting -->
 <%#%   stream_action   dom_id_target, render_partial,       send_local_variables   %>
 <%= turbo_stream.prepend "tweets", partial: "tweets/tweet", locals: { tweet: @tweet } %>
@@ -112,14 +112,14 @@ but don't add the default happy path instructions to the template when a model a
 
 This is now very straight forward we simply add `format.turbo_stream` to our save and create an `update.turbo_stream.erb` template
 
-```
+```ruby
 # app/views/tweets/update.turbo_stream.erb
 <%# to send a message to the notice partial %>
 <%= turbo_stream.append "notice", partial: "shared/notice", locals: {notice: "Tweet was successfully created."} %>
 ```
 
 And now we can tell the controller to use that:
-```
+```ruby
 #  app/controllers/tweets_controller.rb
   def update
     respond_to do |format|

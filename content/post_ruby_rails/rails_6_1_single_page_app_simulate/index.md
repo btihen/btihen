@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Rails", "Rails 6", "Hotwire", "SPA", "HTML"]
 categories: []
 date: 2021-02-20T18:57:00+02:00
-lastmod: 2021-03-07T18:57:00+02:00
+lastmod: 2021-08-07T01:57:00+02:00
 featured: true
 draft: false
 
@@ -40,7 +40,7 @@ This code can be found at: https://github.com/btihen/tweet_simulator_rails
 ### Create the project
 
 We'll skip Turbolinks since Turbo replaces Turbolinks and also installs Stimulus
-```
+```bash
 rails new tweets -d postgresql -T --skip-turbolinks --skip-spring
 cd tweets
 git add .
@@ -54,12 +54,12 @@ I generally take a lot of git snapshots (and then squash them - so its easy to g
 
 We'll scaffold the model to get all the parts we need
 
-```
+```bash
 bin/rails g scaffold tweet body:text likes:integer retweets:integer
 ```
 
 We'll update the migration to prevent blanks - make the migration file look like:
-```
+```ruby
 # db/migrate/yyyymmddHHMMSS_create_tweets.rb
 class CreateTweets < ActiveRecord::Migration[6.1]
   def change
@@ -75,13 +75,13 @@ end
 ```
 
 Now we should be able to successfully create and migrate out database
-```
+```bash
 bin/rails db:create
 bin/rails db:migrate
 ```
 
 Given the Database restrictions we'll add validations to the model. So now it should look like:
-```
+```ruby
 # app/models/tweet.rb
 class Tweet < ApplicationRecord
   validates :body, presence: true
@@ -89,7 +89,7 @@ end
 ```
 
 Lets also point the root route at our tweets resource - so now it should look like:
-```
+```ruby
 # config/routes.rb
 Rails.application.routes.draw do
   resources :tweets
@@ -98,13 +98,13 @@ end
 ```
 
 Lets start up rails and be sure everything works so far:
-```
+```bash
 bin/rails s
 ```
 go to `http://localhost:3000` and make and edit and delete some tweets.
 
 Assuming it works lets commit these changes.
-```
+```bash
 git add .
 git commit -m "created tweet scaffold, validations and routes"
 ```
@@ -124,7 +124,7 @@ As mentioned users shouldn't choose their likes and retweets:
 ![tweet_form_1st](tweet_form_1st.png)
 
 Now lets remove likes and retweets from our form:
-```
+```ruby
 # app/views/tweets/_form.html.erb
 <%= form_with(model: tweet) do |form| %>
   <% if tweet.errors.any? %>
@@ -156,7 +156,7 @@ If you made several tweets you'll notice that the tweets are in oldest to newest
 ![tweet_index_1st](tweet_index_1st_oldest.png)
 
 We'll fix that with the index controller sort order:
-```
+```ruby
 # app/controllers/tweets_controller.rb
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy ]
@@ -172,7 +172,7 @@ end
 now tweets should be newest to oldest
 
 Let's put our create tweet at the top of our index page
-```
+```ruby
 # app/views/tweets/index.html.erb
 <p id="notice"><%= notice %></p>
 
@@ -187,7 +187,7 @@ now when we check out index page again -- oops, we get an error:
 ![tweet_index_3rd_error](tweet_index_3rd_error.png)
 
 `errors` is null because the new instance isn't available we need to add a new tweet to our index page from the controller:
-```
+```ruby
 # app/controllers/tweets_controller.rb
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy ]
@@ -211,7 +211,7 @@ with:
 `format.html { redirect_to tweets_url, notice: "Tweet was successfully created." }`
 
 We will have the same problem with update -- so let's fix them both.  Now the controller should look like:
-```
+```ruby
 # app/controllers/tweets_controller.rb
   def create
     @tweet = Tweet.new(tweet_params)
@@ -245,7 +245,7 @@ now after we create a new tweet we should 'stay' (it actually reloads - which co
 OK we are almost there, but we still have rows of tables and not a nice tweet feed look.
 
 Lets add Bootstrap CSS for some modest beauty (you can copy this file or use the below link to get the newest Bootstrap CSS)
-```
+```ruby
 # app/views/layout/application.html.erb
 <!DOCTYPE html>
 <html>
@@ -273,7 +273,7 @@ you can get the newest bootstrap link from: https://getbootstrap.com/docs/ or ht
 
 
 Now lets make a partial reformat our feed with bootstrap:
-```
+```ruby
 # app/views/tweets/_tweet.html.erb
 <div class="card card-body">
   <div><%= tweet.body %></div>
@@ -294,7 +294,7 @@ Now lets make a partial reformat our feed with bootstrap:
 ```
 
 Now lets integrate the tweet partial into the index page:
-```
+```ruby
 # app/views/tweets/index.html.erb
 <p id="notice"><%= notice %></p>
 
@@ -322,7 +322,7 @@ git commit -m "tweet app mostly from the index page"
 To finish this simple app lets activate Likes and Retweets - we will do this with new controllers since this is an independent action from our tweet itself.  We will use the `create` since we are `creating` a like or a retweet.
 
 Let's build the like controller - we will redirect back to the index where we want to stay:
-```
+```ruby
 # app/controllers/likes_controller.rb
 class LikesController < ApplicationController
   before_action :set_tweet
@@ -341,7 +341,7 @@ end
 ```
 
 And now the retweet controller:
-```
+```ruby
 # app/controllers/retweets_controller.rb
 class RetweetsController < ApplicationController
   before_action :set_tweet
@@ -360,7 +360,7 @@ end
 ```
 
 These controllers are dependent on the tweet so they are subroutes of a tweet - so lets update our routes to be:
-```
+```ruby
 # config/routes.rb
 Rails.application.routes.draw do
   resources :tweets do
@@ -372,7 +372,7 @@ end
 ```
 
 Now lets add the connection to controller in our front-end with buttons.  Note we need to use the `method: :post` for our like and retweet `create` because these are normally `posted` by the `edit` form.  In this case we want to bypass a form and just update.
-```
+```ruby
 # app/views/tweets/_tweet.html.erb
 <div class="card card-body">
   <div><%= tweet.body %></div>
@@ -398,7 +398,7 @@ Now lets add the connection to controller in our front-end with buttons.  Note w
 </div>
 ```
 Test that everything works as expected!  Assuming it works - we will take another snapshot.
-```
+```bash
 git add .
 git commit -m "likes and retweets enabled and also 'stay' on index page"
 ```

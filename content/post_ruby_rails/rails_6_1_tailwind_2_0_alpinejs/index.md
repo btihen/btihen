@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["rails 6", "configure", "install", "tailwindcss", "alpinejs"]
 categories: ["Rails"]
 date: 2020-09-10T02:46:07+02:00
-lastmod: 2021-03-09T01:46:07+02:00
+lastmod: 2021-08-07T01:46:07+02:00
 featured: true
 draft: false
 
@@ -50,27 +50,34 @@ In the end, I feel like its easier / better to use tailwindcss with AlpineJS sin
 https://tailwindcss.com/docs
 
 Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8) -- with or without upgrading webpacker the following should work:
-```
+```bash
 yarn add tailwindcss@latest postcss@latest autoprefixer@latest
 
 # if you get this error: Error: PostCSS plugin tailwindcss requires PostCSS 8. use:
 # yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
 ```
 
-now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus playwell together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!
-```
+now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus play well together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!
+```bash
 yarn add alpinejs
 yarn add alpine-turbo-drive-adapter
 ```
 
-Now create the tailwind config file
+If you see something like:
+```bash
+arn add aplinejs
+error An unexpected error occurred: “https://registry.yarnpkg.com/aplinejs: Not found”.
 ```
+then check the spelling of the package(s).
+
+Now create the tailwind config file
+```bash
 npx tailwindcss init
 ```
 
 now config tailwind:
-```
-# tailwind.config.js
+```javascript
+// tailwind.config.js
 module.exports = {
   purge: [
     './app/**/*/*.html.erb',
@@ -94,7 +101,7 @@ module.exports = {
 ```
 
 tell `postcss.config.js` about tailwind:
-```
+```javascript
 /* postcss.config.js */
 module.exports = {
   plugins: [
@@ -112,7 +119,7 @@ module.exports = {
 ```
 
 create application.scss
-```
+```bash
 mkdir app/javascript/stylesheets
 touch app/javascript/stylesheets/application.scss
 cat <<EOF >app/javascript/stylesheets/application.scss
@@ -126,7 +133,7 @@ EOF
 ```
 
 import tailwind into `application.js`
-```
+```javascript
 /* app/javascript/packs/application.js */
 import Rails from "@rails/ujs"
 import "@hotwired/turbo-rails"
@@ -152,7 +159,7 @@ require("@rails/actiontext")
 It's great to get samples from https://tailwindui.com (& other places) - USE THE INSPECTOR to copy the HTML (this will copy the AlpineJS settings too) - the standard copy HTML button requires you to add the JS on your own.
 
 create a navbar:
-```
+```bash
 touch app/views/layouts/_navbar.html.erb
 cat <<EOF >app/views/layouts/_navbar.html.erb
 <nav x-data="{ open: false }" class="bg-gray-800">
@@ -162,7 +169,7 @@ EOF
 ```
 
 Create a footer:
-```
+```ruby
 <!-- app/views/layouts/_footer.html.erb -->
 <footer class="bg-gray-50" aria-labelledby="footerHeading">
   <h2 id="footerHeading" class="sr-only">Company</h2>
@@ -180,13 +187,13 @@ Create a footer:
 ```
 
 Update the landing page:
-```
+```ruby
 <!-- app/views/landing/index.html.erb -->
 <!-- landing page here -->
 ```
 
 `application.html.erb` needs to import the javascript stylesheet and the navbar
-```
+```ruby
 <!-- app/views/layouts/application.html.erb -->
 <!DOCTYPE html>
 <html>
@@ -231,7 +238,7 @@ Update the landing page:
 ```
 
 You may need to want rails with both (to increase reload speed after changes -- but `bin/rails s` is enough):
-```
+```bash
 bin/rails s
 # runnding the following in a separate window tends to speed CSS / JS recompilation
 ./bin/webpack-dev-server
@@ -249,18 +256,18 @@ However, you can also use a gem and add flexibility:
 https://github.com/bharget/heroicon
 
 In gemfile
-```
+```ruby
 gem "heroicon"
 ```
 
 From CLI:
-```
+```bash
 bundle
 rails g heroicon:install
 ```
 
 Usage:
-```
+```ruby
 <%= heroicon "search" %>
 <%= heroicon "search", variant: :outline %>
 <%= heroicon "search", options: { class: "text-primary-500" } %>
@@ -270,18 +277,18 @@ or
 https://github.com/andrewjmead/rails_heroicons/
 
 Gemfile
-```
+```ruby
 gem 'rails_heroicons', '~> 1.0.1'
 ```
 
 CLI
-```
+```bash
 bundle
 gem install rails_heroicons
 ```
 
 Usage:
-```
+```ruby
 <%= heroicon('user') %>
 <%= heroicon('user', class_name: 'icon icon-large') %>
 <%= heroicon('user', style: :outline, class_name: 'icon icon-large') %>
@@ -298,17 +305,17 @@ OR download the Icons and use the gem:
 https://github.com/jamesmartin/inline_svg
 
 Gemfile:
-```
+```ruby
 gem 'inline_svg'
 ```
 
 CLI:
-```
+```bash
 bundle
 gem install inline_svg
 ```
 USAGE:
-```
+```ruby
 # Sprockets
 inline_svg_tag(file_name, options={})
 

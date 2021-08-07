@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Rails 6", "SPA", "HTML", "WebSocket"]
 categories: []
 date: 2021-02-25T18:57:00+02:00
-lastmod: 2021-02-25T18:57:00+02:00
+lastmod: 2021-08-07T01:57:00+02:00
 featured: false
 draft: true
 
@@ -33,7 +33,7 @@ https://www.youtube.com/watch?v=77GvSdc2Pf8
 https://www.driftingruby.com/episodes/hotwire
 
 ## Setup
-```
+```bash
 rails new tickets -d postgresql -T
 bundle add hotwire-rails
 
@@ -54,7 +54,7 @@ bin/rails db:migrate
 
 ###
 # app/models/ticket.rb
-```
+```ruby
 class Ticket < ApplicationRecord
   has_rich_text :content
   has_many :comments, dependent: :destroy
@@ -63,7 +63,7 @@ end
 
 ###
 # app/models/comment.rb
-```
+```ruby
 class Comment < ApplicationRecord
   belongs_to :ticket
   has_rich_text :content
@@ -72,7 +72,7 @@ end
 
 ###
 # app/controllers/tickets_controller.rb
-```
+```ruby
     # Only allow a list of trusted parameters through.
     def ticket_params
       params.require(:ticket).permit(:title, :content)
@@ -81,7 +81,7 @@ end
 
 ###
 # app/views/tickets/_form.html.erb
-```
+```ruby
 <div class="field">
   <%= form.label :content %>
   <%= form.rich_text_area :content %>
@@ -90,7 +90,7 @@ end
 
 ###
 # app/views/tickets/show.html.erb
-```
+```ruby
 <h1>
   <small>Title:</small>
   <strong><%= @ticket.title %></strong>
@@ -110,7 +110,7 @@ end
 
 ###
 # app/views/comments/_comment.html.erb
-```
+```ruby
 <%= content_tag :div do %>
   <em>Written <%= time_ago_in_words(comment.created_at) %> ago</em>
   <%= comment.content %>
@@ -120,7 +120,7 @@ end
 
 ###
 # app/views/comments/new.html.erb
-```
+```ruby
 <h2>New Comment</h2>
 <%= form_with model: [@ticket, @comment] do |form| %>
 <div class='field'>
@@ -132,7 +132,7 @@ end
 
 ###
 # app/controllers/comments_controller.rb
-```
+```ruby
 class CommentsController < ApplicationController
 
   before_action :set_ticket
@@ -163,7 +163,7 @@ end
 
 ###
 # config/routes.rb
-```
+```ruby
 Rails.application.routes.draw do
   resources :tickets do
     resources :comments, only: [:new, :create]
@@ -178,7 +178,7 @@ end
 
 ####
 # app/views/tickets/show.html.erb
-```
+```ruby
 <%= turbo_frame_tag 'ticket' do %>
   <h1>
     <small>Title:</small>
@@ -200,7 +200,7 @@ end
 
 ####
 # app/views/tickets/edit.html.erb
-```
+```ruby
 <!-- same tage as show - so will replace the block in show -->
 <%= turbo_frame_tag 'ticket' do %>
   <h1>Editing Ticket</h1>
@@ -220,7 +220,7 @@ end
 
 ####
 # app/views/tickets/show.html.erb
-```
+```ruby
 <!-- set up broadcast channel -->
 <%= turbo_stream_from @ticket %>
 
@@ -243,7 +243,7 @@ end
 
 ####
 # app/views/tickets/_ticket.html.erb
-```
+```ruby
 <!-- add div with ID so all members of the channel can update dom with id -->
 <%= content_tag :div, id: dom_id(ticket) do %>
   <h1>
@@ -259,7 +259,7 @@ TEST TITLE BEHAVIOR - NOW COMMENTS
 
 ###
 # app/views/tickets/show.html.erb
-```
+```ruby
 <!-- set up broadcast channel -->
 <%= turbo_stream_from @ticket %>
 
@@ -285,7 +285,7 @@ TEST TITLE BEHAVIOR - NOW COMMENTS
 
 ###
 # app/views/comments/new.html.erb
-```
+```ruby
 <%= turbo_frame_tag 'new_comment' do %>
   <h2>New Comment</h2>
   <%= form_with model: [@ticket, @comment] do |form| %>
@@ -299,7 +299,7 @@ TEST TITLE BEHAVIOR - NOW COMMENTS
 
 ###
 # app/views/comments/_comment.html.erb
-```
+```ruby
 <!-- need dom id to dynamicaly update -->
 <%= content_tag :div, id: dom_id(comment) do %>
   <em>Written <%= time_ago_in_words(comment.created_at) %> ago</em>
@@ -310,7 +310,7 @@ TEST TITLE BEHAVIOR - NOW COMMENTS
 
 ###
 # app/models/comment.rb
-```
+```ruby
 class Comment < ApplicationRecord
   belongs_to :ticket
   has_rich_text :content
@@ -327,7 +327,7 @@ end
 ###
 # avoid full refresh - add turbo_stream behavior
 # app/controllers/comments_controller.rb
-```
+```ruby
 class CommentsController < ApplicationController
 
   before_action :set_ticket
@@ -360,7 +360,7 @@ end
 
 # add view for turbostream
 # app/views/comments/create.turbo_stream.erb
-```
+```ruby
 <!-- nothing needed if using the default otherwise you would add something like -->
 <%# turbo_stream.append 'comments', @comment %>
 ```
@@ -369,7 +369,7 @@ end
 ###
 # stimulus to reset form wo reload
 # app/javascript/controllers/reset_form_controller.js
-```
+```ruby
 import { Controller } from "stimulus"
 
 export default class extends Controller {
@@ -385,7 +385,7 @@ export default class extends Controller {
 
 ####
 # app/views/comments/new.html.erb
-```
+```ruby
 <%= turbo_frame_tag 'new_comment' do %>
   <h2>New Comment</h2>
   <%= form_with model: [@ticket, @comment],

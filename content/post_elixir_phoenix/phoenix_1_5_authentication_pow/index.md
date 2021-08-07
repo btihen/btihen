@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Phoenix", "Elixir", "Authentication", "POW", "Email", "HogMail"]
 categories: ["Code"]
 date: 2021-04-25T01:01:53+02:00
-lastmod: 2021-05-06T01:01:53+02:00
+lastmod: 2021-08-07T01:01:53+02:00
 featured: false
 draft: false
 
@@ -82,22 +82,22 @@ Pow has the advantage that it updates security patches -- since its a well maint
 This repo can be found at: https://github.com/btihen/phoenix_1_5_pow_auth_config
 
 Get the latest version from: https://hex.pm/packages/pow
-```
+```elixir
 {:pow, "~> 1.0"}
 ```
 
 Install the dependency:
-```
+```bash
 mix deps.get
 ```
 
 Install POW:
-```
+```bash
 mix pow.install
 ```
 
 Lets verify all is good with the install:
-```
+```bash
 mix deps.compile
 mix help | grep pow
 ```
@@ -109,14 +109,14 @@ Now hopefully you see some new `pow` commands
 There are three files you'll need to configure first before you can use Pow.
 
 First, append this to `config/config.exs`:
-```
+```elixir
 config :fare, :pow,
   user: Fare.Users.User,
   repo: Fare.Repo
 ```
 
 Next, add `Pow.Plug.Session` plug to `lib/fare_web/endpoint.ex` after `plug Plug.Session`:
-```
+```elixir
 defmodule FareWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :fare   # add this line HERE!
 
@@ -129,7 +129,7 @@ end
 ```
 
 Last, update `lib/fare_web/router.ex` with the Pow routes - this first time we need to do a little extra config:
-```
+```elixir
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -147,7 +147,7 @@ Last, update `lib/fare_web/router.ex` with the Pow routes - this first time we n
 ```
 
 Should now look like:
-```
+```elixir
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -178,19 +178,19 @@ Should now look like:
 ```
 
 Now lets check the routes - that all is well configured:
-```
+```bash
 mix phx.routes | grep pow
 ```
 Hopefully you see some new pow routes.
 
 
 Now we can migrate to create our users table:
-```
+```bash
 mix ecto.migrate
 ```
 
 Now if we start phoenix:
-```
+```bash
 mix phx.server
 ```
 
@@ -203,7 +203,7 @@ https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/
 Notice there is no menu option to login - lets build a simple signup/signin/logout link.
 
 In root.html.eex find `<li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>` and we will replace it with:
-```
+```elixir
             <%= if Pow.Plug.current_user(@conn) do %>
               <li>
                 <%= link "#{@current_user.email}", to: Routes.pow_registration_path(@conn, :edit) %>
@@ -227,18 +227,18 @@ Now reload and try it out:
 ## Customizable Login pages
 
 Generate the pages to customize with:
-```
+```bash
 mix pow.phoenix.gen.templates
 ```
 
 now be sure to change the config in `config/confix.ex` from:
-```
+```elixir
 config :my_app, :pow,
   user: MyApp.Users.User,
   repo: Fare.Repo
 ```
 to:
-```
+```elixir
 config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
@@ -260,12 +260,12 @@ https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/
 
 Create a normal html page first:
 
-```
+```bash
 mix phx.gen.html Tasks Task tasks description:string completed:boolean
 ```
 
 BE SURE TO PUT the new route in the `protected` area of the routes file:
-```
+```elixir
 # lib/fare_web/router.ex
   scope "/", MyAppWeb do
     pipe_through [:browser, :protected]
@@ -276,7 +276,7 @@ BE SURE TO PUT the new route in the `protected` area of the routes file:
 ```
 
 Now of course run the migration:
-```
+```bash
 mix ecto.migrate
 ```
 
@@ -291,7 +291,7 @@ https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/
 Currently every time the user closes the browser they are logged out - the login cookie doesn't persist - most users would like the option to change this - with a `remember me` option.
 
 in `config/config.exs` change the `:pow` config to look like:
-```
+```elixir
 config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
@@ -302,7 +302,7 @@ config :my_app, :pow,
 ```
 
 in `/lib/my_app_web/endpoint.ex` we need to add the persistent cookie setting immediately after the `Pow.Plug.Session` plug and before the routing `MyAppWeb.Router` plug -- now the end of the endpoint file should look like:
-```
+```elixir
   # enable Pow session based authentication
   plug Pow.Plug.Session, otp_app: :warehouse
   # enable Pow persistent sessions
@@ -313,7 +313,7 @@ end
 ```
 
 just above the login button on the `sign-in` page add the following check-box:
-```
+```elixir
 # lib/fare_web/templates/pow/session/new.html.eex
   <%= label f, :persistent_session, "Remember me" %>
   <%= checkbox f, :persistent_session %>
@@ -333,12 +333,12 @@ https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/
 One little annoying thing is that when we logout we go to the sign-in page instead of the landing page.  We can fix that by adding a call_back_route - you can find all the callback routes at: https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex - we will use: the `after_sign_out_path` callback.
 
 To do this we will make a new `pow.routes` file:
-```
+```bash
 touch lib/warehouse_web/pow/routes.ex
 ```
 
 Add the following contents:
-```
+```elixir
 cat << EOF> lib/my_app_web/pow/routes.ex
 defmodule MyAppWeb.Pow.Routes do
   use Pow.Phoenix.Routes
@@ -350,7 +350,7 @@ EOF
 ```
 
 Now finally update `config/confix.exs` by adding `routes_backend: MyAppWeb.Pow.Routes` to the `:pow` config so now it would look like:
-```
+```elixir
 config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
@@ -360,10 +360,9 @@ config :my_app, :pow,
   routes_backend: MyAppWeb.Pow.Routes    # add this line
 ```
 
-
 Assuming all works we will snapshot now!
 
-```
+```bash
 git add .
 git commit -m "on logout go to landing page"
 ```
@@ -385,19 +384,19 @@ The following are the possible extensions:
 Let's start with password reset and email confirmation.
 
 First we need to do a migration:
-```
+```bash
 mix pow.extension.ecto.gen.migrations --extension PowResetPassword --extension PowEmailConfirmation
 ```
 
 now update the phoenix config `config/config.ex` again from:
-```
+```elixir
 config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
   web_module: MyAppWeb
 ```
 to:
-```
+```elixir
 config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
@@ -407,7 +406,7 @@ config :my_app, :pow,
 ```
 
 now update the `LIB_PATH/users/user.ex` file from:
-```
+```elixir
 defmodule Fare.Users.User do
   use Ecto.Schema
   use Pow.Ecto.Schema
@@ -420,7 +419,7 @@ defmodule Fare.Users.User do
 end
 ```
 to:
-```
+```elixir
 defmodule MyApp.Users.User do
   use Ecto.Schema
   use Pow.Ecto.Schema
@@ -443,7 +442,7 @@ end
 
 And of course the routes `WEB_PATH/router.ex` too - at the top of the file add:
 so it looks like:
-```
+```elixir
 defmodule MyAppWeb.Router do
   use MyAppWeb, :router
   use Pow.Phoenix.Router
@@ -452,7 +451,7 @@ defmodule MyAppWeb.Router do
 ```
 
 And in the pow routes config change from:
-```
+```elixir
   scope "/" do
     pipe_through :browser
 
@@ -460,7 +459,7 @@ And in the pow routes config change from:
   end
 ```
 to:
-```
+```elixir
   scope "/" do
     pipe_through :browser
 
@@ -476,7 +475,7 @@ mix pow.extension.phoenix.gen.templates --extension PowResetPassword --extension
 
 
 Now we can update the sign-in page with a reset password button.  We will add the following, to the end of `lib/fare_web/templates/pow/session/new.html.eex`:
-```
+```elixir
 |
 <span>
 <%= link "Reset Password", to: Routes.pow_reset_password_reset_password_path(@conn, :new) %>
@@ -486,7 +485,7 @@ Now we can update the sign-in page with a reset password button.  We will add th
 Now lets be sure we can link to reset password view.
 
 First we will do our migration:
-```
+```bash
 mix ecto.migrate
 ```
 
@@ -499,7 +498,7 @@ https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl
 
 First we will create a mailer function in: `lib/my_app_web/pow/pow_mailer.ex`
 
-```
+```elixir
 mkdir lib/my_app_web/pow/
 touch lib/my_app_web/pow/pow_mailer.ex
 cat <<EOF > lib/my_app_web/pow/pow_mailer.ex
@@ -524,7 +523,7 @@ EOF
 ```
 
 now that we have an email template we need to tell pow about the mailer with the config: `mailer_backend: MyAppWeb.Pow.Mailer` in `config/config.exs` so change to:
-```
+```elixir
 # config for pow - user authentication
 config :my_app, :pow,
   user: MyApp.Users.User,
@@ -536,12 +535,12 @@ config :my_app, :pow,
 ```
 
 Now generate the POW mail templates - with:
-```
+```bash
 mix pow.extension.phoenix.mailer.gen.templates --extension PowResetPassword --extension PowEmailConfirmation
 ```
 
 Phoenix also needs to know about the mailer templates we will generate so add to `lib/my_app_web.ex`:
-```
+```elixir
   def mailer_view do
     quote do
       use Phoenix.View, root: "lib/my_app_web/templates",
@@ -553,7 +552,7 @@ Phoenix also needs to know about the mailer templates we will generate so add to
 ```
 
 Now the final config change in `config/config.ex` to access our new templates:
-```
+```elixir
 # config for pow - user authentication
 config :fare, :pow,
   user: Fare.Users.User,
@@ -566,7 +565,7 @@ config :fare, :pow,
 ```
 
 Now if we resart phoenix and test out reset link - we should see in the logs 'a pretend sent email' - something like:
-```
+```bash
 [debug] E-mail sent: %{html: "<h3>Hi,</h3>\n<p>Please use the following link to reset your password:</p>\n<p><a href=\"http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw\">http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw</a></p>\n<p>You can disregard this email if you didn&#39;t request a password reset.</p>", subject: "Reset password link", text: "Hi,\n\nPlease use the following link to reset your password:\n\nhttp://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw\n\nYou can disregard this email if you didn't request a password reset.\n", to: "btihen@gmail.com"}
 ```
 
@@ -578,7 +577,7 @@ into the browser - type a new password and try to login.
 
 Assuming all works we will snapshot now!
 
-```
+```bash
 git add .
 git commit -m "pow configured to send emails - no sender yet"
 ```
@@ -590,12 +589,12 @@ https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/
 One little annoying thing is that when we logout we go to the sign-in page instead of the landing page.  We can fix that by adding a call_back_route - you can find all the callback routes at: https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex - we will use: the `after_sign_out_path` callback.
 
 To do this we will make a new `pow.routes` file:
-```
+```bash
 touch lib/warehouse_web/pow/routes.ex
 ```
 
 Add the following contents:
-```
+```elixir
 cat << EOF> lib/my_app_web/pow/routes.ex
 defmodule MyAppWeb.Pow.Routes do
   use Pow.Phoenix.Routes
@@ -607,7 +606,7 @@ EOF
 ```
 
 Now finally update `config/confix.exs` by adding `routes_backend: MyAppWeb.Pow.Routes` to the `:pow` config so now it would look like:
-```
+```elixir
 config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
@@ -620,7 +619,7 @@ config :my_app, :pow,
 ```
 
 Assuming all works we will snapshot now!
-```
+```bash
 git add .
 git commit -m "on logout go to landing page"
 ```
@@ -635,38 +634,38 @@ git commit -m "on logout go to landing page"
 Use Bamboo to do the mailing find the new versions at:
 * https://hex.pm/packages/bamboo
 Add to `mix.exs`:
-```
+```elixir
     {:bamboo, "~> 2.1"}
 ```
 
 get the new dependency:
-```
+```bash
 mix deps.get
 ```
 
 In the Test Config we need to configure bamboo with:
-```
+```elixir
 # config/test.exs
 config :my_app, MyApp.Mailer,
   adapter: Bamboo.TestAdapter
 ```
 
 In the Dev Config lets setup the in-memory email config
-```
+```elixir
 # config/dev.exs
 config :fare, FareWeb.Pow.Mailer,
   adapter: Bamboo.LocalAdapter
 ```
 
 When using `Bamboo.LocalAdapter` in dev mode we can view the email (without digging through the log file) using `Bamboo.EmailPreviewPlug` - we set this up with:
-```
+```elixir
 if Mix.env == :dev do
   forward "/sent_emails", Bamboo.EmailPreviewPlug
 end
 ```
 
 Now let's setup our mailer to use Bamboo - we will edit:
-```
+```elixir
 # lib/my_app_web/pow/pow_mailer.ex
 defmodule MyAppWeb.Pow.Mailer do
   use Pow.Phoenix.Mailer
@@ -716,22 +715,22 @@ Use Bamboo to do the mailing find the new versions at:
 * https://hex.pm/packages/bamboo
 * https://hex.pm/packages/bamboo_smtp
 Add to `mix.exs`:
-```
+```elixir
     {:bamboo, "~> 2.1"},
     {:bamboo_smtp, "~> 2.1"}
 ```
 
 Now install and setup up: https://github.com/mailhog/ (on a MacOS) simply install with:
-```
+```bash
 brew install mailhog
 ```
 
 and run mailhog with:
-```
+```bash
 mailhog
 ```
 or if you want mailhog running all the time in the background you can type:
-```
+```bash
   brew services start mailhog
 ```
 Or you can use: or https://mailcatcher.me/
@@ -739,7 +738,7 @@ Or you can use: or https://mailcatcher.me/
 These serivices  - listen on `localhost:1025` and you can view the email at: http://localhost:8025
 
 now configure the mail service (in `config/dev.exs`) to use Mailhog or Mailcather with Phoenix by adding:
-```
+```elixir
 # config/dev.exs
 config :my_app, MyAppWeb.Pow.Mailer,
   adapter: Bamboo.SMTPAdapter,
@@ -748,7 +747,7 @@ config :my_app, MyAppWeb.Pow.Mailer,
 ```
 
 In production it might look like:
-```
+```elixir
 # config/config.exs
 config :my_app, MyApp.Mailer,
   adapter: Bamboo.SMTPAdapter,
@@ -766,13 +765,13 @@ config :my_app, MyApp.Mailer,
 ```
 
 Now you will need to start your mail-trap (in a separate cli terminal):
-```
+```bash
 mailhog
 # or `mailcather`
 ```
 
 Now when you register a new account or change a password you can see the email at:
-```
+```bash
 http://localhost:8025
 ```
 
@@ -782,7 +781,7 @@ http://localhost:8025
 https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/
 
 Create a new module for our messages.
-```
+```elixir
 touch lib/my_app_web/pow/messages.ex
 cat <<EOF>>lib/my_app_web/pow/messages.ex
 defmodule MyAppWeb.Pow.Messages do
@@ -815,7 +814,7 @@ EOF
 ```
 
 To be able to use this module we need to tell our config about it - so we update `config/config.exs` with `messages_backend: FareWeb.Pow.Messages` - so now it looks like:
-```
+```elixir
 config :fare, :pow,
   user: Fare.Users.User,
   repo: Fare.Repo,
@@ -831,7 +830,7 @@ config :fare, :pow,
 Now you should see your custom messages!
 
 let's snapshot this:
-```
+```bash
 git add .
 git commit -m "allow POW to send custom / i18n messages"
 ```
@@ -844,7 +843,7 @@ https://www.youtube.com/watch?v=hnD0Z0LGMIk
 
 
 First add to the mix file:
-```
+```elixir
     # third party auth
     {:pow_assent, "~> 0.4.10"},
     # recommended for SSL validation with :httpc adapter
@@ -857,7 +856,7 @@ and of course: `mix deps.get`
 and install with: `mix pow_assent.install`
 
 and now configure `lib/fare/users/user.ex` after `use Pow.Ecto.Schema` add `use PowAssent.Ecto.Schema` so now the top of this file should look like:
-```
+```elixir
 # lib/fare/users/user.ex
 defmodule Fare.Users.User do
   use Ecto.Schema
@@ -868,7 +867,7 @@ defmodule Fare.Users.User do
 ```
 
 At the top of the `lib/fare_web/router.ex` file after `use PowAssent.Phoenix.Router` add `use PowAssent.Phoenix.Router` - now the top of this file should look like:
-```
+```elixir
 # lib/fare_web/router.ex
 defmodule MyAppWeb.Router do
   use MyAppWeb, :router
@@ -879,7 +878,7 @@ defmodule MyAppWeb.Router do
 ```
 
 Now after the last pipelines add a new `pipeline` and its `scope` - its a copy of the `:browser` pipeline - without `:protect_from_forgery` since that conflicts with **OAuth** & after `pow_routes()` add `pow_assent_routes()` so now this section of the routes looks like (when Phoenix is configured for LiveView):
-```
+```elixir
   pipeline :skip_csrf_protection do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -906,12 +905,12 @@ Now after the last pipelines add a new `pipeline` and its `scope` - its a copy o
 ```
 
 Remember to run the new migrations with:
-```
+```bash
 mix ecto.migrate
 ```
 
 Generate the PowAssent template too (the page when using this where the user add username and OAuth password from remote site):
-```
+```bash
 mix pow_assent.phoenix.gen.templates
 ```
 
@@ -921,11 +920,11 @@ Go to:
 https://github.com/settings/applications/new
 
 Enter an **Application name** and enter the **Homepage url** as:
-```
+```bash
 http://localhost:4000/
 ```
 and the **Authorization callback** (for our dev environment) as:
-```
+```bash
 http://localhost:4000/auth/github/callback
 ```
 
@@ -937,16 +936,16 @@ http://localhost:4000/auth/github/callback
 * https://stackoverflow.com/questions/30995743/how-to-get-a-variable-value-from-environment-files-in-phoenix
 
 First update `.gitignore` with the line:
-```
+```bash
 **/*.secret.exs
 ```
 
 then add in our case the `dev.secrets.exs` file:
-```
+```bash
 touch config/dev.secret.exs
 ```
 Once you get your **Client ID** and **Client secrets** you can configure  `config/dev.secret.exs` with the following config:
-```
+```elixir
 import Config
 
 config :my_app, :pow_assent,
@@ -960,7 +959,7 @@ config :my_app, :pow_assent,
 ```
 
 Now at the END of `config/dev.exs` add the line:
-```
+```elixir
 import_config "dev.secret.exs"
 ```
 
@@ -971,7 +970,7 @@ Now at the end of:
 * `lib/fare_web/templates/pow/session/new.html.eex` (sign-in)
 
 add the following comprehension to list all the configured OAuth log-in links:
-```
+```elixir
 <%=
   for link <- PowAssent.Phoenix.ViewHelpers.provider_links(@conn),
       do: content_tag(:span, link)

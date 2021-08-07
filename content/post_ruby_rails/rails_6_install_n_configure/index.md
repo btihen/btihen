@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["rails", "configure", "install", "durable", "testing"]
 categories: ["Rails"]
 date: 2020-09-10T01:46:07+02:00
-lastmod: 2021-03-21T01:46:07+02:00
+lastmod: 2021-08-07T01:46:07+02:00
 featured: true
 draft: false
 
@@ -39,7 +39,7 @@ Taken from:
 * https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68
 
 ## create the project:
-```
+```bash
 # -T - skips tests;              I like rspec
 # -d postgresql;                 I like postgresql best for the db
 # --skip-spring --skip-listen;   Spring caches and doesn't notice all changes (even after rails restart)
@@ -55,7 +55,7 @@ cd calendar
 ```
 
 ## update the README and initialize Git
-```
+```bash
 git add .
 git commit -m "initial commit"
 git remote add origin git@gitlab.com:btihen/calendar.git
@@ -66,7 +66,7 @@ git push -u origin master
 add rspec, devise, factory_bot and stimulus_reflex
 
 Execute the following command (or add to the Gemfile)
-```
+```ruby
 cat <<EOF >> Gemfile
 # Project Gems
 ##############
@@ -142,7 +142,7 @@ to install all the new gems and create a `Gemfile.lock`
 ## Install ActiveStorage and ActionText
 
 run the following commands:
-```
+```bash
 # bundle exec rails webpacker:install
 # bundle exec rails webpacker:install:stimulus
 bundle exec rails active_storage:install
@@ -156,7 +156,7 @@ bin/rails g rspec:install
 
 ### Create needed folders for our config
 
-```
+```bash
 mkdir spec/features
 
 # a place to put test helper code
@@ -169,14 +169,14 @@ mkdir spec/support/features
 1. To enable integration tests with rspec add: `require 'capybara/rspec'` below `require 'rspec/rails'`
 2. To load Test helper code add: `Dir[Rails.root.join("spec/support/**/*.rb")].each { |file| require file }` below `require 'capybara/rspec'`
 3. just after the ActiveRecord config and before RSpec.configure block add:
-```
+```ruby
 Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 Capybara.javascript_driver = :selenium_chrome
 ```
 4. Add the FactoryBot config in the section with:
-```
+```ruby
 RSpec.configure do |config|
   # ...
 
@@ -191,7 +191,7 @@ RSpec.configure do |config|
 end
 ```
 5. finally at the end of the file add support for shoulda matchers with:
-```
+```ruby
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -201,7 +201,7 @@ end
 ```
 
 NOW `spec/rails_helper.rb` should look like (its long, sometimes the full context is clearer):
-```
+```ruby
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
@@ -289,20 +289,20 @@ end
 A simple config test before we setup devise (authentication).
 
 1. **Generate a page** -- I don't (generally) use helpers nor contoller or view specs - so I'll create the landing page using the following generator:
-```
+```bash
 rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
 ```
 2. **Update Routes** `config/routes.rb` with:
-```
+```ruby
   get 'landing/index'
   root to: "landing#index"
 ```
 3. **Add Hidden Test Content** to simplify testing add:
-```
+```ruby
 <p hidden id='landing_index'>Landing Index</p>
 ```
 4. Request test:
-```
+```ruby
 # spec/requests/landing_request_spec.rb
 require 'rails_helper'
 
@@ -319,7 +319,7 @@ RSpec.describe "Landings", type: :request do
 end
 ```
 5. Feature Test (to be sure they are working too)
-```
+```ruby
 # spec/features/landing_page_spec.rb
 require 'rails_helper'
 
@@ -334,7 +334,7 @@ end
 ```
 
 Test and commit
-```
+```bash
 rake db:migrate
 bundle exec rspec
 git add .
@@ -345,7 +345,7 @@ git push
 
 ### Config Hotwire
 Ensure the  In the end the `app/views/layouts/application.html.erb` looks like:
-```
+```ruby
 <!DOCTYPE html>
 <html>
 
@@ -377,20 +377,20 @@ Ensure the  In the end the `app/views/layouts/application.html.erb` looks like:
 ### Devise / User Config
 
 Configure dev email for devise:
-```
+```ruby
 # config/environments/development.rb:
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 ```
 
 Create the user and migration
-```
+```bash
 rails g devise user
 # if you will make a custom login (probably needed to look nice)
 # rails g devise:views
 ```
 
 Adjust the migration:
-```
+```ruby
 class DeviseCreateUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
@@ -436,7 +436,7 @@ end
 
 
 Route file should now look like:
-```
+```ruby
 Rails.application.routes.draw do
   devise_for :users
   get 'landing/index'
@@ -445,7 +445,7 @@ end
 ```
 
 We will update the user model with password complexity validation:
-```
+```ruby
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -464,7 +464,7 @@ end
 ```
 
 Create the user Factory (which also uses Faker):
-```
+```ruby
 # spec/factories/users.rb
 FactoryBot.define do
   factory :user do
@@ -479,7 +479,7 @@ end
 ```
 
 Create the user spec (uses FactoryBot & Shoulda):
-```
+```ruby
 # spec/models/user_spec.rb
 require 'rails_helper'
 
@@ -524,7 +524,7 @@ end
 ```
 
 ### Test setup and commit when green:
-```
+```bash
 rake db:migrate
 bundle exec rspec
 git add .
@@ -536,7 +536,7 @@ git push
 
 ## Test restricted logins
 a basic login feature test might look like:
-```
+```ruby
 require 'rails_helper'
 
 RSpec.describe 'Users Login', type: :feature do
@@ -559,12 +559,12 @@ end
 
 https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d
 
-```
+```bash
 yarn add @fortawesome/fontawesome-free
 ```
 
 update application.scss
-```
+```css
 $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
 @import '@fortawesome/fontawesome-free/scss/solid';
@@ -574,12 +574,12 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 ```
 
 update application.js
-```
+```css
 import "@fortawesome/fontawesome-free/js/all";
 ```
 or via cdn: vhttps://fontawesome.com/how-to-use/customizing-wordpress/snippets/setup-cdn-webfont
 add to `application.html.erb` ()
-```
+```html
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
       href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -590,22 +590,22 @@ add to `application.html.erb` ()
 ## Install BULMA: a CSS Framework (if desired)
 
 Bulma is a relatively new CSS framework. It feels like a light, streamlined alternative to Bootstrap. Bulma doesn’t include any JavaScript at all. This means some stuff just won’t work out of the box. For example, the burger menu won’t toggle without a little JavaScript help. We’ll get to that later.
-```
+```bash
 yarn add bulma
 ```
 
 Open app/javascript/packs/application.js and add the following to the top:
-```
+```javascript
 import '../styles'
 ```
 
 Create app/javascript/styles.scss:
-```
+```css
 @import '~bulma/bulma';
 ```
 
 customize bulma by adding to the top of `styles.scss` file: https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint
-```
+```css
 @import "~bulma/sass/utilities/initial-variables.sass";
 $navbar-breakpoint: $tablet;
 @import "~bulma/bulma.sass";
@@ -619,12 +619,12 @@ variables that can be set: https://bulma-customizer.bstash.io
 ### A sample Bulma navbar
 
 Open app/views/layouts/application.html.erb and add the following just above the yield line:
-```
+```ruby
 <%= render 'layouts/navbar' %>
 ```
 
 Create app/views/layouts/_navbar.html.erb:
-```
+```ruby
 <div class="container">
   <nav class="navbar">
     <div class="navbar-brand">
@@ -665,7 +665,7 @@ Create a Stimulus controller
 To keep this example simple, we’re going to create a single controller which we’ll attach to the body tag in the main layout. This controller will be responsible for rendering the Font Awesome icons (as described in a previous post) as well as handling our Bulma burger menu.
 
 Create app/javascript/controllers/main_controller.js:
-```
+```javascript
 import fontawesome from '@fortawesome/fontawesome'
 import icons from '@fortawesome/fontawesome-free-regular'
 import { Controller } from 'stimulus'
@@ -707,12 +707,12 @@ Connect the controller
 Now we want to connect the body tag to our controller using an HTML5 data attribute.
 
 Open `app/views/layouts/application.html.erb` and add the following attribute to the `<body>` tag.
-```
+```html
 <body data-controller="main">
 ```
 
 Now it should look like:
-```
+```ruby
 # app/views/layouts/application.html.erb
 <!DOCTYPE html>
 <html>
@@ -748,4 +748,3 @@ https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-
 If you plan to user database_cleaner -- then also see this article to finish your config:
 
 https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9
-

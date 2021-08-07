@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Rails', 'Hotwire', 'SPA', 'WebSocket', 'realtime', 'lazy load data']
 categories: []
 date: 2021-03-28T01:57:00+02:00
-lastmod: 2021-03-38T01:57:00+02:00
+lastmod: 2021-08-07T01:57:00+02:00
 featured: true
 draft: false
 
@@ -39,7 +39,7 @@ Start with the code at the end of: [Using Hotwire in Rails](/post_ruby_rails/rai
 ## Prepare our code
 
 Let's remove the extra Tweet.new load in the controller's index method:
-```
+```ruby
 # app/controllers/tweets_controller.rb
   def index
     @tweets = Tweet.all.order(created_at: :desc)
@@ -53,7 +53,7 @@ So to fix this we need to load the data back in (and restructure our index page 
 
 Turbo works well if you use the normal templates - so in this case we will use the `new` template on the home page to call the new form and get its own data:
 
-```
+```ruby
 # app/views/tweets/index.html.erb
 <h1>Tweets</h1>
 <%= turbo_stream_from "tweets" %>
@@ -71,7 +71,7 @@ Turbo works well if you use the normal templates - so in this case we will use t
 Notice the new template is using the dom_id "new-tweet" and not "new_tweet". Also note that this tag has a `src:` - that is where it is getting its data source (& view to use) - in this case the `new_tweet_path` routes to `tweets_controller#new` and that calls the `veiw` template.  The final thing to note is the `target` - this tells the turbo_tag to look / act outside the contraints of its frame (otherwise we couldn't reach the controller).
 
 Currently this won't work yet - we need to create a **matching tag** -- including the `target` in the `new` template.  So our updated `new` template now looks like:
-```
+```ruby
  app/views/tweets/new.html.erb
 <h1>New Tweet</h1>
 

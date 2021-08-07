@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Rails', 'Hotwire', 'SPA', 'WebSocket', 'realtime', 'flash message']
 categories: []
 date: 2021-03-14T18:57:00+02:00
-lastmod: 2021-04-05T18:57:00+02:00
+lastmod: 2021-08-07T01:57:00+02:00
 featured: true
 draft: false
 
@@ -40,7 +40,7 @@ Start with the code at the end of: [Using Hotwire with Flash Messages](/post_rub
 To enable Flash Messages our create/controller looked like - which seems a little messy - in `create` (happy-path) we handle all the updates via the create.turbo_stream.erb template and with validation errors we explicity (in the controller - handle the validation errors)
 
 So lets start by disabling the code we no longer need in the template:
-```
+```ruby
 # app/views/tweets/create.turbo_stream.erb
 <%# turbo_stream.replace "tweet-form", partial: "tweets/form", locals: { tweet: Tweet.new } %>
 <%# to send a message to the notice partial %>
@@ -55,7 +55,7 @@ Let's test here and be sure the new form doesn't clear after making a new tweet.
 We don't need to add / install or configure StimulusJS since Hotwire already handles this.
 
 So let's create the JS file to clear the form - its quite simple we will just use:
-```
+```javascript
 // app/javascript/controllers/reset_form_controller.js
 import { Controller } from "stimulus"
 
@@ -66,7 +66,7 @@ export default class extends Controller {
 }
 ```
 In order to tie this to the form we need to go into the form and add the `data:` info -- so now our form should start with:
-```
+```ruby
 # app/views/tweets/_form.html.erb
 <%= form_with(model: tweet, id: dom_id(tweet),
               data: {controller: "reset-form", action: "turbo:submit-end->reset-form#reset"}

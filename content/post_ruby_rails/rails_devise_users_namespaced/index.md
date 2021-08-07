@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["rails", "devise", "authentication", "namespace"]
 categories: []
 date: 2020-07-10T20:45:51+02:00
-lastmod: 2020-07-10T20:45:51+02:00
+lastmod: 2020-08-07T20:45:51+02:00
 featured: true
 draft: false
 
@@ -31,46 +31,46 @@ projects: []
 ## Configure devise (for multiple types of accounts)
 
 install the devise engine:
-```
+```bash
 bin/rails generate devise:install
 ```
 
 now follow the basic setup config -- add to `config/environments/development.rb`
-```
+```ruby
 config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 ```
 
 add notifications to the layout for devise in `app/views/layouts/application.html.erb` just above `<%= yeild %>`
 
-```
+```ruby
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 ```
 
 now create one or more models for devise:
-```
+```bash
 rails g devise:views
 rails generate devise user
 ```
 
 update the routes to put the login in separate routes in `config/routes.rb` - make the routes look like:
-```
+```ruby
   devise_for :users,  path: 'users'  # http://localhost:3000/users/sign_in
   devise_for :admins, path: 'admins' # http://localhost:3000/admins/sign_in
 ```
 
 turn on scoped views (since login forms can be different) in `config/initializers/devise.rb`
-```
+```ruby
 config.scoped_views = true
 ```
 Create the scoped views: (instead of: rails g devise:views) do:
-```
+```bash
 rails g devise:views users/devise
 rails g devise:views admins/devise
 ```
 
 now we should open these migrations and uncomment any added fields we use - I generally like to use most of the fields:
-```
+```ruby
 # frozen_string_literal: true
 
 class DeviseCreateAdmins < ActiveRecord::Migration[6.0]
@@ -118,7 +118,7 @@ end
 
 and adjust the `user` and `admin` models too and turn on the features we want or need. We will go into detail later, for now I will just add trackable to the models:
 
-```
+```ruby
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -129,18 +129,18 @@ end
 
 
 and of course migrate too.
-```
+```bash
 bin/rails db:migrate
 ```
 
 Create custome controllers for each sessions - this also allows the users to have different fields and features:
-```
+```bash
 rails generate devise:controllers users/devise
 rails generate devise:controllers admins/devise
 ```
 
 configure the routes to point to these new controllers:
-```
+```ruby
   # http://localhost:3000/users/sign_in
   devise_for :users,  path: 'users',
                       controllers: {
@@ -158,7 +158,7 @@ configure the routes to point to these new controllers:
 ```
 
 now the routes should look like:
-```
+```bash
 $ bin/rails routes
                      Prefix Verb   URI Pattern                        Controller#Action
            new_user_session GET    /users/sign_in(.:format)           users/sessions#new
@@ -194,13 +194,13 @@ $ bin/rails routes
 ```
 
 lets make logged in home pages (for the user and admin)
-```
+```bash
 rails g controller users/home index --no-helper --no-assets --no-controller-specs --no-view-specs
 rails g controller admins/home index --no-helper --no-assets --no-controller-specs --no-view-specs
 ```
 
 now lets update our routes to ponit to these pages if the user is logged in add the following belos the deivse_for commands
-```
+```ruby
 Rails.application.routes.draw do
   # http://localhost:3000/admins/sign_in
   devise_for :admins, path: 'admins',
@@ -261,7 +261,7 @@ end
 ```
 ## now lets make ApplicationControllers for each namespace & enforce authentication
 
-```
+```ruby
 touch app/controllers/admins/application_controller.rb
 cat << EOF > app/controllers/admins/application_controller.rb
 class Admins::ApplicationController < ApplicationController
@@ -313,7 +313,7 @@ EOF
 # now we will inhert from these new controllers and enforce limits
 
 now lets require these pages to have authenticated the correct user type:
-```
+```ruby
 # app/controllers/admins/home_controller.rb
 class Admins::HomeController < Admins::ApplicationController
   def index
@@ -336,7 +336,7 @@ end
 ## Now prevent student and admin accounts from cross visits (during testing, or whatever)
 
 create this new file:
-```
+```ruby
 touch app/controllers/concerns/accessible.rb
 cat << EOF > app/controllers/concerns/accessible.rb
 module Accessible
@@ -371,7 +371,7 @@ Now add `include Accessible` in the appropriate controllers:
 
 Note:
 You must skip_before_action for the destroy action in each SessionsController to prevent the redirect to happen before the sign out occurs.
- ```
+ ```ruby
 # eg. ../controllers/admins/sessions_controller.rb
 class Admins::SessionsController < Devise::SessionsController
   include Accessible
@@ -424,7 +424,7 @@ end
 ## now lets give the patron account a usernames
 https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address
 
-```
+```bash
 rails generate migration add_username_to_patrons username:string:uniq
 rails generate migration add_umdzes_name_to_umdzes fullname:string
 rails generate migration add_admins_name_to_admins fullname:string
@@ -448,11 +448,10 @@ class AddFullnameToAdmins < ActiveRecord::Migration[6.0]
     add_column :admins, :admins_name, :string, null: false
   end
 end
-
 ```
 ## update the models
 now we need to go to the models and make the following updates:
-```
+```ruby
 # app/models/admin.rb
 class Admin < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -511,7 +510,7 @@ lets create some common feature test code:
 
 https://forum.upcase.com/t/rspec-support-vs-helpers/4986
 https://thoughtbot.com/blog/rspec-integration-tests-with-capybara
-```
+```ruby
 # spec/support/features/session_helpers.rb
 module Features
   module SessionHelpers
@@ -569,7 +568,7 @@ end
 We are not allowing registrations, so that code is commented out.  However, we see we must configure our factories for this code to work.
 
 Lets tell rspec how to access this code in feature tests:
-```
+```ruby
 # spec/support/features.rb
 RSpec.configure do |config|
   config.include Features::SessionHelpers, type: :feature
@@ -578,7 +577,7 @@ end
 
 
 ## Lets create test for our devise model factories:
-```
+```ruby
 # spec/models/patron_spec.rb
 require 'rails_helper'
 
@@ -623,13 +622,13 @@ end
 ```
 
 be sure these fail - run:
-```
+```bash
 rspec spec/models/
 ```
 
 
 Now we need to configure the factories so all is working:
-```
+```ruby
 # spec/factories/patrons.rb
 FactoryBot.define do
   factory :user do
@@ -668,7 +667,7 @@ end
 ```
 
 be sure these pass now - run:
-```
+```bash
 rspec spec/models/
 ```
 
@@ -679,7 +678,7 @@ https://thoughtbot.com/blog/rspec-integration-tests-with-capybara
 https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara
 https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/
 https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/
-```
+```ruby
 # spec/features/users/user_signup_spec.rb
 require 'rails_helper'
 
@@ -741,7 +740,7 @@ end
 ```
 
 and test to be sure admin can log in too:
-```
+```ruby
 # spec/features/admins/admin_login_spec.rb
 require 'rails_helper'
 
@@ -799,7 +798,7 @@ end
 ```
 
 before we wrap up - we need to fix our request specs - now that we added login restrictions:
-```
+```ruby
 # spec/requests/users/home_request_spec.rb
 require 'rails_helper'
 
@@ -950,7 +949,7 @@ end
 ```
 
 run the tests and be sure all is green - if so, now is a good time to make a commit!
-```
+```bash
 git add .
 git commit -m "rspec and devise configured and tests green"
 ```

@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["icons", "images", "pictures", "design"]
 categories: ["Design", "OpenSource"]
 date: 2020-11-01T01:57:16+02:00
-lastmod: 2021-05-03T01:57:16+02:00
+lastmod: 2021-08-07T01:57:16+02:00
 featured: true
 draft: false
 
@@ -89,10 +89,23 @@ https://themeisle.com/blog/free-illustrations/
 - [uistore](https://www.uistore.design/) - mix of stuff
 
 
-## Photos
+## Photos - royalty free (without registration)
 
-- [Unsplash](https://unsplash.com/) - photos free to use for everyone
+- [Unsplash](https://unsplash.com/)
+- [pexels](https://www.pexels.com/)
+- [pixabay](https://pixabay.com/) - (sometimes check if you are a robot :)
 
+## Image Editing - Free
+
+- [Seashore Mac Store](https://apps.apple.com/us/app/seashore)
+- [Seashore Guide](https://www.lib.washington.edu/media/software/help-docs/Seashore_guide.pdf)
+- [Seashore Code](https://github.com/robaho/seashore)
+- [Gimp](https://www.gimp.org/) - Mac & Linux
+- [Affinity Photo](https://affinity.serif.com/en-gb/photo/) - paid
+## Web Drawing
+
+- [Sketch](https://www.sketch.com/) - straight forward
+- [Affinity Desinger](https://affinity.serif.com/en-gb/designer/) - Paid - but also exports SVG
 
 ## CSS - NextGen
 
@@ -150,6 +163,7 @@ bin/vite dev (in second window or with forman/overmind)
 
 - [IonIcons](https://ionicons.com/)
 - [HeroIcons](https://heroicons.dev/)
+- [SimpleIcons](https://simpleicons.org/)
 - [FeatherIcons](https://feathericons.com/)
 - [themifyIcons](https://themify.me/themify-icons) - good variety and brands too
 - [FontAwesome](https://fontawesome.com/) - Icons; many are completely free

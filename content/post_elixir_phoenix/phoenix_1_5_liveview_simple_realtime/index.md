@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Phoenix", "Elixir", "LiveView", "SPA"]
 categories: ["Code"]
 date: 2021-04-10T17:01:53+02:00
-lastmod: 2021-04-10T17:01:53+02:00
+lastmod: 2021-08-07T01:01:53+02:00
 featured: false
 draft: false
 
@@ -34,12 +34,12 @@ The repo can be found here: https://github.com/btihen/live-tweets
 ## create / config a project
 
 First we will creat the folder / project location
-```
+```bash
 mkdir tweets
 ```
 
 Now we will tell it which software to use:
-```
+```bash
 touch tweets/.tool-versions
 cat <<EOF >>tweets/.tool-versions
 erlang 23.3.1
@@ -96,7 +96,7 @@ mix phx.gen.live Messages Post posts body:text
 ```
 
 Change migration to require data - add `null: false` to our field so it now looks like:
-```
+```elixir
 # priv/repo/migrations/20210418084643_create_posts.exs
 defmodule Tweets.Repo.Migrations.CreatePosts do
   use Ecto.Migration
@@ -113,8 +113,7 @@ end
 ```
 
 Now lets update the routes as described by the generator - in `lib/tweets_web/router.ex` so the section that looks like:
-```
-
+```elixir
   scope "/", TweetsWeb do
     pipe_through :browser
 
@@ -123,7 +122,7 @@ Now lets update the routes as described by the generator - in `lib/tweets_web/ro
 ```
 
 should be change to:
-```
+```elixir
   scope "/", TweetsWeb do
     pipe_through :browser
 
@@ -139,7 +138,7 @@ should be change to:
 ```
 
 Now check our field `body` is required in validations -- in our changeset.  We see `validate_required([:body])` in the file: `lib/tweets/messages/post.ex` - so we are all set.
-```
+```elixir
   def changeset(post, attrs) do
     post
     |> cast(attrs, [:body])
@@ -148,7 +147,7 @@ Now check our field `body` is required in validations -- in our changeset.  We s
 ```
 
 So it time to migrate & test:
-```
+```bash
 mix ecto.migrate
 mix test
 ```
@@ -163,7 +162,7 @@ mix phx.server
 ```
 
 It works, but we want to list the most recent tweets at the top of the page -- let's investigate -- open `lib/tweets_web/live/post_live/index.ex` we see in the `mount` command:
-```
+```elixir
 # lib/tweets_web/live/post_live/index.ex
   def mount(_params, _session, socket) do
     {:ok, assign(socket, :posts, list_posts())}
@@ -172,14 +171,14 @@ It works, but we want to list the most recent tweets at the top of the page -- l
 It uses `list_posts()` to get the list - so let's change this function.
 
 Open: `lib/tweets/messages.ex` and change:
-```
+```elixir
 # lib/tweets/messages.ex
   def list_posts do
     Repo.all(Post)
   end
 ```
 to
-```
+```elixir
 # lib/tweets/messages.ex
  def list_posts do
     Post
@@ -200,7 +199,7 @@ Phoenix uses Websockets to do `real-time` communication.  In our "context" we wi
 ### Setup the "Messages" Channel
 
 We go into: `lib/tweets/messages.ex` and at the top of the file add the Broadcast Setup:
-```
+```elixir
 # lib/tweets/messages.ex
 defmodule Tweets.Messages do
   @moduledoc """
@@ -245,7 +244,7 @@ We have two `notify_subscribers` because we will call these after we do our DB a
 
 Now that we have `notify_subscribers` that broadcasts `Phoenix.PubSub.broadcast(Tweets.PubSub, @topic, {__MODULE__, event, posts})` we need a way to subscribe to this channel and receive these messages in all our index pages.
 
-```
+```elixir
 # lib/tweets_web/live/post_live/index.ex
 defmodule TweetsWeb.PostLive.Index do
   use TweetsWeb, :live_view
@@ -277,7 +276,7 @@ Now we need a way to **recieve information from the channel** this is done with 
 So now to activate our changes - we need to send to the channel via `notify_subscribers` when we successfully change something in the Messages "post" context.  To do this we will make small changes to the create_post, update_post and delete_post functions.  We will add `notify_subscribers({status, post}, "posts-changed")` to the end of each function.  Since we only defined one event `"posts-changed"` in our index page `handle_info` function -- we will hard-code that into our `notify_subscribers` call
 
 So our simple DB calls in Messages currently looks like:
-```
+```elixir
 # lib/tweets/messages.ex
   def create_post(attrs \\ %{}) do
     %Post{}
@@ -297,7 +296,7 @@ So our simple DB calls in Messages currently looks like:
 ```
 
 Now becomes:
-```
+```elixir
 # lib/tweets/messages.ex
   def create_post(attrs \\ %{}) do
     {status, post} = %Post{}

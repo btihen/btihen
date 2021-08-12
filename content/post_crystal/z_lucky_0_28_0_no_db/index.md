@@ -1,16 +1,16 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Lucky Framework with Crystal Language"
-subtitle: "Basics of Lucky: Relationships, Types, Forms and Language Tweeks"
-summary: "A simple but reasonably comprehensive overview of Lucky features - with the context of a 'mini-project'"
+title: "No Database - Lucky Framework 0.27.2"
+subtitle: ""
+summary: ""
 authors: ["btihen"]
-tags: ["Relationships", "Basics", "Forms", "Components", "Routing", "Lucky", "Web Framework", "Crystal Language"]
+tags: []
 categories: ["Code", "Lucky", "Crystal Language"]
 date: 2021-05-02T01:01:53+02:00
-lastmod: 2021-08-12T01:01:53+02:00
+lastmod: 2021-08-07T01:01:53+02:00
 featured: false
-draft: false
+draft: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -28,26 +28,13 @@ image:
 projects: []
 ---
 
-
 ## Purpose
 
+I learned about Lucky improvements (fixes from the minor bugs after my first article) and wanted to test them out.
 
-My goal is to have a simple tutorial to understand and use basic Lucky framework features.  I recommend this as a great platform if you work in English and publish in English.
+## Upgrading
 
-If internationalization and or other languages and language flexibility are important to you and your work, then I recommend Rails or Phoenix.  If/when internationalization and language flexibility become easier - I'll probably switch to Lucky.
-
-
-## Why Lucky
-
-1. Lucky offers all the features I use in Rails - but is type safe and faster than rails.
-2. Lucky's focus is on run-time stability (its not the fastest Crystal Framework, but it faster than rails).
-3. The code / structure is well organized.
-4. The Lucky Discord community is extremely helpful!
-5. The Docs are generally good when you are investigating a specific component & when that is missing - the codebase can be searched (and the code is clear)
-
-See: https://luckyframework.org/guides/getting-started/why-lucky for a full list of what Lucky aims to improve.
-
-PS - I didn't try out more advanced features such as file uploads, remote file storage, sending emails, etc.  These are all common in the apps I write.
+If you are experienced with Rails it is a similar process.  Go into the
 
 
 ## Why Not Lucky (0.27)
@@ -190,7 +177,7 @@ git commit -m "initial commit after create"
 
 ## Quick Lucky Test Tip
 
-Lets quickly test our new config with `lucky exec` - type:
+Lets quickly test our new config wiht `lucky exec` - type:
 ```bash
 lucky exec
 ```
@@ -999,81 +986,43 @@ https://github.com/grottopress/shield
 
 ## Language Inflections
 
-Lucky 0.27.0 has problems using `config/inflector.cr` settings (fixed in Lucky 0.28.0).  However, both versions have problems with loading these language configs into the pre-compiled lucky tasks.
+Let's make a little silly Human and Pets database/webpage:
 
-THere's what happens (do a git snapshot):
+The simplest way to generate is with: `lucky gen.resource.browser` its basically the same as `rails g scaffold`
+
+So lets get started:
 ```
 lucky gen.resource.browser Human name:String
 ```
 
 OOPS - that generated the plural of `Human` as `Humen` instead of `Humans`!
 
-lets clear all our incorrect files and fix this (if you did a git snapshot previously):
+lets clear all our incorrect files and fix this:
 ```
 git clean -fd
 ```
 
-Now let's create a new config file for inflections `config/inflector.cr` and enter:
-```ruby
-# config/inflector.cr
-require "wordsmith"
-
-# `staff` as in employees - not walking sticks:
-Wordsmith::Inflector.inflections.uncountable("staff")
+Now let's create a new config file for inflections `config/inflect.cr` and enter:
+```
+# this probably isn't necessary for very long - but for now it is needed.
 Wordsmith::Inflector.inflections.irregular("human", "humans")
+
+# I like using persons (also a dictionary word) over people, to do this we need
+# - first we have to remove the original setting by doing:
+Wordsmith::Inflector.inflections.plurals.delete(/(p)erson$/i)
+# - now we can override the original with our preference
 Wordsmith::Inflector.inflections.irregular("person", "persons")
+
+# if using `staff` as in human staff - then also add staff to uncountable:
+Wordsmith::Inflector.inflections.uncountable(%w(staff))
 ```
-
-when we test our new lucky config with `lucky exec`:
-```ruby
-lucky exec
-# then when vim or nano opens you can enter something like:
-require "../../src/app.cr"
-include Lucky::TextHelpers
-pp pluralize(2, "staff")
-pp pluralize(2, "person")
-```
-
-you will get the expected:
-```
-"2 staff"
-"2 persons"
-```
-
-Given the tasks are pre-compiled do the following:
-```bash
-# clean up repo of gen.tasks that were problematic
-# git clean -fd
-
-# remove previously compiled shards
-rm -rf lib && rm -rf bin
-
-# after trashing all the shard - safest to be sure they are intact (or even updated)
-SKIP_LUCKY_TASK_PRECOMPILATION=true shards install # or shards update
-
-# re-run the setup
-SKIP_LUCKY_TASK_PRECOMPILATION=true ./script/setup
-```
-
-Now with the first task it will compile the task (a bit slow), but it uses your config file!
-```
-lucky gen.resource.browser Staff name:String
-
-compiling ...
-```
-
-Sweet - this works for human - but not people - which is already defined in wordsmith.  The fix for this is to copy the entire wordsmith inflector file, adjust it to your needs and put it in `config/inflector.cr`
 
 https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr
-```ruby
+```
 # config/inflector.cr
-require "wordsmith"
-
 module Wordsmith
-  # its important to clear all existing settings
   Inflector.inflections.clear
 
-  # make adjustments as needed to the original file
   Inflector.inflections.plural(/$/, "s")
   Inflector.inflections.plural(/s$/i, "s")
 
@@ -1081,17 +1030,12 @@ module Wordsmith
 
   Inflector.inflections.irregular("human", "humans")
   Inflector.inflections.irregular("person", "persons")
-
-  # added staff to the list
-  Inflector.inflections.uncountable(%w(equipment information rice money species series fish sheep jeans police staff))
 end
 ```
 
 Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:
 ```
-rm -rf lib && rm -rf bin
-SKIP_LUCKY_TASK_PRECOMPILATION=true shards install
-SKIP_LUCKY_TASK_PRECOMPILATION=true ./script/setup
+rm -rf lib && rm -rf bin && shards update
 ```
 
-Now we can try to create a new Resource again.  In Lucky 0.28.0 this config has gotten better, but the pre-compiled tasks still create confusion.
+Now we can try to create a new Resource again.

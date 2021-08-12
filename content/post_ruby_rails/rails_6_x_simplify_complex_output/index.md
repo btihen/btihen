@@ -7,10 +7,10 @@ summary: "String inputs that strip away leading, trailing and double spaces usin
 authors: ["btihen"]
 tags: ["Rails 5", "Rails 6", "Types", "Virtual Attributes"]
 categories: []
-date: 2021-08-12T01:11:22+02:00
-lastmod: 2021-08-12T01:11:22+02:00
+date: 2021-08-08T01:11:22+02:00
+lastmod: 2021-08-08T01:11:22+02:00
 featured: false
-draft: false
+draft: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.

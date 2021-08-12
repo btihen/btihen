@@ -38,7 +38,7 @@ Frequently, I have found it is convenient to make lists of Items of related, but
 In this case, I want to model a contact list of businesses and people.  The people can be customers or business reps (so some people will have a relationship to a business too).  Businesses will have their the VAT and business registrations, etc.
 
 The basic model will then look something like:
-
+```
                  ┌──────────────┐
                  │              │
                  │    Contact   │
@@ -61,7 +61,7 @@ The basic model will then look something like:
                  │              │
                  └──────────────┘
                Created with Monodraw
-
+```
 Each person can belong to zero or 1 business, but a business can have many people associated with it.  Similarly, each business or person must be  on the Contact List once, but of course the contact list has many people and businesses on it.
 
 We will also add another Model - just to have and compare working with it.
@@ -104,7 +104,7 @@ lucky db.migrate
 Now let's create some sample data in `tasks/db/seed/sample_data.cr` - via the seed task - from these instructions: https://luckyframework.org/guides/database/database-setup#seeding-data as our base.
 
 We will start by using what's used to save when we create new records with incomming data. `SaveAnimal.create!(nick_name: "racky coon")` so now our file will look like:
-```crystal
+```ruby
 # tasks/db/seed/sample_data.cr
 require "../../../spec/support/factories/**"
 
@@ -144,7 +144,7 @@ end
 ```
 
 now lets try using our factory in the seed file:
-```crystal
+```ruby
 # tasks/db/seed/sample_data.cr
 require "../../../spec/support/factories/**"
 
@@ -190,7 +190,7 @@ lucky db.migrate
 ```
 
 Lets build our factory:
-```crystal
+```ruby
 # spec/support/factories/company_factory.cr
 class CompanyFactory < Avram::Factory
   def initialize
@@ -255,7 +255,7 @@ fixes for roles
 lucky db.migrate
 ```
 Let's update the seed file:
-```crystal
+```ruby
 # tasks/db/seed/sample_data.cr
 require "../../../spec/support/factories/**"
 

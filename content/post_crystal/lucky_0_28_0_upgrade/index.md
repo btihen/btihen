@@ -7,8 +7,8 @@ summary: "Exploring how to upgrade crystal projects (Lucky)"
 authors: ["btihen"]
 tags: ["upgrade", "shards"]
 categories: ["Code", "Lucky", "Crystal Language"]
-date: 2021-05-12T01:01:53+02:00
-lastmod: 2021-08-12T01:01:53+02:00
+date: 2021-05-10T01:01:53+02:00
+lastmod: 2021-08-13T01:01:53+02:00
 featured: false
 draft: false
 
@@ -33,6 +33,9 @@ projects: []
 
 I learned about Lucky improvements (fixes from the minor bugs after my first article) and wanted to test them out.
 
+The Lucky repo describes the changes to the shards file and the code base too.
+https://github.com/luckyframework/lucky/blob/master/UPGRADE_NOTES.md
+
 ## Upgrading
 
 First lets be sure we have a recent crystal version:
@@ -41,10 +44,12 @@ asdf install crystal 1.1.1
 asdf global crystal 1.1.1
 ```
 
-Second to be safe-side, I lets upgrade the lucky-cli:
+Second, Upgrade the lucky-cli:
 ```bash
+# if you don't already have this
 git clone https://github.com/luckyframework/lucky_cli
 cd lucky_cli
+git fetch
 git checkout v0.28.0  # note this does not match the lucky-framework version (0.27.2)!
 shards install
 crystal build src/lucky.cr
@@ -57,11 +62,11 @@ Now lets be sure we update `.tools-available` in the lucky project folder:
 
 Then (in the project folder - type:
 ```bash
-cd animals  # my lucky-project
+cd project_name  # my lucky-project
 asdf local crystal 1.1.1
 ```
 
-now lets check the shards file - my current file looks like:
+Lets lets update the `shards` file to -- according to the upgrade guide we should use the following settings:
 ```ruby
 # shard.yml
 name: animals
@@ -71,59 +76,7 @@ targets:
   animals:
     main: src/animals.cr
 
-crystal: 0.36.1
-
-dependencies:
-  lucky:
-    github: luckyframework/lucky
-    version: ~> 0.27.0
-  authentic:
-    github: luckyframework/authentic
-    version: ~> 0.7.3
-  carbon:
-    github: luckyframework/carbon
-    version: ~> 0.1.4
-  dotenv:
-    github: gdotdesign/cr-dotenv
-    version: ~> 1.0.0
-  lucky_task:
-    github: luckyframework/lucky_task
-    version: ~> 0.1.0
-  jwt:
-    github: crystal-community/jwt
-    version: ~> 1.5.0
-development_dependencies:
-  lucky_flow:
-    github: luckyframework/lucky_flow
-    version: ~> 0.7.3
-```
-
-So we need to update the crystal version.
-
-Now lets updated the shards.
-Go into the project folder and type:
-```bash
-shards update
-shards list   # be sure we have lucky 0.28.0
-```
-
-hmm - lucky framework didn't upgrade to 0.28.0 -- lets try (probably shards works like ruby bundler - pinned versions need to be named in the update):
-```bash
-shards update lucky
-shards list
-```
-
-hmm - lucky framework didn't upgrade to 0.28.0 - lets lets update the `shards` file to:
-```ruby
-# shard.yml
-name: animals
-version: 0.1.0
-
-targets:
-  animals:
-    main: src/animals.cr
-
-crystal: 1.1.1
+crystal: >= 1.0.0
 
 dependencies:
   lucky:
@@ -131,22 +84,34 @@ dependencies:
     version: ~> 0.28.0
   authentic:
     github: luckyframework/authentic
+    version: ~> 0.8.0
   carbon:
     github: luckyframework/carbon
-  dotenv:
-    github: gdotdesign/cr-dotenv
+    version: ~> 0.2.0
+  # this should be removed
+  # dotenv:
+  #   github: gdotdesign/cr-dotenv
+  #   version: ~> 0.8.0
+  # use this instead - be shure to follow the instructions at (global search and replace is your friend):
+  # https://github.com/luckyframework/lucky/blob/master/UPGRADE_NOTES.md
+  lucky_env:
+    github: luckyframework/lucky_env
+    version: ~> 0.1.3
   lucky_task:
     github: luckyframework/lucky_task
+    # version: ~> 0.8.0
   jwt:
     github: crystal-community/jwt
+    # version: ~> 0.7.3
 development_dependencies:
   lucky_flow:
     github: luckyframework/lucky_flow
+    # version: ~> 0.7.3
 ```
 
-OK - leys try again!
+Now type:
 ```bash
-shards update lucky
+shards update
 shards list
 ```
 

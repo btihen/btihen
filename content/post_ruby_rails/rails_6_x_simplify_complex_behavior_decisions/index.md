@@ -7,10 +7,10 @@ summary: "With when Controllers need to trigger a chain of complex activities, o
 authors: ["btihen"]
 tags: ["rails", "command object", "strategy pattern", "lambda"]
 categories: []
-date: 2021-08-08T01:11:22+02:00
-lastmod: 2021-08-08T01:11:22+02:00
+date: 2021-08-14T01:11:22+02:00
+lastmod: 2021-08-14T01:11:22+02:00
 featured: false
-draft: true
+draft: false
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -46,47 +46,404 @@ Another time we legally need to send a physical bill to everyone is when the mon
 
 Our first line of simplification is to extract behaviors out of the controllers and into `command objects` (some call these service objects, but we reserve that name for external services).
 
-## Example Command Object
+## In The Beginning
 
-This is very straight forward to implement.  Here is a quick example (extremely simplified):
-
+We had a straight-forward setup
 ```ruby
 # lists other user's (challenger's) submissions
 class InvoicesController < ApplicationController
-
   def new
     invoices_form = InvoicesForm.new(invoices_params)
-
     render :new, locals: {invoices_form: invoices_form}
   end
 
   def create
     invoices_form = InvoicesForm.new(invoices_params)
     send_invoices = SendInvoicesCommand.new(invoices_form)
-
     # our commands return a truthy or falsy value
-    if invoices_form.valid? && send_invoices.run
-      redirect_to background_jobs_path, success: "Invoices Successfully Submitted to be sent"
+    if invoices_form.valid? && (result = send_invoices.run) && result[:success]
+      job_id = result[:result]
+      redirect_to jobs_path(job_id), success: "Invoices Job Successfully Submitted"
     else
-      flash.now[:error] = "Your order form had errors - please fix"
+      flash.now[:error] = "Invoices Form / Job has errors"
       render :new, locals: {invoices_form: invoices_form}
     end
   end
 
   private
-
-  # Only allow a list of trusted parameters through.
   def invoices_params
-    params.require(:invoices)
-          .permit(:invoice_id, :group_id, customer_ids: [])
+    params.require(:invoices) .permit(:invoice_id, :group_id, customer_ids: [])
+  end
+end
+```
+
+The Form Model (without the extras for Rails Validations and forms)
+```ruby
+class InvoiceForm
+  attr_reader :invoice_form
+
+  # validations
+
+  def new(params)
+    @params = params
+  end
+
+  def invoice_form
+    invoice_form = {}
+    # ... whatever is needed to organize and check complex inputs and collect / join multiple models
+
+    invoice_form
+  end
+end
+```
+
+```ruby
+class InvoicesCommand
+
+  def new(invoices_form)
+    @invoices_form = invoices_form
+  end
+
+  def run
+    customer_invoices = InvoiceBuilder.generate_invoices(invoices_form[:customers],
+                                                         invoices_form[:time_range])
+    send_invoices = customer_invoices.reject { |ci| ci[:customer].ebanking? }  # customers setup knows
+    job_id = SendInvoicesJob.call(send_invoices)
+    {success: true, result: job_id}
+  rescue StandardError => error
+    {success: false, error: error}
+  end
+
+  private
+  attr_reader :invoices_form
+end
+```
+
+## Getting Complex
+
+Over time with legal changes and added features our logic was getting complex (even convoluted).
+
+
+I find these are easiest to spot when there a lot of if statements - especially when they are controlling the behavior of another object.
+
+```ruby
+class InvoicesCommand
+
+  def new(invoices_form)
+    @invoices_form = invoices_form
+  end
+
+  def run
+    customer_invoices = InvoiceBuilder.generate_invoices(invoices_form)
+    send_invoices = if invoices_form[:print_all] && invoices_form[:customer_ids]
+                      customer_invoices.select { |ci| ci[:customer].ebanking? && !ci[:invoice].monthly? }
+                    elsif invoices_form[:customer_ids]
+                      customer_invoices.reject { |ci| ci[:customer].ebanking? && ci[:invoice].monthly? }
+                    # ... other user and system choices to filters
+                    else
+                      customer_invoices.reject { |ci| ci[:customer].ebanking? }  # customers setup knows
+                    end
+    job_id = SendInvoicesJob.call(send_invoices)
+    {success: true, result: job_id}
+  rescue StandardError => error
+    {success: false, error: error}
+  end
+
+  private
+  attr_reader :invoices_form
+
+  def select_invoices_to_send(customer_invoices)
+    return customer_invoices if invoices_form[:print_all]   # user wants a print copy for all
+    return customer_invoices if invoices_form[:cutomer_ids] # user specifically chose these for
+    # ... other user and system choices to filters
+
+    # or just the default filter
+    customer_invoices.filter { |ci| !ci[:customer].ebanking? }
+  end
+end
+```
+
+## First Attempt - (encapsulate logic in a method)
+
+encapsulate in a method with guards and comments - now the main logic is clear
+```ruby
+class InvoicesCommand
+
+  def new(invoices_form)
+    @invoices_form = invoices_form
+  end
+
+  def run
+    customer_invoices = InvoiceBuilder.generate_invoices(invoices_form)
+    send_invoices = select_invoices_to_send(customer_invoices)
+    job_id = SendInvoicesJob.call(send_invoices)
+    {success: true, result: job_id}
+  rescue StandardError => error
+    {success: false, error: error}
+  end
+
+  private
+  attr_reader :invoices_form
+
+  def select_invoices_to_send(customer_invoices)
+    # explain logic
+    if invoices_form[:print_all] && invoices_form[:customer_ids]
+      return customer_invoices
+    end
+    if invoices_form[:customer_ids] # user specifically chose these for
+      return customer_invoices.reject { |ci| ci[:invoices].all?(&:monthly?) }
+    end
+
+    # ... other user and system choices to filters
+
+    # or do the default filter - send to people without ebanking
+    customer_invoices.filter { |ci| !ci[:customer].ebanking? }
+  end
+end
+```
+
+## Second Attempt - Strategy Pattern (Traditional)
+
+But then it ocurred to us - why should this object have to sort through all the various inputs and deduce what the user or cron-job wanted to do with the filtering.  So we opted for the strategy pattern and each sender would send the filter pattern wanted.  Also this allows us to name each filter (and clarify intention).
+
+```ruby
+module InvoiceFilter
+  # input: customer_invoices = [ {customer: customer, invoice: invoice}, ... ]
+  class AllInvoices
+    def call(customer_invoices)
+      customer_invoices  # no filter - send on alle
+    end
+  end
+
+  class AllWithoutEbilling
+    def call(customer_invoices)
+      customer_invoices.filter { |ci| !ci[:customer].ebanking? }
+    end
+  end
+
+  class AllExceptionalInvoices
+    def call(customer_invoices)
+      customer_invoices.inject do |ci, result=[]|
+        result << {
+                    customer: customer,
+                    invoices: invoices.map { |inv| !inv.monthly? }
+                  }
+        result
+      end
+    end
   end
 
 end
 ```
 
+Now we need to change the
+```ruby
+class InvoiceForm
 
+  attr_reader :invoice_form
 
+  # validations
+  # validates ...
 
+  def new(params)
+    @params = params
+  end
+
+  def invoice_form
+    invoice_form = {}
+    # ... whatever is needed
+    invoice_form[:filter] = filter_logic
+
+    invoice_form
+  end
+
+  private
+  def filter_logic
+    return InvoiceFilter::AllInvoices.new            if params[:filter] == :all
+    return InvoiceFilter::AllExceptionalInvoices.new if params[:filter] == :all_exceptional
+
+    InvoiceFilter::AllWithoutEbilling.new
+  end
+
+end
+```
+
+```ruby
+class InvoicesCommand
+
+  def new(invoices_form)
+    @invoices_form = invoices_form
+  end
+
+  def run
+    customer_invoices = InvoiceBuilder.generate_invoices(invoices_form)
+    invoices = filter_invoices(customer_invoices)
+    job_id = SendInvoicesJob.call(invoices)
+    {success: true, result: job_id}
+  rescue StandardError => error
+    {success: false, error: error}
+  end
+
+  private
+  attr_reader :invoices_form
+
+  def filter_invoices
+    # in-case a strategy isn't chosen - we set the default strategy
+    filter_strategy = invoices_form[:filter] || InvoiceFilter::SelectWithoutEbillingInvoices.new
+
+    filter_strategy.call(customer_invoices)
+  end
+end
+```
+
+this design also allows us to send simple lambdas - the form could be rewritten with:
+```ruby
+class InvoiceForm
+  attr_reader :invoice_form
+
+  # validations
+  # validates ...
+
+  def new(params)
+    @params = params
+  end
+
+  def invoice_form
+    invoice_form = {}
+    # ... whatever is needed
+    invoice_form[:filter] = filter_logic
+
+    invoice_form
+  end
+
+  private
+  def filter_logic
+    return InvoiceFilter::AllInvoices.new          if params[:filter] == :all
+    return InvoiceFilter::AllExceptionalInvoices.new if params[:filter] == :all_exceptional
+
+    InvoiceFilter::SelectWithoutEbillingInvoices.new
+  end
+
+end
+```
+
+## Third Attempt - Simplify Strategy with Lambdas
+
+Some filters are very simple we also want to encourage extensions.
+
+Its also good to note that lambdas are also invoked with .call(), so we transformed the simplest filers into lambdas.
+
+Lambdas allow you to encapsulate code and assign it a variable name (& pass it around) and invoke it as  convenient.
+
+```ruby
+module InvoiceFilter
+  # input: customer_invoices = [ {customer: customer, invoice: invoice}, ... ]
+
+  ALL_INVOICES    = lambda { |customer_invoices| customer_invoices }
+  ALL_NO_EBILLING = lambda do |customer_invoices|
+                              customer_invoices.filter { |ci| !ci[:customer].ebanking? }
+                           end
+  class AllExceptionalInvoices
+    def call(customer_invoices)
+      customer_invoices.inject do |ci, result=[]|
+        result << {
+                    customer: customer,
+                    invoices: invoices.map { |inv| !inv.monthly? }
+                  }
+        result
+      end
+    end
+  end
+
+end
+```
+
+Now we need to change the
+```ruby
+class InvoiceForm
+
+  FILTER_ChOICES = {'all_customer_invoices'     => InvoiceFilter::ALL_INVOICES,
+                    'all_customers_wo_ebilling' => InvoiceFilter::ALL_NO_EBILLING,
+                    'all_exceptional_invoices'  => InvoiceFilter::AllExceptionalInvoices.new}
+  FILTER_KEYS    = FILTER_ChOICES.keys
+
+  attr_reader :invoice_form
+
+  # validations
+  # validates ...
+
+  def new(params)
+    @params = params
+  end
+
+  def invoice_form
+    invoice_form = {}
+    # ... whatever is needed
+    invoice_form[:filter] = filter_logic
+
+    invoice_form
+  end
+
+  private
+  attr_reader :params
+
+  def validate_filter
+    # no choice is valid - we will use the default
+    return if params[:filter].blank?
+    # a filter (lambda?) sent in by a rake task
+    return if params[:filter].responds_to?(:call)
+    # a pre-defined filter chosen in the gui
+    return if FILTER_KEYS.include?(params[:filter].to_sym)
+
+    errors.add(:filter, 'not a valid filter')
+  end
+
+  def filter_logic
+    # default filter if no filter is selected
+    return InvoiceFilter::ALL_NO_EBILLING  if params[:filter].blank?
+
+    # allow automated internal tasks with access to pass in their own filters
+    return params[:filter]                 if params[:filter].responds_to?(:call)
+
+    # did the user select a pre-defined filter available in the GUI
+    if params[:filter].is_s? String && VALID_FILTER_KEYS.include?(filter_symbol)
+      return FILTER_CHOICES[filter_symbol]
+    end
+
+    # this shouldn't happen if validated before running
+    raise 'filter error'
+  end
+
+end
+```
+
+```ruby
+class InvoicesCommand
+
+  def new(invoices_form)
+    @invoices_form = invoices_form
+  end
+
+  def run
+    customer_invoices = InvoiceBuilder.generate_invoices(invoices_form)
+    invoices = filter_invoices(customer_invoices)
+    job_id = SendInvoicesJob.call(invoices)
+    {success: true, result: job_id}
+  rescue StandardError => error
+    {success: false, error: error}
+  end
+
+  private
+  attr_reader :invoices_form
+
+  def filter_invoices
+    # in-case a strategy isn't chosen - we set the default strategy
+    filter_strategy = invoices_form[:filter] || InvoiceFilter::SelectWithoutEbillingInvoices.new
+
+    filter_strategy.call(customer_invoices)
+  end
+end
+```
 
 
 

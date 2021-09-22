@@ -58,7 +58,7 @@ If you want to do user registration, confirmation, etc -- then I think it is bes
 
 ### Getting Started
 
-Code is posted at: https://github.com/btihen/magic_token
+Code repo is posted at: https://github.com/btihen/magic_token
 
 Create a Rails Project:
 ```bash

@@ -52,9 +52,10 @@ I found that there seems to be three simple approaches:
 
 ### Getting Started
 
+Code Repo is posted at: https://github.com/btihen/magic_sgid
+
 Create a Rails Project
 
-Code is posted at:
 ```bash
 bin/rails new magic_id
 cd magic_id

@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Simplify Complex Behavior and Decisions"
+title: "Strategy - Simplify Complex Behavior and Decisions"
 subtitle: "Command Objects, Strategy Pattern and Lambdas"
 summary: "With when Controllers need to trigger a chain of complex activities, one approach to keeping the code workable is to use Command Objects, the Command Pattern and even Lambdas"
 authors: ["btihen"]
@@ -9,8 +9,8 @@ tags: ["rails", "command object", "strategy pattern", "lambda"]
 categories: []
 date: 2021-08-14T01:11:22+02:00
 lastmod: 2021-08-14T01:11:22+02:00
-featured: false
-draft: false
+featured: true
+draft: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.

@@ -38,7 +38,7 @@ I found that there seems to be three simple approaches:
 2) Do it yourself: with a Stored-Token (adapts to any framework)
 3) Other Options: Devise Plugin (when using devise) or other Gems
 
-This article will focus on using Secure Random - since it can work with any Framework (in Rails however, I prefer to use SignedGlobalIDs - see: https://btihen.me/ , since it simplifies the user model and the expiration logic)
+This article will focus on using Secure Random - since it can work with any Framework (in Rails however, I prefer to use SignedGlobalIDs - see: [https://btihen.me/](https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_signed_global_id/), since it simplifies the user model and the expiration logic)
 
 ## Overview
 

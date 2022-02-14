@@ -30,13 +30,13 @@ categories:
 - Self-Regulation
 - Student Agency
 featured: true
-url_pdf: https://issuu.com/ecischools/docs/globalinsights6
+# url_pdf: https://issuu.com/ecischools/docs/globalinsights6
 url_code:
 url_dataset:
 url_poster:
 url_project:
 url_slides:
-url_source: https://www.ecis.org/research-media-publications/global-insights/
+# url_source: https://www.ecis.org/research-media-publications/global-insights/
 url_video:
 image:
   caption: Global Insights Web Header
@@ -46,7 +46,7 @@ projects: []
 slides: ''
 
 ---
-<iframe allowfullscreen allow="fullscreen" style="border:none;width:100%;height:326px;" src="https://issuu.com/ecischools/docs/globalinsights6"></iframe>
+<!-- <iframe allowfullscreen allow="fullscreen" style="border:none;width:100%;height:326px;" src="https://issuu.com/ecischools/docs/globalinsights6"></iframe> -->
 
 Student boat (before 3-D printing)
 ![Student Katamaran Boat](student_katamaran_boat.png)

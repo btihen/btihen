@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Phoenix 1.6 PETAL Stack Setup - using asdf"
-subtitle: "Phoenix, Elixir, TailwindCSS, AlpineJS, LiveView - PETAL Stack"
-summary: "Create a modern webapp with tremendous flexibility"
+title: "Phoenix 1.6 PETAL Stack Setup by Hand"
+subtitle: "Simple PETAL Setup"
+summary: "The underlying tooling for a PETAL Stack"
 authors: ["btihen"]
-tags: ["Phoenix", "Phoenix 1.6.x", "Elixir", "TailwindCSS", "TailwindCSS 3.x", "AlpineJS", "AlpineJS 3.x", "LiveView", "PETAL", "PETAL Stack"]
+tags: ["Phoenix", "Phoenix 1.6.x", "Elixir", "TailwindCSS", "TailwindCSS 3.x", "AlpineJS", "AlpineJS 3.x", "LiveView", "PETAL", "PETAL Stack", "ASDF"]
 categories: ["Code"]
 date: 2022-02-27T01:01:53+02:00
-lastmod: 2022-02-27T01:01:53+02:00
+lastmod: 2022-03-04T01:01:53+02:00
 featured: true
 draft: false
 
@@ -78,14 +78,14 @@ mix local.hex --force
 
 ## Get the newest Phoenix Hex Package
 
-Once you have established you have the requrements - the download the newest version of Phoenix (go to: https://hexdocs.pm/phoenix/installation.html#phoenix to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:
+Once you have established you have the requirements - the download the newest version of Phoenix (go to: https://hexdocs.pm/phoenix/installation.html#phoenix to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:
 ```bash
 mix archive.install hex phx_new 1.6.6 --force
 ```
 
 ## create a project with asdf settings
 
-First we will creat the folder / project location
+First we will create the folder / project location
 ```bash
 mkdir petal
 ```
@@ -214,7 +214,7 @@ npm install autoprefixer postcss postcss-import postcss-cli tailwindcss --save-d
 cd ..
 ```
 
-comment out `import "../css/app.css"` to avoid pipleline compilation conflicts
+comment out `import "../css/app.css"` to avoid pipeline compilation conflicts
 ```js
 // assets/js/app.js
 // We import the CSS which is extracted to its own file by esbuild.
@@ -394,6 +394,173 @@ git add .
 git commit -m "PETAL 1.6.x Configured"
 ```
 
+## Add a custom Font
+
+https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/
+
+We will download 2 Fonts:
+* Noto Sans - (full international support & very readable):
+https://google-webfonts-helper.herokuapp.com/fonts/noto-sans?subsets=latin
+* Quickens Comic (easy to read and fun) -
+https://graphicgoods.net/downloads/quickens-free-font/
+
+### Noto Sans
+
+We will start with Noto - listed on Google fonts from Webfonts Helper
+
+Copy the CSS from the website (prefer modern browswers if possible) - update the Customize folder prefix
+```css
+mkdir -p assets/vendor/fonts/NotoSans
+cat <<EOF>assets/vendor/fonts/NotoSans/noto_sans.css
+/* noto-sans-regular - latin-ext_latin */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('../fonts/NotoSans/noto-sans-v25-latin-ext_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/NotoSans/noto-sans-v25-latin-ext_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+EOF
+```
+
+### Quickens (otf)
+
+Download and convert the font at:
+
+* https://transfonter.org/
+* https://onlinefontconverter.com/
+* https://www.fontsquirrel.com/tools/webfont-generator
+
+
+
+```css
+mkdir -p assets/vendor/fonts/Quickens
+cat <<EOF>assets/vendor/fonts/Quickens/quickens.css
+/* otf not recommended - convert the font at:
+  * https://transfonter.org/
+  * https://onlinefontconverter.com/
+  * https://www.fontsquirrel.com/tools/webfont-generator
+
+@font-face {
+  font-family: 'Quickens';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('quickens-regular.otf') format('opentype'),
+       url('quickens-rough.otf') format('opentype');
+} */
+
+@font-face {
+  font-family: 'Quickens';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('quickens_regular-webfont.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('quickens_regular-webfont.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+@font-face {
+  font-family: 'QuickensRough';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('quickens_rough-webfont.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('quickens_rough-webfont.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+EOF
+```
+
+### Add Fonts to HTML
+
+```html
+# /lib/fonts_web/templates/layout/root.html.heex
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "SlackerPetal", suffix: " · Phoenix Framework" %>
+    <!-- add font here -->
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/vendor/fonts/NotoSans/noto_sans.css")}/>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/vendor/fonts/NotoSerif/noto_serif.css")}/>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/vendor/fonts/Quickens/quickens.css")}/>
+    <!-- end custom fonts -->
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <!-- change this from app.js to js/app.js -->
+    <%# <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script> %>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/js/app.js")}></script>
+  </head>
+  <body>
+    <header>
+      <section class="container">
+        <nav>
+          <ul>
+            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+            <% end %>
+          </ul>
+        </nav>
+        <a href="https://phoenixframework.org/" class="phx-logo">
+          <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
+        </a>
+      </section>
+    </header>
+    <%= @inner_content %>
+  </body>
+</html>
+```
+
+OOPS
+`(Phoenix.Router.NoRouteError) no route found for GET /assets/vendor/fonts/NotoSerif/noto_serif.css`
+
+### Update the esbuild configuration
+
+update args in
+
+```
+# /config/config.exs
+# Configure esbuild (the version is required)
+config :esbuild,
+  version: "0.12.18",
+  default: [
+    args: ~w(js/app.js vendor/fonts/NotoSans/noto_sans.css vendor/fonts/Quickens/quickens.css --bundle --loader:.woff2=file --loader:.woff=file --target=es2016 --outdir=../priv/static/assets),
+    cd: Path.expand("../assets", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
+```
+
+### Update the Tailwind configuration
+
+The final step is to update Tailwind (set NotoSans to the default font & make quickens available)
+
+```js
+# /assets/tailwind.config.js
+const defaultTheme = require('tailwindcss/defaultTheme')
+
+module.exports = {
+  mode: 'jit',
+  purge: [
+    './js/**/*.js',
+    '../lib/*_web/**/*.*ex'
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['NotoSans var', ...defaultTheme.fontFamily.sans],
+        quicken: ['Quickens']
+      },
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
 
 ## Resources (1.6.x)
 
@@ -409,6 +576,9 @@ git commit -m "PETAL 1.6.x Configured"
 - https://tailwindcss.com/
 - https://github.com/alpinejs/alpine
 - https://github.com/tailwindlabs/tailwindcss
+- https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/
+- https://fullstackphoenix.com/tutorials/add-tailwind-html-generators-in-phoenix
+- https://elixirforum.com/t/how-do-i-use-a-custom-font-with-phoenix-1-6-and-esbuild/43791/16
 
 
 ## Older Resources

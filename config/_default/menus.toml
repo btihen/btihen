@@ -23,10 +23,10 @@
   url = "#post_elixir_phoenix"
   weight = 22
 
-[[main]]
-  name = "Crystal"
-  url = "#post_crystal"
-  weight = 24
+# [[main]]
+#   name = "Crystal"
+#   url = "#post_crystal"
+#   weight = 24
 
 [[main]]
   name = "Tech"
@@ -39,16 +39,16 @@
   weight = 28
 
 [[main]]
-  name = "Pubs"
+  name = "Media"
   url = "#publications"
   # url = "/publication"
   weight = 60
 
-[[main]]
-  name = "News"
-  url = "#in_news"
-  # url = "/in_news"
-  weight = 70
+# [[main]]
+#   name = "Talks & Interviews"
+#   url = "#in_news"
+#   # url = "/in_news"
+#   weight = 70
 
 # [[main]]
 #   name = "Courses"

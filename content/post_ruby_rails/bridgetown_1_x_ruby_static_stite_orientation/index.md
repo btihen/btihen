@@ -55,8 +55,8 @@ gem install bridgetown -N -v 1.0.0.beta3
 
 I decided to configure it with the `erb` but you can leave off `-t erb` and use liquid or change erb for serbea templates.  Anyway, I created a new project with `erb` using:
 ```bash
-bridgetown new tailwind_site -t erb
-cd tailwind_site
+bridgetown new bridge_tail_site -t erb
+cd bridge_tail_site
 ```
 
 ## **Configure TailwindCSS**
@@ -96,23 +96,164 @@ Then I went to the page `src/_components/shared/navbar.erb` to add an example fr
 
 Cool this works!  So I went and created my navbar and footer.
 
+## Adding a Custom Font (in CSS)
+
+We will add the `handlee` font as it is distinctive and easy to see that it works (or not).
+Let's get it from (Google Webfonts Helper)[https://google-webfonts-helper.herokuapp.com/fonts/handlee?subsets=latin] site.  **This is a convenient site as it has both the font and the CSS needed.**
+
+Now that you've downloaded the font, create a new folder in the frontend folder and copy the font into it:
+```bash
+mkdir -p frontend/fonts/handlee
+cp ~/Downloads/handlee-v12-latin/* frontend/fonts/handlee/.
+```
+
+Now grab the CSS from the Google Webfonts Helper site and copy it into the `frontend/styles/index.css` file (I like to put the font css just below the tailwind imports). So the start of index.css looks like:
+
+```css
+/* frontend/styles/index.css */
+
+/* triggers frontend rebuilds */
+@import "jit-refresh.css";
+
+/* Set up Tailwind imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Fonts */
+@font-face {
+  font-family: 'Handlee';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('../fonts/handlee/handlee-v12-latin-regular.woff2') format('woff2'),
+       url('../fonts/handlee/handlee-v12-latin-regular.woff') format('woff');
+}
+
+/* ... */
+```
+
+Now within your CSS definitions you can use: `font-family: 'Handlee';`
+
+Let's try it out - let's add that to the h1 definition in the index.css file - so now that would look like:
+
+```css
+/* ... */
+h1 {
+  margin: 1rem 0 3rem;
+  text-align: center;
+  font-weight: 900;
+  font-size: 2.5rem;
+  font-family: 'Handlee';
+  color: var(--heading-color);
+  line-height: 1.2;
+}
+/* ... */
+```
+
+Be sure the Title of your homepage is now using the 'Handlee' font.
+
+## Adding a Custom Font (into TailwindCSS)
+
+Now we need to define this font within TailwindCSS config to have it create a `font-handlee` class so we can use this font within our tailwind class definitions.  To do this we will need to update the `tailwind.config.js` file to look like:
+```js
+module.exports = {
+  content: [
+    './src/**/*.{html,md,liquid,erb,serb}',
+    './frontend/javascript/**/*.js',
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        handlee: ['Handlee']
+      },
+    },
+  },
+  plugins: [],
+}
+```
+
+Let's update the default layout to use Handlee for the text within the main body. So lets open `src/_layouts/default.erb` and change the `main` tag to have the `class="font-handlee"` in it - so now it might look like:
+```html
+<!-- ... -->
+    <main class="font-hand">
+      <%= yield %>
+    </main>
+<!-- ... -->
+```
+
+Now both the Title and Body of each page should be using the Handlee font.
+
+## Adding an Image
+
+So to add an image we need to put it in the `src/images` folder:
+```bash
+mkdir -p /images/posts/welcome_post
+cp ~/Desktop/sunrise.jpeg /images/posts/welcome_post/.
+```
+
+Now let's test this in our **navbar** file `src/_components/shared/navbar.erb`:
+```html
+<header>
+  <%# <img src="/images/logo.svg" alt="Logo" /> %>
+  <img src="/images/posts/welcome/sunrise.jpeg" alt="Sunrise" />
+</header>
+<!-- ... -->
+```
+
+Bridgetown uses **Kramdown** as the Markdown rendering engine.  You can learn more about Kramdown Markdown at: https://kramdown.gettalong.org/quickref.html
+
+Let's also add it in our sample blog post `src/_posts/2022-03-05-welcome-to-bridgetown.md`:
+```markdown
+---
+layout: post
+title:  "Your First Post on Bridgetown"
+date:   2022-03-05 23:22:30 +0100
+categories: updates
+---
+**Display our image!**
+
+![Sunrise](/images/posts/welcome/sunrise.jpeg)
+
+_Now on to the post_
+You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `bridgetown serve`, which launches a web server and auto-regenerates your site when a file is updated.
+
+...
+```
+
+Hopefully you see the image:
+* once on the page `http://localhost:4000/`
+* twice on the page `http://localhost:4000/updates/2022/03/05/welcome-to-bridgetown/`
+
 ## **Deploy**
 
-1. First, install the config for your deploy service:
+Let's now deploy this Webpage (using the `configure` command) it is very straightforward!
+
+1. First, be sure you have pushed your project to github or gitlab - create the repo online and push it with:
+```bash
+git add .
+git commit -m "Configured w TailwindCSS and Handlee Font"
+git remote add origin git@github.com:gitusername/bridge_tail_site.git
+git branch -M main
+git push -u origin main
+```
+1. Second, install the config for your deploy service (in this case `netlify`) by typing:
 ```bash
 bundle exec bridgetown configure netlify
 git add bin/netlify.sh netlify.toml
 git commit -m "add netlify config"
 git push
 ```
-2. Second, create and push your repo to github or gitlab
-3. Third, connect your netlify account to the repo
-4. Four, click deploy and wait 5-10 mins and you should have your new website - just click on preview :)
+3. Third, connect your netlify account to the repo you just created.
+4. Four, click `deploy` within the netlify site (if it hasn't already startet) and wait 5-10 mins (yes its kinda slow to deploy) and you should have your new website!
 
+Woo Hoo.
 
 ## What didn't work (yet!)
 
-I am hoping to install AlpineJS as an imported module (so building isn't depending on a webconnection and the code needed is local).  So I tried removing the AplineJS script tag from the header:
+I tried using the Bridgetown Javascript install instructions at: https://www.bridgetownrb.com/docs/frontend-assets#javascript & also the AlpineJS instructions at: https://alpinejs.dev/essentials/installation#as-a-module
+
+I am hoping to install AlpineJS as an imported module (so building isn't depending on a web-connection and the code needed is local).  So I tried removing the AplineJS script tag from the header:
 ```html
 <!-- src/_partials/_head.erb -->
 ...
@@ -140,9 +281,15 @@ window.Alpine = Alpine
 Alpine.start()
 ```
 
+
 But unfortunately, this doesn't work :( If you know how to make it work, I'll be glad to update this document.
 
+I have also created a github discussion to hopefully help: https://github.com/bridgetownrb/bridgetown/discussions/506
+
 ## Feature still to explore
+
+**Add a Custom Font**
+
 
 **Bundle Configs**
 * Setup for purging css: (bundle exec bridgetown configure purgecss) - https://www.bridgetownrb.com/docs/bundled-configurations#purgecss-post-build-hook - installed by default with Tailwind

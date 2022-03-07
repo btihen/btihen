@@ -5,7 +5,7 @@
     <link>https://btihen.me/tags/bridgetown/</link>
       <atom:link href="https://btihen.me/tags/bridgetown/index.xml" rel="self" type="application/rss+xml" />
     <description>Bridgetown</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sun, 06 Mar 2022 01:57:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sat, 05 Mar 2022 01:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Bridgetown</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation</title>
       <link>https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/</link>
-      <pubDate>Sun, 06 Mar 2022 01:57:00 +0200</pubDate>
+      <pubDate>Sat, 05 Mar 2022 01:57:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;&lt;strong&gt;Overview&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;I have often wanted to build websites using as much of my Rails knowledge as possible.  Now I can!&lt;/p&gt;

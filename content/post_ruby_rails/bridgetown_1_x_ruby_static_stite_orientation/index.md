@@ -7,8 +7,8 @@ summary: "A fun and straightforward way to build static sites using your Ruby & 
 authors: ["btihen"]
 tags: ['Ruby', 'ERB', 'Static Site', 'Bridgetown']
 categories: []
-date: 2022-03-06T01:57:00+02:00
-lastmod: 2022-03-06T01:57:00+02:00
+date: 2022-03-05T01:57:00+02:00
+lastmod: 2022-03-07T01:57:00+02:00
 featured: true
 draft: false
 

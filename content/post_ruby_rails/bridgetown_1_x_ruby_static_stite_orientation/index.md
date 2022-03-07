@@ -96,7 +96,7 @@ Then I went to the page `src/_components/shared/navbar.erb` to add an example fr
 
 Cool this works!  So I went and created my navbar and footer.
 
-## Adding a Custom Font (in CSS)
+## **Adding a Custom Font (in CSS)**
 
 We will add the `handlee` font as it is distinctive and easy to see that it works (or not).
 Let's get it from (Google Webfonts Helper)[https://google-webfonts-helper.herokuapp.com/fonts/handlee?subsets=latin] site.  **This is a convenient site as it has both the font and the CSS needed.**
@@ -153,7 +153,7 @@ h1 {
 
 Be sure the Title of your homepage is now using the 'Handlee' font.
 
-## Adding a Custom Font (into TailwindCSS)
+## **Adding a Custom Font (into TailwindCSS)**
 
 Now we need to define this font within TailwindCSS config to have it create a `font-handlee` class so we can use this font within our tailwind class definitions.  To do this we will need to update the `tailwind.config.js` file to look like:
 ```js
@@ -184,7 +184,32 @@ Let's update the default layout to use Handlee for the text within the main body
 
 Now both the Title and Body of each page should be using the Handlee font.
 
-## Adding an Image
+## **Adding a new Top-Level Page**
+
+Let's add a `contact` page:
+```ruby
+mkdir src/_pages
+cat <<EOF>> src/_pages/contact.md
+---
+layout: page
+title: Contact
+---
+
+<h1>Contact Me</h1>
+EOF
+```
+
+Now if you go to: http://localhost:4000/contact you should see your new page.
+
+For tidiness I prefer to have:
+
+* index.md
+* posts.md
+* about.md
+
+all in the `src/_pages` folder
+
+## **Adding an Image**
 
 So to add an image we need to put it in the `src/images` folder:
 ```bash
@@ -225,6 +250,84 @@ Hopefully you see the image:
 * once on the page `http://localhost:4000/`
 * twice on the page `http://localhost:4000/updates/2022/03/05/welcome-to-bridgetown/`
 
+## **New post**
+
+A new page within a dated collection.
+
+We just need to make a new file with the correct headers.
+```
+touch src/_posts/playing_with_bridgetown.md
+cat <<EOF>>src/_posts/playing_with_bridgetown.md
+---
+layout: post
+title:  "Fun with Bridgetown"
+date:   2022-03-07 01:01:01 +0100
+categories: playing
+---
+
+## Fun is Rewarding
+EOF
+```
+
+Now if you go to: http://localhost:4000/posts your new page's title should be listed and if you click on it's title you should see the page with the URL: http://localhost:4000/playing/2022/03/07/playing_with_bridgetown/ - the `category` is the first part of the url, then the date, and finally the title.
+
+## **Define a New Collections**
+
+coming soon
+
+
+
+## **New Collection with Custom URLs**
+
+Lets make a news file:
+```markdown
+mkdir src/news
+touch src/news/breaking.md
+---
+layout: page
+title: Breaking
+date: 2022-03-07
+---
+
+**Breaking News**
+EOF
+```
+If go to: `localhost:4000/news/breaking` we should see our page.
+
+
+Now lets make an index page that collects all the 'news' files.
+```markdown
+touch src/news/index.md
+cat <<EOF>>src/news/index.md
+---
+layout: page
+title: News
+date: 2022-03-07
+---
+
+**Some articles**
+
+<% full_path, current_page = File.split(page.path) %>
+<% path_list = Dir[full_path + "/*.md"].reject { |p| p.include?(current_page) } %>
+<% file_list = path_list.map { |p| File.split(p).last.split('.').first } %>
+<% title_list = path_list.map { |f| File.read(f).split("\n").detect {|t| t.include?('title: ') }.split.last } %>
+<% link_list = title_list.zip(file_list) %>
+
+<ul>
+  <% link_list.each do |title, file| %>
+    <li><a href="<%= file %>"><%= title %>- <%= file %></a></li>
+  <% end %>
+</ul>
+EOF
+```
+
+now if you go to http://localhost:4000/news
+
+you should see your new page with the breaking news listed too.
+
+Granted this is a big hack - but works.  I am guessing the bridgetown-routes will help with custom routes, but it didn't work for me (yet).
+
+
 ## **Deploy**
 
 Let's now deploy this Webpage (using the `configure` command) it is very straightforward!
@@ -250,6 +353,136 @@ git push
 Woo Hoo.
 
 ## What didn't work (yet!)
+
+#### Change route names
+
+To replace my existing site I am determined to keep the page paths the same as the existing site.  I haven't figured that out for collections (such as blog posts).  I am not interested in breaking links and search index references - so figuring this out is critical.
+
+Probably, hopefully, `Bridgetown File Routing` will address this
+
+#### Bridgetown File Routing
+
+Lets try the new File Routing feature described at: https://edge.bridgetownrb.com/docs/routes
+
+First update the `Gemfile` - uncomment: `gem "bridgetown-routes", "~> 1.0.0.beta3", group: :bridgetown_plugins` - now it should look similar to:
+```ruby
+# Gemfile
+source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+gem "bridgetown", "~> 1.0.0.beta3"
+
+# Uncomment to add file-based dynamic routing to your project:
+gem "bridgetown-routes", "~> 1.0.0.beta3", group: :bridgetown_plugins
+
+gem "puma", "~> 5.5"
+```
+
+Now we need to run bundler:
+```bash
+bundle install
+```
+
+Now setup the Roda config `server/roda_app.rb`:
+```ruby
+# server/roda_app.rb
+require "bridgetown-routes"
+
+class RodaApp < Bridgetown::Rack::Roda
+  # Uncomment to use Bridgetown SSR:
+  # plugin :bridgetown_ssr
+
+  # And optionally file-based routing:
+  plugin :bridgetown_routes
+
+  route do |r|
+    # Load Roda routes in server/routes (and src/_routes via `bridgetown-routes`)
+    Bridgetown::Rack::Routes.start! self
+  end
+end
+```
+
+Now lets add:
+```ruby
+# ./server/routes/preview.rb
+
+class Routes::Preview < Bridgetown::Rack::Routes
+  route do |r|
+    r.on "preview" do
+      # Our special rendering pathway to preview a page
+      # route: /preview/:collection/:path
+      r.get String, String do |collection, path|
+        item = Bridgetown::Model::Base.find("repo://#{collection}/#{path}")
+
+        unless item.content.present?
+          next Bridgetown::Model::Base.find("repo://pages/_pages/404.html")
+            .render_as_resource
+            .output
+        end
+
+        item
+          .render_as_resource
+          .output
+      end
+    end
+  end
+end
+```
+
+Now lets make an index page for this route:
+```ruby
+mkdir -p src/_routes/items
+cat <<EOF>src/_routes/items/index.erb
+---<%
+# route: /items
+r.get do
+  render_with data: {
+    layout: :page,
+    title: "Dynamic Items",
+    items: [
+      { number: 1, slug: "123-abc" },
+      { number: 2, slug: "456-def" },
+      { number: 3, slug: "789-xyz" },
+    ]
+  }
+end
+%>---
+
+<ul>
+  <% resource.data.items.each do |item| %>
+    <li><a href="/items/<%= item[:slug] %>">Item #<%= item[:number] %></a></li>
+  <% end %>
+</ul>
+EOF
+```
+
+Now lets create the template for items:
+```ruby
+cat <<EOF>>src/_routes/items/[slug].erb
+---<%
+# route: /items/:slug
+r.get do
+  item_id, *item_sku = r.params[:slug].split("-")
+  item_sku = item_sku.join("-")
+
+  render_with data: {
+    layout: :page,
+    title: "Item Page",
+    item_id: item_id,
+    item_sku: item_sku
+  }
+end
+%>---
+
+<p><strong>Item ID:</strong> <%= resource.data.item_id %></p>
+
+<p><strong>Item SKU:</strong> <%= resource.data.item_sku %></p>
+EOF
+```
+
+#### AlpineJS installed as a module
+
+Not a show stopper but irritates me.
 
 I tried using the Bridgetown Javascript install instructions at: https://www.bridgetownrb.com/docs/frontend-assets#javascript & also the AlpineJS instructions at: https://alpinejs.dev/essentials/installation#as-a-module
 

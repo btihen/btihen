@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation"
+title: "Bridgetown 1.0 - Ruby Static-Site Orientation"
 subtitle: "Static Site Generation with Ruby"
 summary: "A fun and straightforward way to build static sites using your Ruby & Rails knowledge"
 authors: ["btihen"]
 tags: ['Ruby', 'ERB', 'Static Site', 'Bridgetown']
 categories: []
 date: 2022-03-05T01:57:00+02:00
-lastmod: 2022-03-07T01:57:00+02:00
+lastmod: 2022-03-09T01:57:00+02:00
 featured: true
 draft: false
 
@@ -262,70 +262,157 @@ cat <<EOF>>src/_posts/playing_with_bridgetown.md
 layout: post
 title:  "Fun with Bridgetown"
 date:   2022-03-07 01:01:01 +0100
-categories: playing
+categories: ruby
 ---
 
 ## Fun is Rewarding
 EOF
 ```
 
-Now if you go to: http://localhost:4000/posts your new page's title should be listed and if you click on it's title you should see the page with the URL: http://localhost:4000/playing/2022/03/07/playing_with_bridgetown/ - the `category` is the first part of the url, then the date, and finally the title.
+Now if you go to: http://localhost:4000/posts your new page's title should be listed and if you click on it's title you should see the page with the URL: http://localhost:4000/ruby/2022/03/07/playing_with_bridgetown/ - the `category` is the first part of the url, then the date, and finally the title.
+
+
+## **Controlling the URLs (permalinks)**
+
+This is important since you are likely to need to use specific URLs (in my case, I want the new site to have the same urls as the old site). This is documented at: https://www.bridgetownrb.com/docs/content/permalinks
+
+There are several default url formats - I will show you a simple override - using the predefined variables.
+
+first go to `bridgetown.config.yml` and add to the following to end of the file:
+```yml
+collections:
+  posts:
+    permalink: /blogs/:categories/:name/
+```
+
+'slug' is basically the file-name & categories is defined in the
+
+**After changing `bridgetown.config.yml` you MUST stop bridgetown `^c` and start it again `bin/bridgetown start`!**
+
+now if you go back to `http://localhost:4000/posts` and click on the link for the new post:
+
+* you should get the url: `http://localhost:4000/blogs/ruby/playing_with_bridgetown/`
+* instead of the (pretty) url: `http://localhost:4000/ruby/2022/03/07/playing_with_bridgetown/`
 
 ## **Define a New Collections**
 
-coming soon
+Lets assume in addition to publishing your blog - you also want to publish your future presentations and past slides.
 
+we will start by defining the new collection 'talks' in the `bridgetown.config.yml` file - so now the end of the file should look like:
 
+```yml
+# bridgetown.config.yml
+# ...
+collections:
+  posts:
+    permalink: /blogs/:categories/:slug/
+  talks:
+    output: true
+    future: true
+    sort_by: date
+    sort_direction: descending
+    permalink: /presentations/:categories/:slug/
+```
 
-## **New Collection with Custom URLs**
+* 'output' seems to be required for custom collections (I guess this allows a category to be turned on or offs)
+* 'future' true means that if the front-matter has a future date - it will be published anyway
+* 'sort_by' allows you to pick a front-matter key and sort by it
+* 'sort_direction' is pretty clear - `ascending` or `descending` are the two choices
 
-Lets make a news file:
-```markdown
-mkdir src/news
-touch src/news/breaking.md
+Now we can create our layout for the new collection:
+```bash
+cat <<EOF>> src/_layouts/talks.erb
 ---
-layout: page
-title: Breaking
-date: 2022-03-07
+layout: default
 ---
 
-**Breaking News**
+<h1><big>TALK Title:</big> <%= resource.data.title %></h1>
+<h2><big>Topic:</big> <%= resource.data.categories %></h2>
+<h3><big>Date:</big> <%= resource.data.date %></h3>
+
+<%= yield %>
+
 EOF
 ```
-If go to: `localhost:4000/news/breaking` we should see our page.
+This layout loads the default layout and for each talk we will have the 'title', 'topic' and 'date'!
 
-
-Now lets make an index page that collects all the 'news' files.
-```markdown
-touch src/news/index.md
-cat <<EOF>>src/news/index.md
+Now we will need the index page for this collection that will list all the talks:
+```md
+cat <<EOF>> src/_pages/talks.md
 ---
-layout: page
-title: News
-date: 2022-03-07
+layout: talks
+title: My Presentations
 ---
-
-**Some articles**
-
-<% full_path, current_page = File.split(page.path) %>
-<% path_list = Dir[full_path + "/*.md"].reject { |p| p.include?(current_page) } %>
-<% file_list = path_list.map { |p| File.split(p).last.split('.').first } %>
-<% title_list = path_list.map { |f| File.read(f).split("\n").detect {|t| t.include?('title: ') }.split.last } %>
-<% link_list = title_list.zip(file_list) %>
 
 <ul>
-  <% link_list.each do |title, file| %>
-    <li><a href="<%= file %>"><%= title %>- <%= file %></a></li>
+  <% collections.talks.resources.each do |talk| %>
+    <li>
+      <a href="<%= talk.relative_url %>"><%= talk.data.title %></a>
+    </li>
   <% end %>
 </ul>
+
+If you like a talk, please tweet about it.
 EOF
 ```
 
-now if you go to http://localhost:4000/news
+Now of course we will need to create a talk page (with a publication date in the past):
+```md
+cat <<EOF>>src/_talks/collection_intro.me
+---
+layout: talks
+title:  "Introduction to Bridgetown Collections"
+date:   2022-03-05 23:22:30 +0100
+categories: websites
+---
 
-you should see your new page with the breaking news listed too.
+Learning about collections - in case you want more than simple posts
+```
 
-Granted this is a big hack - but works.  I am guessing the bridgetown-routes will help with custom routes, but it didn't work for me (yet).
+Lets start Bridgetwn and be sure that worked
+
+Now lets advertise a future talk:
+```md
+cat <<EOF>>src/_talks/future-collections.me
+---
+layout: talks
+title:  "The Future Bridgetown"
+date:   2222-22-22 22:22:22 +0100
+draft:  true
+categories: websites
+---
+
+The future looks promising
+```
+
+we should now see 2 talks listed at; `http://localhost:4000/talks`
+
+## **Create a Draft Post**
+
+Without being able to use a future Date - we can simply add `<% next if blog.data.draft %>` to our index page
+
+```md
+---
+layout: blog
+title: Ruby Blogs
+---
+
+<ul>
+  <% collections.ruby_blogs.resources.each do |blog| %>
+    <% next if blog.data.draft %>
+    <li>
+      <a href="<%= blog.relative_url %>"><%= blog.data.title %>-<%= blog.data.draft %></a>
+    </li>
+  <% end %>
+</ul>
+```
+
+now it should skip any file with `draft: true`
+
+
+## **Pagination**
+
+If you have a lot of posts, you may want to consider adding [pagination](https://www.bridgetownrb.com/docs/content/pagination)!```
 
 
 ## **Deploy**
@@ -354,15 +441,9 @@ Woo Hoo.
 
 ## What didn't work (yet!)
 
-#### Change route names
-
-To replace my existing site I am determined to keep the page paths the same as the existing site.  I haven't figured that out for collections (such as blog posts).  I am not interested in breaking links and search index references - so figuring this out is critical.
-
-Probably, hopefully, `Bridgetown File Routing` will address this
-
 #### Bridgetown File Routing
 
-Lets try the new File Routing feature described at: https://edge.bridgetownrb.com/docs/routes
+Let's try the new File Routing feature described at: https://edge.bridgetownrb.com/docs/routes
 
 First update the `Gemfile` - uncomment: `gem "bridgetown-routes", "~> 1.0.0.beta3", group: :bridgetown_plugins` - now it should look similar to:
 ```ruby

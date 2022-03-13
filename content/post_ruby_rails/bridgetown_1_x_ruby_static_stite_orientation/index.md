@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Ruby', 'ERB', 'Static Site', 'Bridgetown']
 categories: []
 date: 2022-03-05T01:57:00+02:00
-lastmod: 2022-03-09T01:57:00+02:00
+lastmod: 2022-03-13T01:57:00+02:00
 featured: true
 draft: false
 
@@ -44,35 +44,150 @@ Unfortunately, for some reason I found it a bit hard to assemble the information
 *  (**automations**)[https://www.bridgetownrb.com/docs/automations] An automation script is nothing more than a Ruby code file run in the context of an instance
 Unfortunately, I still struggle to find the parts I am looking for, so I am adding the links here (to help my future self).
 
-## **New Site Setup**
+## **Bridgetown Basics**
+
+Almost everything you will do to generate a website will be done in `src` folder
+
+* **Resource** - a file that will generate a webpage
+* **Front Mater** - meta info - located at the top of a 'resource' file and is used to assist in webpage generation.  This information is to be used directly in association with this one webpage
+* **Collection** - a group of resources that belong together (and can generate a centralized list). This MUST be located in a folder that starts with an `_`, for example: `src/_posts`
+* **Permalink** - the way to define the URL for a 'resource' - this is important if you are transferring a website to bridgetown and want to keep the urls the same
+* **Data Files** - must be located in `src/_data` - they define centralized data/information & variables across the entire-webste - options include: YAML, JSON, CSV, TSV & .rb files. Thes are accessed with `site.data`
+* **Static Files** - files that do not contain any front matter. These include images, PDFs, and other un-rendered content. Static files can be searched and accessed in templates with `site.static_files`
+* **Prototype Pages** - requires that `pagination` is enabled. Prototypes lets you create automatically generated, paginated archives of your content filtered by the search terms you provide.  Often used to create the related content links to tag pages.
+* **Templates** - this is the system used in your layouts and components (you can choose between `liquid`, `erb` and `serbea`) - I'll stick with `erb` since that is familiar
+* **Layouts** - templates that define how your resource will look.  You have full access to the **front matter** of the resource, ie `resource.data.title` is the `title` in the front-matter section of the resource.  The default looks like:
+```html
+<!-- src/_layouts/default.erb -->
+<!doctype html>
+<html lang="<%= site.locale %>">
+  <head>
+    <%= render "head", metadata: site.metadata, title: resource.data.title %>
+  </head>
+  <body class="<%= resource.data.layout %> <%= resource.data.page_class %>">
+    <%= render Shared::Navbar.new(metadata: site.metadata, resource: resource) %>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <%= render "footer", metadata: site.metadata %>
+  </body>
+</html>
+```
+* **Partials** - these are usually things like the header and footer and are used within `layout` pages (same concept as in rails and use the `render` call in the above example for default.erb.  This folder starts with the html `head` (html language, seo info, etc) and `footer` are located.
+* **Components** - collection of reusable web-components. Here you can include `CSS` & `JavaScript` files alongside the `rb` and `erb` files - for example (the default starts with `src/_components/shared/navbar.rb` and `src/_components/shared/navbar.erb`) - I believe JS and CSS are scoped to the component class defined in the .rb file:
+```
+├── src
+│   ├── _components
+│   │   ├── shared
+│   │   │   ├── navbar.erb
+│   │   │   ├── navbar.js
+│   │   │   ├── navbar.rb
+│   │   │   └── navbar.scss
+```
+* **templates** - the language used within the layout (defined by the file extension) - the site default can be configured
+* **bundled configurations** - bridgetown has some important configurations that are automated
+* **plugins** - these extend bridgetown's feature set.
+
+## **Create a Site**
 
 I listened to the interview about Bridgetown on (Remote Ruby Podcast)[https://remoteruby.transistor.fm/169] so I went and checked it out.  Starting with the (Beta Docs)[https://edge.bridgetownrb.com/docs] - as it has a TailwindCSS installer and lots of excellent deployment setups (in particular Render and Netlify - although I would find Fly.io also interesting)
 
 So I started by downloading the gem:
 ```bash
-gem install bridgetown -N -v 1.0.0.beta3
+gem install bridgetown
+# gem install bridgetown -N -v 1.0.0
 ```
 
 I decided to configure it with the `erb` but you can leave off `-t erb` and use liquid or change erb for serbea templates.  Anyway, I created a new project with `erb` using:
 ```bash
-bridgetown new bridge_tail_site -t erb
+# simple no options
+bridgetown new bridge_tail_site
+# it is easier to start with much of the site configured using the options
+bridgetown new bridge_tail_site -t erb -c tailwindcss,netlify,stimulus
 cd bridge_tail_site
 ```
 
-## **Configure TailwindCSS**
+**Running Bridgetown** in dev-mode (it uses port 4000 - `http://localhost:4000`)
+```bash
+bin/bridgetown start
+```
+
+### Creation Explained
+
+There are 3 main parts to creation and configuration of a bridgetown site:
+* **template system** - which language is used to process `resources` (the default is set using the `-t` flag)
+* **bundled configuration** - these are important configurations like JS, deployement config and can added with the `-c` flag or later with the `bin/bridgetown configure [config_name]`
+
+**Template System** (-t options)
+
+https://www.bridgetownrb.com/docs/template-engines
+
+Options include:
+* liquid (default)
+* erb (rails default)
+* serbea
+* haml (not configured as site default)
+* slim (not configured as site default)
+
+this option sets up the default and generators, but at anytime you can use any of the templates by simpling providing the correct extension on the file and Bridgetown will know how to use the file
+
+
+**Configure Bridgetown** (-c options)
+
+https://www.bridgetownrb.com/docs/bundled-configurations#netlify-toml-configuration
+
+**JS & Testing Options**
+* turbo (includes websockets)
+* stimulus (stimulusjs)
+* minitesting
+* cypress
+
+**Deploy config options**
+* render
+* netlify
+* vercel
+* gh-pages
+
+if run after the install use:
+```bash
+bin/bridgetown configure netlify
+```
+
+**CSS Config**
+options include:
+* tailwindcss (which also installs postcss and purgecss)
+* postcss
+* purgecss
+* bulma (may be coming)
 
 Installing TailwindCSS it was straightforward - once I found the right area. Follow the instructions at https://www.bridgetownrb.com/docs/bundled-configurations#tailwindcss.
 ```bash
-bundle exec bridgetown configure tailwindcss
+bin/bridgetown configure tailwindcss
 ```
 
-I wanted to see if this worked by starting bridgetown with:
+**Plugins** - can only be done AFTER the `new` commands.  I've added these here since I got confused with all the setup options and there is no other clear section to add these.
+
+https://www.bridgetownrb.com/plugins
+
+Options include:
+* bridgetown-sitemap - https://github.com/ayushn21/bridgetown-sitemap
+* bridgetown-seo-tag - https://github.com/bridgetownrb/bridgetown-seo-tag
+* bridgetown-minify-html - https://github.com/bt-rb/bridgetown-minify-html
+* bridgetown-svg-inliner - https://github.com/ayushn21/bridgetown-svg-inliner
+* bridgetown-quick-search - https://github.com/bridgetownrb/bridgetown-quick-search
+* bridgetown-view-component - https://github.com/bridgetownrb/bridgetown-view-component
+* bridgetown-media-transformation - https://github.com/julianrubisch/bridgetown-media-transformation
+
+Installation looks like:
 ```bash
-bin/bridgetown start
-open localhost:4000
+bundle add bridgetown-media-transformation -g bridgetown_plugins
 ```
 
-## **Configure AlpineJS**
+## **Configure with AlpineJS**
+
+Espescially useful if not using stimulus
 
 It looked good - so I went on to install AlpineJS (using the embedded script method) at https://alpinejs.dev/essentials/installation - so I went to `src/_partials/_head.erb` and added `<script defer src="https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js"></script>` just before the `live_reload_dev_js` tag:
 ```html
@@ -129,7 +244,6 @@ Now grab the CSS from the Google Webfonts Helper site and copy it into the `fron
        url('../fonts/handlee/handlee-v12-latin-regular.woff2') format('woff2'),
        url('../fonts/handlee/handlee-v12-latin-regular.woff') format('woff');
 }
-
 /* ... */
 ```
 
@@ -409,10 +523,45 @@ title: Ruby Blogs
 
 now it should skip any file with `draft: true`
 
+## **prototypes - Similar Talks**
+
+https://edge.bridgetownrb.com/docs/prototype-pages#searching-in-collections
+
+You've probably seen a section on many webpages with 'similar' articles (which lists articles with the same `tag` or `category`) - let's set that up for talks.
+
+First make a few talks with tags and categories.
+
+Now lets create the pages to define our 'similar' talks:
+```bash
+mkdir -p src/talks/categories
+cat<<EOF>src/talks/categories/categories.html
+---
+title: Talks about :prototype-term-titleize
+prototype:
+  term: categories
+  collection: talks
+---
+EOF
+
+mkdir -p src/talks/tags
+cat<<EOF>src/talks/tags/tag.html
+---
+title: Talks about :prototype-term-titleize
+prototype:
+  term: tag
+  collection: talks
+---
+EOF
+```
+
 
 ## **Pagination**
 
-If you have a lot of posts, you may want to consider adding [pagination](https://www.bridgetownrb.com/docs/content/pagination)!```
+https://www.bridgetownrb.com/docs/prototype-pages
+
+This required `pagination` is enabled (https://www.bridgetownrb.com/docs/content/pagination/)
+
+
 
 
 ## **Deploy**

@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Phoenix 1.6 PETAL Stack Setup (w/a Custom Font) using Phoenix Generator"
+title: "Phoenix 1.6 Easy PETAL Stack Setup (w/a Custom Font"
 subtitle: "Simple PETAL Setup (Phoenix, Elixir, TailwindCSS, AlpineJS, LiveView)"
 summary: "Create a modern webapp with tremendous flexibility"
 authors: ["btihen"]

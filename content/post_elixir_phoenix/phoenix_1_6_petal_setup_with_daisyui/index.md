@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Phoenix", "Phoenix 1.6.x", "Elixir", "TailwindCSS", "TailwindCSS 3.x", "AlpineJS", "AlpineJS 3.x", "LiveView", "PETAL", "PETAL Stack", "ASDF", "CSS", "DaisyUI"]
 categories: ["Code"]
 date: 2022-04-09T01:01:53+02:00
-lastmod: 2022-04-10T01:01:53+02:00
+lastmod: 2022-04-11T01:01:53+02:00
 featured: true
 draft: false
 
@@ -222,9 +222,9 @@ see the article on adding a [custom font](https://btihen.me/post_elixir_phoenix/
 
 ## Tailwind & DaisyUI with Fly.io
 
+https://github.com/phoenixframework/tailwind
 https://elixirforum.com/t/how-to-get-daisyui-and-phoenix-to-work/46612/8
 https://elixirforum.com/t/tailwind-not-working-in-production-no-styles-just-plain-html/45192
-
 
 ## Resources (1.6.x)
 

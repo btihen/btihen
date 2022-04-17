@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Rails', 'Command-Object', 'Validations', 'Attributes', 'Simplify Complexity']
 categories: []
 date: 2022-03-26T01:57:00+02:00
-lastmod: 2022-03-26T01:57:00+02:00
+lastmod: 2022-03-27T01:57:00+02:00
 featured: true
 draft: false
 
@@ -454,51 +454,62 @@ Now you can have complex process logic isolated in your commands and all your mo
 ## Resources
 
 ### attributes allowed in non-ar models
-https://github.com/rails/rails/issues/28020
+* https://github.com/rails/rails/issues/28020
+
+### Attribute Assignment methods
+* https://scottbartell.com/2020/01/30/set-attributes-in-active-record-rails-6/
 
 ### Rails 5.2 Docs
-https://api.rubyonrails.org/v5.2/
-https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html
-https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html
-https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html
-https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/AttributeMethods/Read.html#method-i-read_attribute
-https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Conversion.html
-https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeMethods.html
-https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeAssignment.html
-https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html
-https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html
-https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html#method-i-attribute
+* https://api.rubyonrails.org/v5.2/
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/AttributeMethods/Read.html#method-i-read_attribute
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Conversion.html
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeMethods.html
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeAssignment.html
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html#method-i-attribute
 
 ### default attribute types:
-https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html
-https://github.com/rails/rails/tree/v6.0.2.1/activemodel/lib/active_model/type
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html
+* https://github.com/rails/rails/tree/v6.0.2.1/activemodel/lib/active_model/type
 
 ### book using PORO with attributes
-https://products.arkency.com/domain-driven-rails
+* https://products.arkency.com/domain-driven-rails
 
 ### helpful blogs
-https://boringrails.com/tips/rails-attributes-api
-https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/
-https://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html
-
-https://boringrails.com/tips/rails-attributes-api
-https://blog.dario-hamidi.de/a/rails-hidden-type-system
+* https://boringrails.com/tips/rails-attributes-api
+* https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/
+* https://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html
+* https://boringrails.com/tips/rails-attributes-api
+* https://blog.dario-hamidi.de/a/rails-hidden-type-system
+* https://stuff-things.net/2015/07/21/validating-rails-forms-without-a-model/
 
 ### custom Attribute types
-https://metova.com/rails-5-attributes-api/
-https://boringrails.com/tips/rails-attributes-api
-https://oozou.com/blog/custom-attribute-types-in-rails-5-77
-https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html
-https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html
-https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html
-https://jetrockets.com/blog/rails-5-attributes-api-value-objects-and-jsonb
-https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a
-https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html
-https://edgeapi.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html#method-i-attribute
+* https://metova.com/rails-5-attributes-api/
+* https://boringrails.com/tips/rails-attributes-api
+* https://jakeyesbeck.com/2015/12/20/rails-5-attributes/
+* https://oozou.com/blog/custom-attribute-types-in-rails-5-77
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html
+* https://jetrockets.com/blog/rails-5-attributes-api-value-objects-and-jsonb
+* https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a
+* https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html
+* https://edgeapi.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html#method-i-attribute
+* https://metova.com/rails-5-attributes-api/
+* https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a
 
-https://metova.com/rails-5-attributes-api/
-https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a
+* https://stackoverflow.com/questions/52711754/casting-to-custom-type-a-postgresql-array
 
+### Form_with
+
+* https://apidock.com/rails/ActionView/Helpers/FormHelper/form_with
+* https://stackoverflow.com/questions/43868976/rails-5-form-for-vs-form-with
+* https://stackoverflow.com/questions/5160733/ror-using-form-tag-without-an-ar-model
+* https://rubyinrails.com/2018/02/19/rails-form-with-alternative-to-form-for-and-form-tag/
 
 ## Custom Attributes (when inherited from AcitiveModel)
 

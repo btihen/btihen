@@ -1,5 +1,5 @@
 ---
-title: Phoenix Posts
+title: Javascript Posts
 layout: posts  # Do not modify.
 
 # View.

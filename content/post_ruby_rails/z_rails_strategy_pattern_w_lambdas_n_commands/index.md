@@ -1,11 +1,11 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Strategy - Simplify Complex Behavior and Decisions"
-subtitle: "Command Objects, Strategy Pattern and Lambdas"
+title: "Strategy Pattern and Lambdas"
+subtitle: "Simplify Complex Behavior Decisions"
 summary: "With when Controllers need to trigger a chain of complex activities, one approach to keeping the code workable is to use Command Objects, the Command Pattern and even Lambdas"
 authors: ["btihen"]
-tags: ["rails", "command object", "strategy pattern", "lambda"]
+tags: ["ruby", "strategy pattern", "lambda"]
 categories: []
 date: 2021-08-14T01:11:22+02:00
 lastmod: 2021-08-14T01:11:22+02:00
@@ -454,12 +454,13 @@ STRATEGY VS COMMAND PATTERN
 * https://newbedev.com/using-a-strategy-pattern-and-a-command-pattern
 * https://miafish.wordpress.com/2015/01/16/command-pattern-vs-strategy-pattern/
 * https://coderanch.com/t/100214/engineering/Command-Strategy-Pattern
-*
 
-STRATEGY
+STRATEGY With Lambdas
 * https://dockyard.com/blog/2013/07/25/design-patterns-strategy-pattern
 * https://wickedlysmart.com/using-lambda-expressions-with-the-strategy-pattern/
 * https://blog.sebastian-daschner.com/entries/strategy-pattern-cdi-lambdas
+
+STRATEGY
 * https://refactoring.guru/design-patterns/strategy/ruby/example
 * http://rubyblog.pro/2016/10/ruby-strategy-pattern
 * https://dev.to/andyobtiva/strategic-e9i
@@ -485,21 +486,19 @@ LAMBDA
 
 
 Decorator
-https://www.rootstrap.com/blog/how-to-improve-maintainability-in-rails-applications-using-patterns/
+* https://www.rootstrap.com/blog/how-to-improve-maintainability-in-rails-applications-using-patterns/
+* https://goiabada.blog/interactors-in-ruby-easy-as-cake-simple-as-pie-33f66de2eb78
 
-https://goiabada.blog/interactors-in-ruby-easy-as-cake-simple-as-pie-33f66de2eb78
-
-
+OTHER LINKS
 * https://refactoring.guru/design-patterns/command/ruby/example
-* * https://agprolink.asfmra.org/HigherLogic/System/DownloadDocumentFile.ashx?DocumentFileKey=71b7446e-6c64-3974-bb9e-0ff0a0cf8305
+* https://agprolink.asfmra.org/HigherLogic/System/DownloadDocumentFile.ashx?DocumentFileKey=71b7446e-6c64-3974-bb9e-0ff0a0cf8305
 * https://makandracards.com/alexander-m/43748-command-pattern
 * https://medium.com/@dljerome/design-patterns-in-ruby-command-802b785d1bbd
 * https://medium.com/@ibell/the-ruby-command-pattern-pt-1-ad6711af0722
 * https://stackoverflow.com/questions/43535421/command-pattern-in-ruby
 * https://github.com/davidgf/design-patterns-in-ruby/blob/master/command.md
-*
 
-* https://scoutapm.com/blog/how-to-use-lambdas-in-ruby
+
 * https://stackoverflow.com/questions/43535421/command-pattern-in-ruby
 * https://medium.com/@nakshtra17/ruby-design-pattern-command-method-3d1e3f41d39d
 * http://journal.stuffwithstuff.com/2009/07/02/closures-and-the-command-pattern/

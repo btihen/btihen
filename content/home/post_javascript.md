@@ -4,15 +4,15 @@
 
 widget = "pages"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true   # This file represents a page section.
-active = true     # Activate this widget? true/false
-weight = 28      # Order that this section will appear.
+active = true    # Activate this widget? true/false
+weight = 26       # Order that this section will appear.
 
-title = "Exploring Tech"
+title = "Javascript"
 subtitle = "Recent"
 
 [content]
   # Page type to display. E.g. post, talk, or publication.
-  page_type = "post_tech_notes"
+  page_type = "post_javascript"
 
   # Choose how much pages you would like to display (0 = all pages)
   count = 3

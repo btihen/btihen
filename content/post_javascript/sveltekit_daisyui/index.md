@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Svelte", "SvelteKit", "TailwindCSS", "DaisyUI", "Blog", "StaticSite"]
 categories: ["Code", "JavaScript", "Website"]
 date: 2022-04-16T01:01:53+02:00
-lastmod: 2021-04-16T01:01:53+02:00
+lastmod: 2021-04-18T01:01:53+02:00
 featured: false
 draft: false
 
@@ -104,29 +104,31 @@ const config = {
       {
         // corporate adapted light
         btihenl: {
-          primary: "#3985ff", // "#1F75FF", // "#4b6bff", // "#2d8659", // "#4b6bfb",
-          secondary: "#7bc8a4", // "#57b88c", // "#16b34a", //"#1eb854", //"#3399ff", // "#4da6ff", // "#7b92b2",
-          accent: "#f1db85", // "#ecce57", // "#F7F9CA", // "#EA6947",
-          neutral: "#3a3a3a", // "#181a2a",
-          "neutral-content": "#edf2f7",
-          "base-100": "#e9e7e7", // "#ffffff",
-          "base-content": "#100f0f", //"#181a2a",
-          info: "#0080bc", // "#0091D5",
-          success: "#5aa867", // "#6bb176", // "#6BB187",
-          warning: "#d29a2f", // "#DBAE59",
-          error: "#b53729", // "#AC3E31",
+          primary: "#5aa867",
+          secondary: "#0080bc",
+          accent: "#f1db85",
+          neutral: "#3a3a3a",
+          "neutral-content":
+          "base-100": "#f0f8ff",
+          "base-content": "#100f0f",
+          info: "#0080bc",
+          success: "#5aa867",
+          warning: "#d29a2f",
+          error: "#b53729",
+          "code-bg-color": "#f1db85",
         },
         // business adapted darker
         btihend: {
-          primary: "#004d99", //"#22228B", //"#206040", // "#1C4E80",
-          secondary: "#7bc8a4",  // "#57b88c", // "#16b34a", //"#1eb854", //"#3399ff", // "#4da6ff", // "#7b92b2",
-          accent: "#f1db85", // "#ecce57", // "#F7F9CA", // "#EA6947",
+          primary: "#5aa867",
+          secondary: "#0080bc",
+          accent: "#f1db85",
           neutral: "#23282E",
-          "base-100": "#3a3a3a", // "#202020",
-          info: "#0080bc", // "#0091D5",
-          success: "#5aa867", // "#6bb176", // "#6BB187",
-          warning: "#d29a2f", // "#DBAE59",
-          error: "#b53729", // "#AC3E31",
+          "base-100": "#3a3a3a",
+          info: "#0080bc",
+          success: "#5aa867",
+          warning: "#d29a2f",
+          error: "#b53729",
+          "code-bg-color": "#f1db85",
         },
       }
     ],
@@ -191,41 +193,53 @@ The following will make it easy to tweak your theme:
 
 <div class="alert shadow-lg">
   <div>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info flex-shrink-0 w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
     <span>Shadow Notice</span>
   </div>
 </div>
 
 <div class="alert alert-info shadow-lg">
   <div>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
     <span>Info notice.</span>
   </div>
 </div>
 
 <div class="alert alert-success shadow-lg">
   <div>
-    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
     <span>Suceess Notice</span>
   </div>
 </div>
 
 <div class="alert alert-warning shadow-lg">
   <div>
-    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+    </svg>
     <span>Warning: Invalid email address!</span>
   </div>
 </div>
 
 <div class="alert alert-error shadow-lg">
   <div>
-    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
     <span>Error! Task failed successfully.</span>
   </div>
 </div>
 ```
 
 ## Create an About Page
+
+Create new pages in `src/routes` -- for example an about page:
 
 ```bash
 touch src/routes/about.svelte
@@ -236,11 +250,7 @@ cat <<EOF>>src/routes/about.svelte
 EOF
 ```
 
-now go to
-
-individual page content will go into the `slot` tag.
-
-Now every page will have a header and footer
+now go to `http://localhost:4000/about` and you should see your new page.
 
 ## Create Components
 
@@ -269,7 +279,7 @@ cat <<EOF >>src/lib/components/Navbar.svelte
 
 <navbar>
   <div class="bg-black h-2.5"></div>
-  <div class="flex items-center justify-center sticky top-0 z-50 bg-green-700">
+  <div class="flex items-center justify-center sticky top-0 z-50 bg-blue-600">
 
     <div class="navbar w-4/5">
 
@@ -332,7 +342,7 @@ EOF
 
 ```svelte
 cat <<EOF >>src/lib/components/Footer.svelte
-<footer class="flex items-center justify-center p-4 bg-green-700 shadow-md">
+<footer class="flex items-center justify-center p-4 bg-gray-600 shadow-md">
   <div class="footer w-4/5">
     <div class="items-center grid-flow-col place-self-center md:place-self-start">
       <a href="/" class="btn btn-ghost normal-case text-2xl">btihen.dev</a>
@@ -391,7 +401,7 @@ cat <<EOF>>src/routes/__layout.svelte
 
 <main class="flex items-center justify-center bg-base-100">
   <div class="w-4/5 m-4 px-4 py-4 sm:px-0">
-    <slot />
+    <slot /> <!-- content goes into slot -->
   </div>
 </main>
 
@@ -399,9 +409,244 @@ cat <<EOF>>src/routes/__layout.svelte
 EOF
 ```
 
+## Blog setup
+
+https://github.com/spences10/sveltekit-mdsvex-starter-blog/tree/main/src/lib
+
 ## Markdown Setup
 
+https://github.com/spences10/sveltekit-mdsvex-starter-blog/tree/main/src/lib
+
+### External Links
+
+https://github.com/rehypejs/rehype-external-links
+
+### Slugs (links to sections in longer documents)
+
+https://github.com/rehypejs/rehype-slug
+https://github.com/rehypejs/rehype-autolink-headings
+
+
+
+
+### Relative Images
+
+https://github.com/mattjennings/mdsvex-relative-images
+
+I like folders with images and all content together so i'll install:
+```bash
+npm install mdsvex-relative-images
+```
+Setup in `mdsvex.config.js` with:
+
+```js
+// mdsvex.config.js
+import relativeImages from "mdsvex-relative-images";
+
+export default {
+  // ... rest of your config
+  remarkPlugins: [relativeImages],
+};
+```
+
+BE SURE TO RESTART SVELTEKIT to be sure all is good.
+
+```bash
+npm run dev --
+```
 ### Front-mater
+
+
+### Code formatting
+
+```css
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-default: #f2f3f4;
+}
+@media (prefers-color-scheme: btihenl) {
+  :root {
+    --my-color: #252b30;
+  }
+}
+
+h1 {
+  margin: 1rem 0 3rem;
+  text-align: center;
+  font-weight: 800;
+  font-size: 2.0rem;
+  color: var(--heading-color);
+  line-height: 1.5;
+}
+h2 {
+  margin: 1.5rem 0 0.5rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--heading-color);
+  line-height: 1.3;
+}
+h3 {
+  margin: 1.2rem 0 0.5rem;
+  font-weight: 500;
+  font-size: 1.3rem;
+  color: var(--heading-color);
+  line-height: 1.1;
+}
+p {
+  margin: 0.5rem 0;
+  font-size: 1.0rem;
+  color: var(--text-color);
+  line-height: 1.15;
+}
+
+/* https://github.com/PrismJS/prism-themes/blob/master/themes/prism-atom-dark.css */
+/**
+ * atom-dark theme for `prism.js`
+ * Based on Atom's `atom-dark` theme: https://github.com/atom/atom-dark-syntax
+ * @author Joe Gibson (@gibsjose)
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #c5c8c6;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: .5em 0;
+  overflow: auto;
+  border-radius: 0.5em;
+}
+
+:not(pre)>code[class*="language-"],
+pre[class*="language-"] {
+  background: #1d1f21;
+}
+
+/* Inline code */
+:not(pre)>code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #7C7C7C;
+}
+
+.token.punctuation {
+  color: #c5c8c6;
+}
+
+.namespace {
+  opacity: .7;
+}
+
+.token.property,
+.token.keyword,
+.token.tag {
+  color: #96CBFE;
+}
+
+.token.class-name {
+  color: #FFFFB6;
+  text-decoration: underline;
+}
+
+.token.boolean,
+.token.constant {
+  color: #99CC99;
+}
+
+.token.symbol,
+.token.deleted {
+  color: #f92672;
+}
+
+.token.number {
+  color: #FF73FD;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #A8FF60;
+}
+
+.token.variable {
+  color: #C6C5FE;
+}
+
+.token.operator {
+  color: #EDEDED;
+}
+
+.token.entity {
+  color: #FFFFB6;
+  cursor: help;
+}
+
+.token.url {
+  color: #96CBFE;
+}
+
+.language-css .token.string,
+.style .token.string {
+  color: #87C38A;
+}
+
+.token.atrule,
+.token.attr-value {
+  color: #F9EE98;
+}
+
+.token.function {
+  color: #DAD085;
+}
+
+.token.regex {
+  color: #E9C062;
+}
+
+.token.important {
+  color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+```
 
 ### Reading time
 
@@ -433,6 +678,7 @@ EOF
 * https://megzari.com/blog/about_this_site
 * https://svelte.dev/examples#dom-event-forwarding
 * https://prismic.io/blog/svelte-sveltekit-tutorial
+* https://dev.to/nico_bachner/sveltekit-theme-switch-a58
 * https://www.liip.ch/en/blog/sveltekit-and-tailwind-windi-css
 * https://svelteland.github.io/svelte-kit-blog-demo/create-your-blog/
 
@@ -450,6 +696,7 @@ EOF
 * https://daisyui.com/
 * https://github.com/saadeghi/daisyui
 * https://github.com/saadeghi/theme-change
+* https://dev.to/nico_bachner/sveltekit-theme-switch-a58
 
 
 ### Icons

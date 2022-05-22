@@ -466,7 +466,6 @@ To gain more ideas I recommend the book: [Package-Based Rails Applications](http
 
 In particular, in the book he discusses ways to reduce even the rails dependencies, integrate events, etc for further loose coupling.
 
-
 ## Rails Packwerk Resources
 
 * site - https://github.com/Shopify/packwerk/

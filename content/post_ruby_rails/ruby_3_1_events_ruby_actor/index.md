@@ -1,16 +1,16 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Rails 7.0 Using Packages (Packwerk gem)"
-subtitle: "Organizing Rails Apps with Packages"
+title: "Rails 7.0 Using Events"
+subtitle: "Using Events for simple Controllers and Loose coupling"
 summary: ""
 authors: ['btihen']
 tags: ['rails', 'packwerk', 'architecture', 'design']
 categories: []
-date: 2022-05-22T01:20:00+02:00
-lastmod: 2022-05-22T01:20:00+02:00
+date: 2022-04-23T01:20:00+02:00
+lastmod: 2022-04-23T01:20:00+02:00
 featured: true
-draft: false
+draft: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -30,11 +30,9 @@ projects: []
 
 ## Organizing Code
 
-Gems and Engines have long been used to organize Ruby and Rails code into workable small units.
+In Rails its all too easy to accidentally tightly couple controller activities with follow-up actions - resulting in bloated controllers and / or tight coupling with models.
 
-Shopify has introduced a new system called 'packages' - they use the packwerk gem to help us.  In fact, it is designed to make it easy to take large (and likely highly coupled) large codebase and move toward 'packages' self-contained (or have explicit dependencies).  Ideally the code is in small enough units to help us keep the context in mind as we work on it.
-
-I found it initially difficult to understand packwerk in the context of a complex codebase.  So instead I built a new 'play' app and then moved each piece into a package.  Hopefully, this will inspire you to use Gem, Engines or Packages to clarify dependencies and make the code a logical until that is easy to reason about.
+A relatively simple fix to help with this is to use Events.
 
 ## Ruby and Rails Environment
 
@@ -62,8 +60,8 @@ rbenv rehash
 Since my other projects are using `esbuild` I use that here too
 
 ```ruby
-rails new rails_pack -T --database=postgresql --css=bootstrap --javascript=esbuild
-cd rails_pack
+rails new rails_events -T --database=postgresql --css=bootstrap --javascript=esbuild
+cd rails_events
 bin/rails db:create
 
 # add the packwerk (packages) gem
@@ -466,17 +464,10 @@ To gain more ideas I recommend the book: [Package-Based Rails Applications](http
 
 In particular, in the book he discusses ways to reduce even the rails dependencies, integrate events, etc for further loose coupling.
 
-## Resources
+## Rails Packwerk Resources
 
 * site - https://github.com/Shopify/packwerk/
 * video - https://www.youtube.com/watch?v=olEA157z7kU
 * book - https://leanpub.com/package-based-rails-applications
 * docs - https://github.com/Shopify/packwerk/blob/main/USAGE.md
 * help - https://github.com/Shopify/packwerk/blob/main/TROUBLESHOOT.md
-
-## Articles
-
-* https://www.shopify.com/partners/blog/monolith-software
-* https://shopify.engineering/enforcing-modularity-rails-apps-packwerk
-* https://thecodest.co/blog/ruby-on-rails-modularization-with-packwerk-episode-i/
-* https://www.globalapptesting.com/engineering/implementing-packwerk-to-delimit-bounded-contexts

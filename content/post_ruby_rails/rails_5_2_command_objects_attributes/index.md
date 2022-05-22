@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ['Rails', 'Command-Object', 'Validations', 'Attributes', 'Simplify Complexity']
 categories: []
 date: 2022-03-26T01:57:00+02:00
-lastmod: 2022-03-27T01:57:00+02:00
+lastmod: 2022-05-22T01:57:00+02:00
 featured: true
 draft: false
 
@@ -539,7 +539,9 @@ end
 
 ```ruby
 # config/initializers/attribute_types.rb
-ActiveRecord::Type.register(:squished_string, SquishedString)
+# Not needed unless truely a new Datbase type
+# ActiveRecord::Type.register(:squished_string, SquishedString)
+# critical to define ActiveModel to use within the model
 ActiveModel::Type.register(:squished_string, SquishedString)
 ```
 

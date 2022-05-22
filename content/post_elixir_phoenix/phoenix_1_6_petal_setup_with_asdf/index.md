@@ -8,7 +8,7 @@ authors: ["btihen"]
 tags: ["Phoenix", "Phoenix 1.6.x", "Elixir", "TailwindCSS", "TailwindCSS 3.x", "AlpineJS", "AlpineJS 3.x", "LiveView", "PETAL", "PETAL Stack", "ASDF"]
 categories: ["Code"]
 date: 2022-02-27T01:01:53+02:00
-lastmod: 2022-03-04T01:01:53+02:00
+lastmod: 2022-05-22T01:01:53+02:00
 featured: true
 draft: false
 
@@ -527,11 +527,13 @@ update args in
 config :esbuild,
   version: "0.12.18",
   default: [
-    args: ~w(js/app.js vendor/fonts/NotoSans/noto_sans.css vendor/fonts/Quickens/quickens.css --bundle --loader:.woff2=file --loader:.woff=file --target=es2016 --outdir=../priv/static/assets),
+    args: ~w(js/app.js vendor/fonts/NotoSans/noto_sans.css vendor/fonts/Quickens/quickens.css --bundle --loader:.woff2=file --loader:.woff=file --target=es2017 --outdir=../priv/static/assets),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 ```
+
+be careful `--target=es2017` in also `--target=es2016` in some Phoenix versions, but best to upgrade.
 
 ### Update the Tailwind configuration
 

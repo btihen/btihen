@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Rails 7.0 Using Packwerk"
+title: "Rails 7.0 Using Packages (Packwerk gem)"
 subtitle: "Organizing Rails Apps with Packages"
 summary: ""
 authors: ['btihen']

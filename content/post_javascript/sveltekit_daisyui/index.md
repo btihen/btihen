@@ -409,6 +409,10 @@ cat <<EOF>>src/routes/__layout.svelte
 EOF
 ```
 
+## SVG Images
+
+
+
 ## Blog setup
 
 https://github.com/spences10/sveltekit-mdsvex-starter-blog/tree/main/src/lib
@@ -425,8 +429,6 @@ https://github.com/rehypejs/rehype-external-links
 
 https://github.com/rehypejs/rehype-slug
 https://github.com/rehypejs/rehype-autolink-headings
-
-
 
 
 ### Relative Images
@@ -681,6 +683,7 @@ pre[class*="language-"] {
 * https://dev.to/nico_bachner/sveltekit-theme-switch-a58
 * https://www.liip.ch/en/blog/sveltekit-and-tailwind-windi-css
 * https://svelteland.github.io/svelte-kit-blog-demo/create-your-blog/
+* https://blog.logrocket.com/exploring-sveltekit-the-newest-svelte-based-framework/
 
 
 ### MDsveX (Svelte Markdown)

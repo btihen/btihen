@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Rails 7.0 - Decoupling with Commands and Events"
-subtitle: "Using Commands and Events for simple Models, Controllers, Loose Coupling and Business Logic is in a predicable, highly coehsive location"
-summary: ""
+title: "Rails 7.0 - Decoupling with Events (or Commands / Service Objects)"
+subtitle: "Decoupling for slim Models and slim Controllers"
+summary: "It's possible to loosen the Coupling between Rails, Models and Controllers from your Business Logic (Commands/Service Objects) by enabling an Event architecture.  Ruby has several lightweight Event Buses (& full featured and Event Stores)"
 authors: ['btihen']
 tags: ['rails', 'event bus', 'publish/subscribe pattern', 'command class', 'architecture', 'design', 'high coehsion', 'low coupling']
 categories: []
 date: 2022-04-23T01:20:00+02:00
-lastmod: 2022-04-23T01:20:00+02:00
+lastmod: 2022-05-23T01:20:00+02:00
 featured: true
 draft: false
 

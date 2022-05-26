@@ -8,7 +8,7 @@ authors: ['btihen']
 tags: ['rails', 'event bus', 'publish/subscribe pattern', 'command class', 'architecture', 'design', 'high coehsion', 'low coupling']
 categories: []
 date: 2022-04-23T01:20:00+02:00
-lastmod: 2022-05-23T01:20:00+02:00
+lastmod: 2022-05-26T01:20:00+02:00
 featured: true
 draft: false
 
@@ -349,11 +349,14 @@ Commands are the sweet spot - until config flexibility is needed
 
 ## Gems
 
-* wisper_next - https://gitlab.com/kris.leech/wisper_next (active, with sync and async options) - https://github.com/krisleech/wisper (inactive 3 years)
-* ma - https://gitlab.com/kris.leech/ma (active, Events as Objects, built upon wisper_next)
-* event_bg_bus - https://github.com/indiereign/event_bg_bus (active with backgrounding) - https://github.com/kevinrutherford/event_bus (no activity 8 years)
-* eventmachine - https://github.com/eventmachine/eventmachine/
-* rails_event_store (saves the events too) - https://github.com/RailsEventStore/rails_event_store
+* ma (active) - https://gitlab.com/kris.leech/ma - objects & async
+* wisper_next (active) - https://gitlab.com/kris.leech/wisper_next - (messages with async)
+* eventmachine (active) - https://github.com/eventmachine/eventmachine/
+* event_bg_bus (active) - https://github.com/indiereign/event_bg_bus (with backgrounding options)
+* rails_event_store (active) - https://github.com/RailsEventStore/rails_event_store - (focus on DDD - event bus and event storage)
+* wisper (inactive 3 years) - https://github.com/krisleech/wisper
+* resugan (inactive 5 years) - https://github.com/jedld/resugan
+* event_bus (inactive 8 years) - https://github.com/kevinrutherford/event_bus
 
 ## Resources
 

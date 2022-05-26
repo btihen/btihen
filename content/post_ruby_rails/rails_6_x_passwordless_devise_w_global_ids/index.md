@@ -494,3 +494,12 @@ With these you need to create your own expiration and lookup system (more code a
 
 * https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html
 * https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html
+
+
+**Token Technologies**
+
+* JWT - Common but be careful - https://jwt.io - (everything)
+* Branca - Encrypted, simple & secure - https://github.com/thadeu/branca-ruby - (closure, .net, elixir, erlang, go, java, javascript, kotlin, php, python, ruby, rust)
+* PASETO - Addresses security problems with JWT - https://paseto.io - (v3/v4: go, node, php, python, rust, swift) & (v1/v2: c, elixir, go, java, javascript, lua, .net, node, php, python, ruby, rust, swift) - https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c
+* Macaroon - better than cookies - http://macaroons.io & https://research.google/pubs/pub41892/ & https://github.com/localmed/ruby-macaroons & https://github.com/rescrv/libmacaroons - authorization with caveats and 3rd parties (c, .net, elixir, go, java, python, ruby, rust, php)
+* Biscuit - has authentication dsl - https://www.biscuitsec.org & https://github.com/biscuit-auth/biscuit - (rust, web assembly, haskell, java, go)

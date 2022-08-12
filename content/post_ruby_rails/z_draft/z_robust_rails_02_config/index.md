@@ -51,7 +51,7 @@ update the readme with purpose, setup and running tests
 ```
 git add .
 git commit -m "intial commit"
-git remote add origin git@gitlab.com:peakchallenges/challenges.git
+git remote add origin git@gitlab.com:btihen/challenges.git
 git push -u origin master
 ```
 

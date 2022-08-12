@@ -21,8 +21,6 @@ external_link: "/challenges/student_challenges/"
 organizations:
 - name: Garaio REM
   url: "https://www.garaio-rem.ch/"
-- name: PeakChallenges
-  url: "https://www.peakchallenges.ch/"
 
 interests:
 - Alps

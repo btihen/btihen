@@ -312,8 +312,8 @@ To github.com:username/username.github.io.git
 
 If instead you get the error:
 ```bash
-remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
-fatal: unable to access 'https://github.com/peakchallenges/peakchallenges.github.io.git/': The requested URL returned error: 403
+remote: Permission to btihen/challenges.github.io.git denied to btihen.
+fatal: unable to access 'https://github.com/btihen/challenges.github.io.git/': The requested URL returned error: 403
 ```
 
 go back and check your site permissions.

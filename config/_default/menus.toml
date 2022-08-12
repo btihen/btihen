@@ -9,11 +9,6 @@
   weight = 10
 
 [[main]]
-  name = "Projects"
-  url = "https://container4.ch/"
-  weight = 15
-
-[[main]]
   name = "Ruby"
   url = "#post_ruby_rails"
   weight = 20

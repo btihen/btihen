@@ -58,7 +58,7 @@ git push -u origin master
 add rspec, devise & factory_bot to Gemfile
 ```
 cat <<EOF >> Gemfile
-# Container4 Gems
+# btihen Gems
 #################
 
 # BACK END

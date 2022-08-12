@@ -16,12 +16,8 @@ external_link: "/challenges/student_challenges/"
 
 # Organizations/Affiliations
 organizations:
-- name: Container4
-  url: "https://container4.ch"
 - name: Garaio REM
   url: "https://www.garaio-rem.ch/"
-- name: PeakChallenges
-  url: "https://www.peakchallenges.ch/"
 
 # Short bio (displayed in user profile at end of posts)
 bio: Developer, Educator and very currious.

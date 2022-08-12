@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Phoenix 1.6 Easy PETAL Stack Setup (w/a Custom Font"
+title: "Phoenix 1.6 Easy PETAL Stack Setup (w/ Custom Font)"
 subtitle: "Simple PETAL Setup (Phoenix, Elixir, TailwindCSS, AlpineJS, LiveView)"
 summary: "Create a modern webapp with tremendous flexibility"
 authors: ["btihen"]
 tags: ["Phoenix", "Phoenix 1.6.x", "Elixir", "TailwindCSS", "TailwindCSS 3.x", "AlpineJS", "AlpineJS 3.x", "LiveView", "PETAL", "PETAL Stack", "Custom Font"]
 categories: ["Code"]
 date: 2022-03-04T01:01:53+02:00
-lastmod: 2022-03-04T01:01:53+02:00
+lastmod: 2022-08-12T01:01:53+02:00
 featured: true
 draft: false
 
@@ -248,7 +248,7 @@ TEST by adding to the end of: `lib/petal_web/live/page_live.html.leex`
   <div x-data="{name:''}">
     <label for="name">Name:</label>
     <input id="name" type="text" x-model="name" />
-    <p><br><b><em>Output:</em></b> <span x-text="name"></p>
+    <p><br><b><em>Output:</em></b> <span x-text="name"></span></p>
   </div>
 </section>
 ```
